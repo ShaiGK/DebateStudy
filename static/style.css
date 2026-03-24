@@ -1,0 +1,83 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; max-width: 1200px; margin: 0 auto; padding: 1rem; line-height: 1.5; }
+header.debate-header { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #ccc; }
+.top-nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.top-nav a { color: #0066cc; }
+.counter { color: #666; }
+.layout-toggle-row { margin: 0.35rem 0 0.8rem 0; }
+.layout-toggle { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.35rem 0.65rem; border: 1px solid #ccc; border-radius: 999px; background: #fafafa; font-weight: 600; cursor: pointer; }
+.meta { margin: 0.25rem 0; color: #444; }
+.proposition { background: #f5f5f5; padding: 0.75rem; margin: 0.5rem 0; border-radius: 4px; }
+.annotator-layout { display: block; }
+.debate-content { margin: 1.5rem 0; min-width: 0; }
+.round { margin-bottom: 1.5rem; }
+.round h2 { font-size: 1rem; color: #555; margin-bottom: 0.5rem; }
+.speech { padding: 0.75rem 1rem; border-radius: 4px; margin-bottom: 0.5rem; }
+.speech-pro { background: #e8f4fc; border-left: 4px solid #0066cc; }
+.speech-con { background: #fce8e8; border-left: 4px solid #cc3333; }
+.speech .label { font-weight: 600; font-size: 0.85rem; }
+.speech .text { white-space: pre-wrap; word-break: break-word; margin-top: 0.25rem; }
+.annotation-panel { background: #f9f9f9; padding: 1rem; border-radius: 6px; margin-top: 2rem; }
+.annotation-panel h2 { margin-top: 0; }
+.hint { font-size: 0.9rem; color: #666; margin-bottom: 0.75rem; }
+.buttons { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.btn { padding: 0.5rem 1rem; cursor: pointer; border-radius: 4px; border: 1px solid #999; background: #fff; font-size: 1rem; }
+.btn-pro { border-color: #0066cc; color: #0066cc; }
+.btn-con { border-color: #cc3333; color: #cc3333; }
+.btn-tie { border-color: #666; color: #333; }
+textarea { width: 100%; margin-top: 0.25rem; margin-bottom: 0.5rem; }
+label { display: block; font-weight: 600; margin-top: 0.35rem; }
+select { width: 100%; padding: 0.35rem; margin-top: 0.25rem; margin-bottom: 0.35rem; }
+.rubric-scale { background: #eef5fb; border-left: 4px solid #0066cc; border-radius: 4px; padding: 0.65rem; margin-bottom: 0.75rem; }
+.rubric-scale p { margin: 0; }
+.dimension-card { border: 1px solid #ddd; border-radius: 6px; padding: 0.75rem; background: #fff; margin-bottom: 0.75rem; }
+.dimension-card h3 { margin: 0 0 0.35rem 0; }
+.dimension-question { margin: 0 0 0.6rem 0; color: #444; }
+.dimension-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.overall-card { border: 1px solid #ddd; border-radius: 6px; padding: 0.75rem; background: #fff; margin-bottom: 0.75rem; }
+.overall-card h3 { margin-top: 0; }
+.radio-chip { display: inline-flex; align-items: center; gap: 0.35rem; border: 1px solid #bbb; border-radius: 999px; padding: 0.3rem 0.7rem; background: #fff; cursor: pointer; }
+.radio-chip input { margin: 0; }
+.btn-submit { border-color: #116611; color: #116611; font-weight: 600; margin-top: 0.4rem; }
+.saved { margin-top: 0.5rem; color: #2a2; }
+.debate-footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ccc; display: flex; gap: 1rem; }
+.debate-list { list-style: none; padding: 0; }
+.debate-list a { color: #0066cc; }
+
+a.visited { color: #4f2e88; }
+
+body.layout-side-by-side .annotator-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(360px, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+body.layout-side-by-side .debate-content {
+  margin: 0;
+}
+
+body.layout-side-by-side .annotation-panel {
+  margin-top: 0;
+  position: sticky;
+  top: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+}
+
+@media (max-width: 700px) {
+  .dimension-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 1050px) {
+  body.layout-side-by-side .annotator-layout {
+    grid-template-columns: 1fr;
+  }
+
+  body.layout-side-by-side .annotation-panel {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    margin-top: 1.25rem;
+  }
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debate list</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>Debate study</h1>
+    <p>Valid debates: {{ debates|length }} | Annotated debates: {{ annotations|length }}</p>
+</header>
+<main>
+    <ul class="debate-list">
+        {% for d in debates %}
+        <li>
+            <a href="{{ url_for('debate', debate_id=d.debate_id) }}" {% if d.is_annotated %}class="visited" {% endif %}>{{
+                d.debate_id }}: {{ d.title[:60] }}{% if d.title|length > 60 %}…{% endif %}</a>
+            {% if d.is_annotated %}<span class="annotation-status">Annotated</span>{% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</main>
+</body>
+</html>

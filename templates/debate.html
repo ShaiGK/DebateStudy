@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debate {{ debate.debate_id }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="debate-header">
+    <nav class="top-nav">
+        <a href="{{ url_for('list_debates') }}">List</a>
+        {% if prev_id %}<a href="{{ url_for('debate', debate_id=prev_id) }}">← Previous</a>{% endif %}
+        <span class="counter">Debate {{ current_index }} / {{ total }}</span>
+        {% if next_id %}<a href="{{ url_for('debate', debate_id=next_id) }}">Next →</a>{% endif %}
+    </nav>
+    <div class="layout-toggle-row">
+        <label class="layout-toggle">
+            <input type="checkbox" id="layout-toggle" checked>
+            <span>Side-by-side mode</span>
+        </label>
+    </div>
+    <h1>Debate {{ debate.debate_id }}</h1>
+    <p class="meta">Title: {{ debate.title }}</p>
+    <p class="meta">Category: {{ debate.category }}</p>
+    {% if debate.proposition %}
+    <div class="proposition">
+        <strong>Proposition:</strong> {{ debate.proposition }}
+    </div>
+    {% endif %}
+    <p class="meta">Pro: {{ debate.pro_user_id }} — Con: {{ debate.con_user_id }}</p>
+</header>
+
+<div class="annotator-layout">
+    <main class="debate-content">
+        {% for r in debate.rounds %}
+        <section class="round">
+            <h2>Round {{ r.round }}</h2>
+            <div class="speech speech-{{ r.side|lower }}">
+                <span class="label">{{ r.side }}</span>
+                <div class="text">{{ r.text }}</div>
+            </div>
+        </section>
+        {% endfor %}
+    </main>
+
+    <aside class="annotation-panel">
+        <h2>Listening Rubric Annotation</h2>
+        <p class="hint">Score each debater from 1-5 on all five dimensions, then choose the overall better listener.</p>
+        <form method="post" action="{{ url_for('annotate') }}">
+            <input type="hidden" name="debate_id" value="{{ debate.debate_id }}">
+            <input type="hidden" name="task" value="listening">
+            <input type="hidden" name="next_id" value="{{ next_id or '' }}">
+
+            <div class="rubric-scale">
+                <p><strong>Rubric scale:</strong> 1 = very poor listening behavior, 5 = excellent listening behavior.
+                </p>
+            </div>
+
+            {% for d in listening_dimensions %}
+            <section class="dimension-card">
+                <h3>{{ d.label }}</h3>
+                <p class="dimension-question">{{ d.question }}</p>
+                <div class="dimension-grid">
+                    <div>
+                        <label for="pro_{{ d.key }}_score">Pro score (1-5)</label>
+                        <select id="pro_{{ d.key }}_score" name="pro_{{ d.key }}_score" required>
+                            <option value="">Select</option>
+                            {% for score in [1, 2, 3, 4, 5] %}
+                            <option value="{{ score }}" {% if listening.pro[d.key].score== score %}selected{% endif %}>
+                                {{ score }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <label for="pro_{{ d.key }}_justification">Pro justification (optional)</label>
+                        <textarea id="pro_{{ d.key }}_justification" name="pro_{{ d.key }}_justification" rows="2"
+                                  placeholder="Brief evidence from transcript">{{ listening.pro[d.key].justification }}</textarea>
+                    </div>
+                    <div>
+                        <label for="con_{{ d.key }}_score">Con score (1-5)</label>
+                        <select id="con_{{ d.key }}_score" name="con_{{ d.key }}_score" required>
+                            <option value="">Select</option>
+                            {% for score in [1, 2, 3, 4, 5] %}
+                            <option value="{{ score }}" {% if listening.con[d.key].score== score %}selected{% endif %}>
+                                {{ score }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <label for="con_{{ d.key }}_justification">Con justification (optional)</label>
+                        <textarea id="con_{{ d.key }}_justification" name="con_{{ d.key }}_justification" rows="2"
+                                  placeholder="Brief evidence from transcript">{{ listening.con[d.key].justification }}</textarea>
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+
+            <section class="overall-card">
+                <h3>Overall Better Listener</h3>
+                <div class="buttons">
+                    {% for judgment in valid_judgments %}
+                    <label class="radio-chip">
+                        <input type="radio" name="overall_judgment" value="{{ judgment }}" {% if
+                               listening.overall_better_listener.judgment== judgment %}checked{% endif %} required>
+                        <span>{{ judgment }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+                <label for="overall_justification">Overall justification (optional)</label>
+                <textarea id="overall_justification" name="overall_justification" rows="3"
+                          placeholder="Why Pro/Con/Tie overall?">{{ listening.overall_better_listener.justification }}</textarea>
+            </section>
+
+            <label for="notes">Notes (optional)</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Optional notes…">{{ listening.notes }}</textarea>
+
+            {% if listening.overall_better_listener.judgment %}
+            <p class="saved">Saved overall judgment: <strong>{{ listening.overall_better_listener.judgment }}</strong>
+            </p>
+            {% endif %}
+            <button type="submit" class="btn btn-submit">Save annotation{% if next_id %} and continue{% endif %}
+            </button>
+        </form>
+    </aside>
+</div>
+
+<footer class="debate-footer">
+    {% if prev_id %}<a href="{{ url_for('debate', debate_id=prev_id) }}">← Previous</a>{% endif %}
+    <a href="{{ url_for('list_debates') }}">All debates</a>
+    {% if next_id %}<a href="{{ url_for('debate', debate_id=next_id) }}">Next →</a>{% endif %}
+</footer>
+
+<script>
+    document.body.classList.add('layout-side-by-side');
+
+    const layoutToggle = document.getElementById('layout-toggle');
+    const applyLayoutMode = () => {
+        document.body.classList.toggle('layout-side-by-side', layoutToggle.checked);
+    };
+
+    layoutToggle.addEventListener('change', applyLayoutMode);
+    applyLayoutMode();
+</script>
+</body>
+</html>
