@@ -3,18 +3,20 @@ Try the listening prompt on one or more debates. Useful for iterating on prompt 
 Usage: python try_prompt.py [--debate-id ID] [--debate-ids 1,2,3] [--save-results]
 """
 import argparse
+import hashlib
 import json
 import os
 import re
 import time
-import hashlib
 import uuid
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
+
 from anthropic import Anthropic
 
 try:
     from dotenv import load_dotenv
+
     load_dotenv()
 except ImportError:
     pass
@@ -44,24 +46,24 @@ def _parse_debate_ids(raw: str) -> list[int]:
 def _is_rate_limited(exc: Exception) -> bool:
     msg = str(exc).lower()
     return (
-        "rate limit" in msg
-        or "rate_limit" in msg
-        or "429" in msg
-        or exc.__class__.__name__.lower() in {"ratelimiterror", "rate_limit_error"}
+            "rate limit" in msg
+            or "rate_limit" in msg
+            or "429" in msg
+            or exc.__class__.__name__.lower() in {"ratelimiterror", "rate_limit_error"}
     )
 
 
 def _call_with_retries(
-    *,
-    model: str,
-    system_content,
-    user_content,
-    user_content_raw: str,
-    max_retries: int,
-    retry_wait: int,
-    log_path: str | None,
-    debate_id: int,
-    request_id: str,
+        *,
+        model: str,
+        system_content,
+        user_content,
+        user_content_raw: str,
+        max_retries: int,
+        retry_wait: int,
+        log_path: str | None,
+        debate_id: int,
+        request_id: str,
 ) -> str:
     attempt = 0
     while True:
@@ -94,12 +96,12 @@ def _call_with_retries(
 
 
 def _log_retry(
-    log_path: str,
-    *,
-    debate_id: int,
-    attempt: int,
-    wait_seconds: int,
-    error: str,
+        log_path: str,
+        *,
+        debate_id: int,
+        attempt: int,
+        wait_seconds: int,
+        error: str,
 ) -> None:
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     event = {
@@ -115,10 +117,10 @@ def _log_retry(
 
 
 def _build_user_content_blocks(
-    user_content: str,
-    enable_cache: bool,
-    cache_marker: str,
-    cache_ttl: str | None,
+        user_content: str,
+        enable_cache: bool,
+        cache_marker: str,
+        cache_ttl: str | None,
 ):
     if not enable_cache:
         return user_content
@@ -139,9 +141,9 @@ def _build_user_content_blocks(
 
 
 def _build_system_content_blocks(
-    system_prompt: str,
-    enable_cache: bool,
-    cache_ttl: str | None,
+        system_prompt: str,
+        enable_cache: bool,
+        cache_ttl: str | None,
 ):
     if not enable_cache:
         return system_prompt
@@ -156,12 +158,12 @@ def _hash_text(text: str) -> str:
 
 
 def verify_token_number(
-    *,
-    model: str,
-    system_prompt: str,
-    user_content: str,
-    cache_marker: str,
-    cache_ttl: str | None,
+        *,
+        model: str,
+        system_prompt: str,
+        user_content: str,
+        cache_marker: str,
+        cache_ttl: str | None,
 ) -> int:
     """
     Return the official token count for the cacheable portion (system + cached user prefix).
@@ -298,16 +300,16 @@ def main():
     results = []
 
     def _print_and_store(
-        *,
-        debate_id: int,
-        response_text: str,
-        evaluation: dict,
-        judgment: str,
-        user_prompt_preview: str | None = None,
-        user_prompt_truncated: bool = False,
-        request_metadata: dict | None = None,
-        response_metadata: dict | None = None,
-        usage: dict | None = None,
+            *,
+            debate_id: int,
+            response_text: str,
+            evaluation: dict,
+            judgment: str,
+            user_prompt_preview: str | None = None,
+            user_prompt_truncated: bool = False,
+            request_metadata: dict | None = None,
+            response_metadata: dict | None = None,
+            usage: dict | None = None,
     ) -> None:
         if user_prompt_preview is not None:
             print(f"\n--- Debate {debate_id} user prompt (first 1500 chars) ---")
@@ -536,6 +538,7 @@ def main():
             json.dump(results, f, indent=2)
         print(f"Saved trial results to {output_path}")
     return 0
+
 
 def count_tokens(did=None):
     ids = get_valid_debate_ids()
