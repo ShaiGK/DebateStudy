@@ -15,6 +15,7 @@ from config import (
     PROPOSITIONS_PATH,
     ROUNDS_PATH,
     VOTES_FILTERED_PATH,
+    Q1_OUTPUT_PATH,
 )
 
 
@@ -39,6 +40,12 @@ def _load_votes_df() -> pd.DataFrame:
     return pd.read_json(VOTES_FILTERED_PATH)
 
 
+def _load_ground_truth_dict() -> dict[int, str]:
+    """Ground truth for RQ1. Returns dict mapping debate_id -> ground_truth."""
+    df = pd.read_json(Q1_OUTPUT_PATH)
+    return {int(row["debate_id"]): row["ground_truth"] for _, row in df.iterrows()}
+
+
 def get_valid_debate_ids() -> list[int]:
     """Debate IDs that have valid propositions (intersection of filtered debates and propositions)."""
     # debates_df = _load_debates_df()
@@ -55,6 +62,7 @@ def get_valid_debate_ids() -> list[int]:
 _rounds_by_debate: dict[int, list[dict[str, Any]]] | None = None
 _debates_df: pd.DataFrame | None = None
 _props_df: pd.DataFrame | None = None
+_ground_truth_dict: dict[int, str] | None = None
 
 
 def _get_rounds_index() -> dict[int, list[dict[str, Any]]]:
@@ -84,6 +92,13 @@ def _get_props_df() -> pd.DataFrame:
     if _props_df is None:
         _props_df = _load_propositions_df()
     return _props_df
+
+
+def _get_ground_truth_dict() -> dict[int, str]:
+    global _ground_truth_dict
+    if _ground_truth_dict is None:
+        _ground_truth_dict = _load_ground_truth_dict()
+    return _ground_truth_dict
 
 
 def get_debate(debate_id: int) -> dict[str, Any] | None:
@@ -205,3 +220,35 @@ def get_votes_for_debate(debate_id: int) -> list[dict[str, Any]]:
         cols.append("flipped")
     available = [c for c in cols if c in v.columns]
     return v[available].to_dict("records")
+
+if __name__ == "__main__":
+    # print(get_votes_for_debate(358))
+    # print(get_debate_outcomes(1104))
+    # load = _load_votes_df()
+    _get_ground_truth_dict()
+    # load = json.load(open(Q1_OUTPUT_PATH))
+    # df = pd.DataFrame(load)
+    # df = df.set_index('debate_id')
+    # for row in df.iterrows():
+    #     assert row[1]['ground_truth'] == _ground_truth_dict[row[0]]
+    # There is a ground truth here
+    claude_path = Path(__file__).resolve().parent / "claude_listening_trial.json"
+    cdf = pd.read_json(claude_path)
+    claude_dict = {int(row["debate_id"]): row["judgment"] for _, row in cdf.iterrows()}
+
+    me_path = Path(__file__).resolve().parent / "annotations.json"
+    mdf = json.load(open(me_path))
+    # for debate_id, judgment in mdf.items():
+    #     print(debate_id)
+    #     print(judgment)
+    me_dict = {int(debate_id): judgment['listening']['overall_better_listener']['judgment'] for debate_id, judgment in mdf.items()}
+
+    for debate_id, claude_judge in claude_dict.items():
+        print(f"Debate ID: {debate_id}\t\t\tClaude Judgment: {claude_judge}\t\t\tHuman Judgment: {me_dict[debate_id]}\t\t\tGround Truth: {_ground_truth_dict[debate_id]}")
+
+    example = get_debate_outcomes(706)
+    votes = get_votes_for_debate(706)
+
+    print()
+    print("hi")
+    print()
