@@ -1,0 +1,30 @@
+Instructions: Evaluate each debater's listening behavior using the rubric provided. First, provide the dimensional scores for each debater with a brief justification for each score. Then, based on your ratings, provide an overall judgment of which debater was the better listener.
+
+Respond in the following JSON format and nothing else:
+
+{{
+  "pro": {{
+    "acknowledgment": {{ "score": 0, "justification": "" }},
+    "accuracy_of_representation": {{ "score": 0, "justification": "" }},
+    "responsiveness": {{ "score": 0, "justification": "" }},
+    "concession_and_common_ground": {{ "score": 0, "justification": "" }},
+    "respectful_engagement": {{ "score": 0, "justification": "" }}
+  }},
+  "con": {{
+    "acknowledgment": {{ "score": 0, "justification": "" }},
+    "accuracy_of_representation": {{ "score": 0, "justification": "" }},
+    "responsiveness": {{ "score": 0, "justification": "" }},
+    "concession_and_common_ground": {{ "score": 0, "justification": "" }},
+    "respectful_engagement": {{ "score": 0, "justification": "" }}
+  }},
+  "overall_better_listener": {{
+    "judgment": "Pro | Con | Tie",
+    "justification": ""
+  }}
+}}
+
+Debate Topic: [[CACHE_BREAK]]{debate_topic}
+
+Debate Transcript:
+
+{debate_text}

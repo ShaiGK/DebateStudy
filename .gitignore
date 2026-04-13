@@ -5,5 +5,7 @@ __pycache__/
 *.pyc
 .venv/
 venv/
-*.txt
 *.json
+report.txt
+requirements.txt
+/reports
