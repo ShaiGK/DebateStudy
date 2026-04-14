@@ -16,30 +16,36 @@ LISTENING_DIMENSIONS = [
         "key": "acknowledgment",
         "label": "Acknowledgment",
         "question": "Does the debater explicitly reference or engage with the opponent's specific arguments?",
+        "scores": [1, 2, 3, 4, 5],
     },
     {
         "key": "accuracy_of_representation",
         "label": "Accuracy of Representation",
         "question": "When the debater references the opponent, are those arguments represented fairly and accurately?",
+        "scores": [1, 2, 3, 4, 5],
     },
     {
         "key": "responsiveness",
         "label": "Responsiveness / Adaptation",
         "question": "Does the debater adapt arguments across rounds in response to the opponent?",
+        "scores": [1, 2, 3, 4, 5],
     },
     {
         "key": "concession_and_common_ground",
         "label": "Concession and Common Ground",
         "question": "Does the debater acknowledge valid points, concede where appropriate, or identify agreement?",
+        "scores": [1, 2, 3],
     },
     {
         "key": "respectful_engagement",
         "label": "Respectful Engagement",
         "question": "Does the debater engage respectfully with the opponent's perspective?",
+        "scores": [1, 2, 3, 4, 5],
     },
 ]
 VALID_JUDGMENTS = ("Pro", "Con", "Tie")
-VALID_SCORES = {1, 2, 3, 4, 5}
+# Per-dimension valid score sets derived from LISTENING_DIMENSIONS.
+_DIM_VALID_SCORES = {d["key"]: set(d["scores"]) for d in LISTENING_DIMENSIONS}
 
 
 def _load_annotations() -> dict:
@@ -79,9 +85,10 @@ def _normalize_listening_payload(raw: dict) -> dict:
             if not isinstance(dim, dict):
                 continue
             score = dim.get("score", "")
-            if isinstance(score, int) and score in VALID_SCORES:
+            valid = _DIM_VALID_SCORES[d["key"]]
+            if isinstance(score, int) and score in valid:
                 payload[side][d["key"]]["score"] = score
-            elif isinstance(score, str) and score.isdigit() and int(score) in VALID_SCORES:
+            elif isinstance(score, str) and score.isdigit() and int(score) in valid:
                 payload[side][d["key"]]["score"] = int(score)
             payload[side][d["key"]]["justification"] = str(dim.get("justification", "")).strip()
 
@@ -183,7 +190,7 @@ def annotate():
             score_key = f"{side}_{d['key']}_score"
             justification_key = f"{side}_{d['key']}_justification"
             score_raw = request.form.get(score_key, "").strip()
-            if not score_raw.isdigit() or int(score_raw) not in VALID_SCORES:
+            if not score_raw.isdigit() or int(score_raw) not in _DIM_VALID_SCORES[d["key"]]:
                 return f"Invalid score for {side} {d['key']}.", 400
             listening_payload[side][d["key"]] = {
                 "score": int(score_raw),

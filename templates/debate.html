@@ -46,14 +46,14 @@
 
     <aside class="annotation-panel">
         <h2>Listening Rubric Annotation</h2>
-        <p class="hint">Score each debater from 1-5 on all five dimensions, then choose the overall better listener.</p>
+        <p class="hint">Score each debater on all five dimensions, then choose the overall better listener. Most dimensions are 1–5; Concession and Common Ground is 1–3.</p>
         <form method="post" action="{{ url_for('annotate') }}">
             <input type="hidden" name="debate_id" value="{{ debate.debate_id }}">
             <input type="hidden" name="task" value="listening">
             <input type="hidden" name="next_id" value="{{ next_id or '' }}">
 
             <div class="rubric-scale">
-                <p><strong>Rubric scale:</strong> 1 = very poor listening behavior, 5 = excellent listening behavior.
+                <p><strong>Rubric scale:</strong> 1–5 for most dimensions (1 = very poor, 5 = excellent). <strong>Concession and Common Ground is 1–3</strong> (1 = no concession, 2 = at least one explicit acknowledgment, 3 = actively seeks common ground).
                 </p>
             </div>
 
@@ -63,10 +63,10 @@
                 <p class="dimension-question">{{ d.question }}</p>
                 <div class="dimension-grid">
                     <div>
-                        <label for="pro_{{ d.key }}_score">Pro score (1-5)</label>
+                        <label for="pro_{{ d.key }}_score">Pro score ({{ d.scores[0] }}–{{ d.scores[-1] }})</label>
                         <select id="pro_{{ d.key }}_score" name="pro_{{ d.key }}_score" required>
                             <option value="">Select</option>
-                            {% for score in [1, 2, 3, 4, 5] %}
+                            {% for score in d.scores %}
                             <option value="{{ score }}" {% if listening.pro[d.key].score== score %}selected{% endif %}>
                                 {{ score }}
                             </option>
@@ -77,10 +77,10 @@
                                   placeholder="Brief evidence from transcript">{{ listening.pro[d.key].justification }}</textarea>
                     </div>
                     <div>
-                        <label for="con_{{ d.key }}_score">Con score (1-5)</label>
+                        <label for="con_{{ d.key }}_score">Con score ({{ d.scores[0] }}–{{ d.scores[-1] }})</label>
                         <select id="con_{{ d.key }}_score" name="con_{{ d.key }}_score" required>
                             <option value="">Select</option>
-                            {% for score in [1, 2, 3, 4, 5] %}
+                            {% for score in d.scores %}
                             <option value="{{ score }}" {% if listening.con[d.key].score== score %}selected{% endif %}>
                                 {{ score }}
                             </option>

@@ -65,7 +65,16 @@ LISTENING_DIMENSIONS = (
 )
 SIDES = ("pro", "con")
 JUDGMENT_LABELS = ("Pro", "Con", "Tie")
-SCORE_MIN, SCORE_MAX = 1, 5
+# Per-dimension score ranges. concession_and_common_ground uses a narrower 1–3 scale
+# because explicit concession is rare in online asynchronous debate; the pilot showed
+# the additional 1–5 anchors were unreliable (human cluster at 1–2, Claude used full range).
+DIMENSION_SCORE_RANGES: dict[str, tuple[int, int]] = {
+    "acknowledgment": (1, 5),
+    "accuracy_of_representation": (1, 5),
+    "responsiveness": (1, 5),
+    "concession_and_common_ground": (1, 3),
+    "respectful_engagement": (1, 5),
+}
 
 
 # --------------------------- parsing helpers ---------------------------
@@ -98,9 +107,10 @@ def _extract_scores(record: dict) -> dict[tuple[str, str], int]:
             if not isinstance(dim_obj, dict):
                 continue
             score = dim_obj.get("score")
-            if isinstance(score, int) and SCORE_MIN <= score <= SCORE_MAX:
+            min_val, max_val = DIMENSION_SCORE_RANGES[dim]
+            if isinstance(score, int) and min_val <= score <= max_val:
                 out[(side, dim)] = score
-            elif isinstance(score, str) and score.isdigit() and SCORE_MIN <= int(score) <= SCORE_MAX:
+            elif isinstance(score, str) and score.isdigit() and min_val <= int(score) <= max_val:
                 out[(side, dim)] = int(score)
     return out
 
@@ -190,7 +200,7 @@ def cohen_kappa(y1: Sequence, y2: Sequence, labels: Sequence | None = None) -> f
 
 
 def weighted_kappa(y1: Sequence[int], y2: Sequence[int],
-                   min_val: int = SCORE_MIN, max_val: int = SCORE_MAX,
+                   min_val: int, max_val: int,
                    weights: str = "quadratic") -> float:
     """Weighted Cohen's kappa (linear or quadratic) for ordinal data."""
     y1 = np.asarray(list(y1), dtype=float)
@@ -301,7 +311,12 @@ def bootstrap_ci(
 
 
 def _derived_overall_from_scores(scores: dict[tuple[str, str], int]) -> str | None:
-    """Take mean across 5 dims per side, higher mean = better listener."""
+    """Take mean across 5 dims per side, higher mean = better listener.
+
+    Mixing scales (concession 1–3, others 1–5) is acceptable here because both Pro and
+    Con use the same per-dimension scale, so the relative comparison within a debate is
+    scale-invariant.
+    """
     pro_vals = [v for (side, _), v in scores.items() if side == "pro"]
     con_vals = [v for (side, _), v in scores.items() if side == "con"]
     if len(pro_vals) != len(LISTENING_DIMENSIONS) or len(con_vals) != len(LISTENING_DIMENSIONS):
@@ -416,8 +431,9 @@ def _analyze_dimensions(dim_pairs: dict, n_boot: int) -> dict:
         for dim in LISTENING_DIMENSIONS:
             key = (side, dim)
             pairs = dim_pairs.get(key, [])
+            min_val, max_val = DIMENSION_SCORE_RANGES[dim]
             if not pairs:
-                rows.append({"side": side, "dimension": dim, "n": 0})
+                rows.append({"side": side, "dimension": dim, "n": 0, "scale_max": max_val})
                 continue
             h = np.array([p[0] for p in pairs])
             c = np.array([p[1] for p in pairs])
@@ -431,7 +447,7 @@ def _analyze_dimensions(dim_pairs: dict, n_boot: int) -> dict:
             rmse = float(np.sqrt(np.mean(diffs ** 2)))
             bias = float(np.mean(diffs))
 
-            wk = weighted_kappa(h.tolist(), c.tolist())
+            wk = weighted_kappa(h.tolist(), c.tolist(), min_val, max_val)
             try:
                 spearman_r = float(stats.spearmanr(h, c).correlation)
             except Exception:
@@ -441,7 +457,12 @@ def _analyze_dimensions(dim_pairs: dict, n_boot: int) -> dict:
             except Exception:
                 pearson_r = float("nan")
 
-            wk_ci = bootstrap_ci(pairs, lambda a, b: weighted_kappa(a, b), n_boot)
+            # Use default-argument capture to avoid late-binding closure gotcha.
+            wk_ci = bootstrap_ci(
+                pairs,
+                lambda a, b, _min=min_val, _max=max_val: weighted_kappa(a, b, _min, _max),
+                n_boot,
+            )
             mae_ci = bootstrap_ci(
                 pairs,
                 lambda a, b: float(np.mean(np.abs(np.array(a) - np.array(b)))),
@@ -452,6 +473,7 @@ def _analyze_dimensions(dim_pairs: dict, n_boot: int) -> dict:
                 "side": side,
                 "dimension": dim,
                 "n": len(pairs),
+                "scale_max": max_val,
                 "mae": mae,
                 "mae_ci_lo": mae_ci[0],
                 "mae_ci_hi": mae_ci[1],
@@ -467,21 +489,50 @@ def _analyze_dimensions(dim_pairs: dict, n_boot: int) -> dict:
                 "pearson_r": pearson_r,
             })
 
-    all_pairs = [p for v in dim_pairs.values() for p in v]
-    pooled = {}
-    if all_pairs:
-        h = np.array([p[0] for p in all_pairs])
-        c = np.array([p[1] for p in all_pairs])
+    # Pooled metrics over 1–5 dimensions only. concession_and_common_ground is on a
+    # 1–3 scale; including it in a pooled weighted-κ would distort the weight matrix.
+    pooled_1_5_pairs = [
+        p
+        for (side, dim), pairs in dim_pairs.items()
+        for p in pairs
+        if DIMENSION_SCORE_RANGES[dim] == (1, 5)
+    ]
+    pooled: dict = {}
+    if pooled_1_5_pairs:
+        h = np.array([p[0] for p in pooled_1_5_pairs])
+        c = np.array([p[1] for p in pooled_1_5_pairs])
         pooled = {
-            "n": len(all_pairs),
-            "weighted_kappa_quadratic": weighted_kappa(h.tolist(), c.tolist()),
+            "n": len(pooled_1_5_pairs),
+            "weighted_kappa_quadratic": weighted_kappa(h.tolist(), c.tolist(), 1, 5),
             "mae": float(np.mean(np.abs(h - c))),
             "rmse": float(np.sqrt(np.mean((h - c) ** 2))),
             "exact_pct": float(np.mean(h == c)),
             "within_1_pct": float(np.mean(np.abs(h - c) <= 1)),
             "bias": float(np.mean(c - h)),
         }
-    return {"per_cell": rows, "pooled": pooled}
+
+    # Concession (1–3 scale) pooled separately.
+    concession_pairs = [
+        p
+        for (side, dim), pairs in dim_pairs.items()
+        for p in pairs
+        if dim == "concession_and_common_ground"
+    ]
+    concession_pooled: dict = {}
+    if concession_pairs:
+        h_c = np.array([p[0] for p in concession_pairs])
+        c_c = np.array([p[1] for p in concession_pairs])
+        concession_pooled = {
+            "n": len(concession_pairs),
+            "weighted_kappa_quadratic": weighted_kappa(h_c.tolist(), c_c.tolist(), 1, 3),
+            "mae": float(np.mean(np.abs(h_c - c_c))),
+            "rmse": float(np.sqrt(np.mean((h_c - c_c) ** 2))),
+            "exact_pct": float(np.mean(h_c == c_c)),
+            "within_1_pct": float(np.mean(np.abs(h_c - c_c) <= 1)),
+            "bias": float(np.mean(c_c - h_c)),
+        }
+
+    return {"per_cell": rows, "pooled": pooled, "concession_pooled": concession_pooled}
 
 
 def _internal_consistency(overlap: list[int], human: dict, claude: dict) -> dict:
@@ -583,7 +634,7 @@ def write_report(result: dict, output_dir: Path, make_plots: bool) -> None:
     if od.get("n"):
         lines.append("## Overall judgment — derived from mean sub-scores")
         lines.append("")
-        lines.append("_Each annotator's overall judgment redefined as 'whichever side has the higher mean across the 5 sub-dims'. A sanity check that the 1–5 scores line up with the stated overall._")
+        lines.append("_Each annotator's overall judgment redefined as 'whichever side has the higher mean across the 5 sub-dims'. A sanity check that sub-scores line up with the stated overall._")
         lines.append("")
         lines.append(f"- n = {od['n']}")
         lines.append(f"- Accuracy: **{_fmt(od['accuracy'])}**  CI {_fmt_ci(od['accuracy_ci'])}")
@@ -608,16 +659,25 @@ def write_report(result: dict, output_dir: Path, make_plots: bool) -> None:
 
     # Per-dimension
     dims = result["dimensions"]
-    lines.append("## Per-dimension agreement (1–5 ordinal)")
+    lines.append("## Per-dimension agreement")
     lines.append("")
     pooled = dims.get("pooled", {})
+    concession_pooled = dims.get("concession_pooled", {})
     if pooled:
-        lines.append(f"**Pooled across all {pooled['n']} cell observations:**")
+        lines.append(f"**Pooled across the four 1–5 dimensions ({pooled['n']} cell observations; concession_and_common_ground excluded — see note below):**")
         lines.append("")
         lines.append(f"- weighted κ (quadratic): **{_fmt(pooled['weighted_kappa_quadratic'])}**")
         lines.append(f"- MAE: {_fmt(pooled['mae'])}, RMSE: {_fmt(pooled['rmse'])}")
         lines.append(f"- exact match: {_fmt(pooled['exact_pct'])}, within-1: {_fmt(pooled['within_1_pct'])}")
         lines.append(f"- pooled bias (Claude − human): {_fmt(pooled['bias'])}")
+        lines.append("")
+    if concession_pooled:
+        lines.append(f"**concession_and_common_ground (1–3 scale, {concession_pooled['n']} cell observations, reported separately):**")
+        lines.append("")
+        lines.append(f"- weighted κ (quadratic): **{_fmt(concession_pooled['weighted_kappa_quadratic'])}**")
+        lines.append(f"- MAE: {_fmt(concession_pooled['mae'])}, RMSE: {_fmt(concession_pooled['rmse'])}")
+        lines.append(f"- exact match: {_fmt(concession_pooled['exact_pct'])}, within-1: {_fmt(concession_pooled['within_1_pct'])}")
+        lines.append(f"- bias (Claude − human): {_fmt(concession_pooled['bias'])}")
         lines.append("")
     lines.append("| side | dimension | n | wκ | wκ CI | Spearman | Pearson | MAE | RMSE | bias | exact | ≤1 | ≤2 |")
     lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
@@ -625,6 +685,8 @@ def write_report(result: dict, output_dir: Path, make_plots: bool) -> None:
         if row["n"] == 0:
             lines.append(f"| {row['side']} | {row['dimension']} | 0 | — | — | — | — | — | — | — | — | — | — |")
             continue
+        # On a 1–3 scale, within-2 is trivially 100%; replace with a dash for clarity.
+        within2_col = "—" if row.get("scale_max", 5) <= 3 else _fmt(row["within_2_pct"])
         lines.append(
             f"| {row['side']} | {row['dimension']} | {row['n']} | "
             f"{_fmt(row['weighted_kappa_quadratic'])} | "
@@ -636,7 +698,7 @@ def write_report(result: dict, output_dir: Path, make_plots: bool) -> None:
             f"{_fmt(row['bias_claude_minus_human'])} | "
             f"{_fmt(row['exact_pct'])} | "
             f"{_fmt(row['within_1_pct'])} | "
-            f"{_fmt(row['within_2_pct'])} |"
+            f"{within2_col} |"
         )
     lines.append("")
 
@@ -646,6 +708,7 @@ def write_report(result: dict, output_dir: Path, make_plots: bool) -> None:
     lines.append("- **Gwet's AC1** is reported alongside Cohen's κ because κ is deflated when one class dominates (the 'high agreement, low κ' paradox). AC1 is more stable under skewed marginals.")
     lines.append("- **bias (Claude − human)** — positive means Claude rates higher on average than you do on that cell. Large per-dimension biases are a signal that the rubric wording or the prompt needs tightening for that dimension.")
     lines.append("- **exact / ≤1 / ≤2** is the forgiving-agreement ladder. On a 1–5 scale, within-1 ≈ 0.80+ is usually considered strong for ordinal rubrics.")
+    lines.append("- **Pooled metrics exclude concession_and_common_ground** because that dimension uses a 1–3 scale while the other four use 1–5. Mixing scales in a pooled weighted κ would distort the weight matrix. Concession metrics are reported separately in the pooled-summary section above.")
     lines.append("- All CIs are non-parametric bootstrap percentile intervals resampled over debates.")
     lines.append("")
 
@@ -802,8 +865,11 @@ def main() -> int:
     print(f"  Gwet AC1:          {_fmt(o.get('gwet_ac1_3class'))}")
     pooled = result["dimensions"].get("pooled", {})
     if pooled:
-        print(f"  pooled weighted κ: {_fmt(pooled.get('weighted_kappa_quadratic'))}")
-        print(f"  pooled within-1:   {_fmt(pooled.get('within_1_pct'))}")
+        print(f"  pooled weighted κ (1–5 dims): {_fmt(pooled.get('weighted_kappa_quadratic'))}")
+        print(f"  pooled within-1   (1–5 dims): {_fmt(pooled.get('within_1_pct'))}")
+    concession_pooled = result["dimensions"].get("concession_pooled", {})
+    if concession_pooled:
+        print(f"  concession wκ (1–3 scale):    {_fmt(concession_pooled.get('weighted_kappa_quadratic'))}")
     print()
     print(f"Report written to: {output_dir}")
     return 0

@@ -1,4 +1,4 @@
-Instructions: Evaluate each debater's listening behavior using the rubric provided. First, provide the dimensional scores for each debater with a brief justification for each score. Then, based on your ratings, provide an overall judgment of which debater was the better listener.
+Instructions: Evaluate each debater's listening behavior using the rubric provided. First, provide the dimensional scores for each debater with a brief justification for each score. Remember: acknowledgment, accuracy_of_representation, responsiveness, and respectful_engagement are scored 1-5; concession_and_common_ground is scored 1-3. Then, based on your ratings, provide an overall judgment of which debater was the better listener.
 
 Respond in the following JSON format and nothing else:
 
