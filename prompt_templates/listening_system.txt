@@ -21,18 +21,18 @@ When the debater does reference the opponent's arguments, are they represented f
 - 5 = Consistently and charitably represents the opponent's arguments, even steelmanning them
 
 3. Responsiveness / Adaptation (1-5)
-Does the debater's overall position, framing, or strategy evolve across rounds in response to what the opponent has said? This dimension is NOT about whether the debater addresses specific points (that is acknowledgment); it is about whether the debater's argumentative strategy genuinely changes shape over the course of the debate. Adding new examples or rebuttals while keeping the same underlying framing is only modest adaptation. True high-end responsiveness means the debater's position itself shifts in response to opponent challenges.
-- 1 = Arguments are entirely static across rounds; ignores opponent's responses
-- 2 = Adds new examples or rebuttals but the underlying position and framing are unchanged
-- 3 = Some real adaptation — drops weak points, strengthens contested ones — but overall strategy stays the same
-- 4 = Noticeably restructures arguments or shifts framing in response to the opponent's strongest points
-- 5 = Substantively evolves the position itself in direct response to the opponent's challenges
+Does the debater actively engage with and adapt their argumentation in response to what the opponent has said, rather than repeating pre-planned talking points? This dimension is about whether the debater is *reacting* to the specific debate in front of them — introducing new counter-examples, correcting their own prior errors, sharpening claims that the opponent has challenged, engaging seriously with the opponent's strongest objections. It is NOT about whether the debater changes their overall position — debaters rarely switch sides, and they should not be penalized for maintaining their thesis. Note the distinction from acknowledgment: acknowledgment asks whether the opponent's points are referenced at all; responsiveness asks whether the debater's argumentation visibly reacts to what was said.
+- 1 = Entirely static across rounds; ignores the opponent's responses and repeats the same points verbatim
+- 2 = Mostly repeats the same points; only superficial changes (rewording, minor additions) without engaging the opponent's challenges
+- 3 = Some real reaction — introduces new rebuttals or examples in response to specific opponent points — but much of the argument is still pre-planned
+- 4 = Clearly reacting to the opponent: new counter-arguments, sharpened claims, self-corrections, or direct engagement with the opponent's strongest objections across rounds
+- 5 = Thoroughly reactive argumentation — consistently adapts strategy, counters specific challenges with new material, and visibly evolves the argument in response to opponent pressure
 
 4. Concession and Common Ground (1-3)
-Does the debater acknowledge valid points, concede where appropriate, or identify areas of agreement? Online asynchronous debate culture rewards "winning" rather than consensus-seeking, so the default behavior is no concession at all. Reserve scores above 1 only for explicit, textual concessions or shared-premise statements. Meta-statements like "I am playing devil's advocate" do NOT count as concession; only concessions of substantive points within the debate count.
-- 1 = No concession at all; treats every opponent point as wrong, or only makes meta-comments outside the debate's substance
-- 2 = At least one explicit acknowledgment of a valid point or shared premise from the opponent
-- 3 = Actively seeks common ground; multiple concessions integrated meaningfully into the argumentation
+Does the debater ever explicitly admit that the opponent is right about something and they are wrong? Online asynchronous debate culture rewards "winning" rather than consensus-seeking, and the overwhelming majority of debaters never concede anything at all. Score accordingly: the default score is 1, and most debates will receive a 1 on both sides. A score of 2 requires at least one genuine, non-sarcastic, on-the-record admission that the opponent is correct about a specific point. A score of 3 is extremely rare — it is reserved for debaters who are visibly operating from a collaborative rather than adversarial framework, honestly and repeatedly acknowledging where the opponent is right while still arguing for their own position. Debates with a 3 are unusual; expect to see this score at most once across many debates, if at all. Do not assign a 3 simply because a debater is more conciliatory than average; assign a 3 only if the debater is genuinely approaching the debate as a shared search for where they agree and disagree. Meta-statements like "I am playing devil's advocate" do not count as concession — only concessions of substantive points within the debate count.
+- 1 = The debater never admits the opponent is right about anything; treats every opponent point as wrong or deflects it. This is the default and by far the most common score.
+- 2 = The debater explicitly concedes at least once, on the record and without sarcasm, that the opponent is correct about a specific point. This is notable and less common than 1.
+- 3 = The debater is debating collaboratively rather than adversarially — repeatedly and honestly acknowledging where the opponent is right, framing the debate as a search for mutual understanding, while still defending their own position. Extremely rare; do not assign unless the debater's whole posture clearly fits this description.
 
 5. Respectful Engagement (1-5)
 Does the debater engage with the opponent's perspective respectfully, or dismissively? Reserve scores of 1 or 2 only for genuinely hostile, insulting, ad hominem, or personally dismissive behavior toward the opponent. Forceful argumentation, sarcasm directed at ideas (rather than at the opponent), strong rhetoric, and rhetorical flourishes are not disrespect and should not lower the score. Score 3 for neutral tone, 4-5 for actively respectful engagement.
@@ -44,8 +44,8 @@ Does the debater engage with the opponent's perspective respectfully, or dismiss
 
 Output rules:
 - Provide integer scores. Use 1-5 for acknowledgment, accuracy_of_representation, responsiveness, and respectful_engagement. Use 1-3 for concession_and_common_ground.
-- Use the full available range for each dimension. Do not default to middle scores out of uncertainty; match the score to whichever rubric level best describes the observed behavior.
-- For concession_and_common_ground specifically, the default is 1. Only assign 2 or 3 if there is explicit textual evidence of concession or shared-premise statements within the substance of the debate.
+- Use the full available range for each dimension where the rubric level fits. Do not default to middle scores out of uncertainty; match the score to whichever rubric level best describes the observed behavior.
+- For concession_and_common_ground specifically, the default is 1 and most scores will be 1. Only assign 2 if there is explicit textual evidence of a genuine on-the-record concession of a specific point. Only assign 3 if the debater's whole posture is collaborative rather than adversarial — this should be extremely rare.
 - Keep justifications concise and evidence-based, citing specific moments from the transcript where possible.
 - Output valid JSON only.
 - Do not include markdown, code fences, or extra commentary.

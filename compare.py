@@ -229,6 +229,42 @@ def weighted_kappa(y1: Sequence[int], y2: Sequence[int],
     return 1 - num / den
 
 
+def krippendorff_alpha_ordinal(y1: Sequence[int], y2: Sequence[int],
+                                min_val: int, max_val: int) -> float:
+    """Krippendorff's alpha with ordinal (interval-difference) weights.
+
+    Complementary to weighted kappa; more stable than kappa when n is small
+    or the score distribution is restricted. Uses the standard formulation
+    from Krippendorff (2011): alpha = 1 - (D_o / D_e) where D_o is observed
+    disagreement and D_e is expected disagreement, both computed with
+    squared-difference weights for ordinal data.
+    """
+    y1 = list(y1)
+    y2 = list(y2)
+    n = len(y1)
+    if n == 0:
+        return float("nan")
+    # Build the coincidence-style sums directly for the 2-coder case.
+    # Observed disagreement: mean squared diff over pairs.
+    d_o = float(np.mean([(a - b) ** 2 for a, b in zip(y1, y2)]))
+    # Expected disagreement: mean squared diff over all possible cross-pairs
+    # of the combined marginal distribution.
+    combined = y1 + y2
+    N = len(combined)
+    if N < 2:
+        return float("nan")
+    total_sq = 0.0
+    for i in range(N):
+        for j in range(N):
+            if i == j:
+                continue
+            total_sq += (combined[i] - combined[j]) ** 2
+    d_e = total_sq / (N * (N - 1))
+    if d_e == 0:
+        return 1.0 if d_o == 0 else float("nan")
+    return 1 - (d_o / d_e)
+
+
 def gwet_ac1(y1: Sequence, y2: Sequence, labels: Sequence | None = None) -> float:
     """Gwet's AC1 — more robust than kappa when one class dominates."""
     y1 = list(y1)
@@ -457,6 +493,20 @@ def _analyze_dimensions(dim_pairs: dict, n_boot: int) -> dict:
             except Exception:
                 pearson_r = float("nan")
 
+            # Gwet's AC1 — robust under restricted range / skewed marginals.
+            # Treat each ordinal level as a nominal label for AC1; this is the standard
+            # fallback when κ is deflated by a narrow score distribution.
+            ac1 = gwet_ac1(h.tolist(), c.tolist(), labels=list(range(min_val, max_val + 1)))
+
+            # Krippendorff's α (ordinal) — complementary to weighted κ, more stable on small n.
+            alpha = krippendorff_alpha_ordinal(h.tolist(), c.tolist(), min_val, max_val)
+
+            ac1_ci = bootstrap_ci(
+                pairs,
+                lambda a, b, _min=min_val, _max=max_val: gwet_ac1(a, b, labels=list(range(_min, _max + 1))),
+                n_boot,
+            )
+
             # Use default-argument capture to avoid late-binding closure gotcha.
             wk_ci = bootstrap_ci(
                 pairs,
@@ -487,6 +537,10 @@ def _analyze_dimensions(dim_pairs: dict, n_boot: int) -> dict:
                 "wk_ci_hi": wk_ci[1],
                 "spearman_r": spearman_r,
                 "pearson_r": pearson_r,
+                "gwet_ac1": ac1,
+                "ac1_ci_lo": ac1_ci[0],
+                "ac1_ci_hi": ac1_ci[1],
+                "krippendorff_alpha_ordinal": alpha,
             })
 
     # Pooled metrics over 1–5 dimensions only. concession_and_common_ground is on a
@@ -679,8 +733,8 @@ def write_report(result: dict, output_dir: Path, make_plots: bool) -> None:
         lines.append(f"- exact match: {_fmt(concession_pooled['exact_pct'])}, within-1: {_fmt(concession_pooled['within_1_pct'])}")
         lines.append(f"- bias (Claude − human): {_fmt(concession_pooled['bias'])}")
         lines.append("")
-    lines.append("| side | dimension | n | wκ | wκ CI | Spearman | Pearson | MAE | RMSE | bias | exact | ≤1 | ≤2 |")
-    lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+    lines.append("| side | dimension | n | wκ | AC1 | α (ord) | Spearman | MAE | bias | exact | ≤1 | ≤2 |")
+    lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|")
     for row in dims["per_cell"]:
         if row["n"] == 0:
             lines.append(f"| {row['side']} | {row['dimension']} | 0 | — | — | — | — | — | — | — | — | — | — |")
@@ -690,11 +744,10 @@ def write_report(result: dict, output_dir: Path, make_plots: bool) -> None:
         lines.append(
             f"| {row['side']} | {row['dimension']} | {row['n']} | "
             f"{_fmt(row['weighted_kappa_quadratic'])} | "
-            f"{_fmt_ci((row['wk_ci_lo'], row['wk_ci_hi']))} | "
+            f"{_fmt(row['gwet_ac1'])} | "
+            f"{_fmt(row['krippendorff_alpha_ordinal'])} | "
             f"{_fmt(row['spearman_r'])} | "
-            f"{_fmt(row['pearson_r'])} | "
             f"{_fmt(row['mae'])} | "
-            f"{_fmt(row['rmse'])} | "
             f"{_fmt(row['bias_claude_minus_human'])} | "
             f"{_fmt(row['exact_pct'])} | "
             f"{_fmt(row['within_1_pct'])} | "
@@ -706,6 +759,8 @@ def write_report(result: dict, output_dir: Path, make_plots: bool) -> None:
     lines.append("")
     lines.append("- **weighted κ (quadratic)** is the primary metric for ordinal rubric scores. Rough Landis & Koch (1977) guide: 0.0–0.2 slight, 0.21–0.40 fair, 0.41–0.60 moderate, 0.61–0.80 substantial, 0.81–1.0 almost perfect.")
     lines.append("- **Gwet's AC1** is reported alongside Cohen's κ because κ is deflated when one class dominates (the 'high agreement, low κ' paradox). AC1 is more stable under skewed marginals.")
+    lines.append(
+        "- **Krippendorff's α (ordinal)** is reported alongside weighted κ as a second ordinal-agreement metric. When a dimension has a compressed score range (e.g., only 3s and 4s are used), weighted κ can be deflated even though annotators largely agree; α and AC1 are less sensitive to this failure mode. Report all three in the thesis so the reader can see whether a low κ is genuine disagreement or restricted-range deflation.")
     lines.append("- **bias (Claude − human)** — positive means Claude rates higher on average than you do on that cell. Large per-dimension biases are a signal that the rubric wording or the prompt needs tightening for that dimension.")
     lines.append("- **exact / ≤1 / ≤2** is the forgiving-agreement ladder. On a 1–5 scale, within-1 ≈ 0.80+ is usually considered strong for ordinal rubrics.")
     lines.append("- **Pooled metrics exclude concession_and_common_ground** because that dimension uses a 1–3 scale while the other four use 1–5. Mixing scales in a pooled weighted κ would distort the weight matrix. Concession metrics are reported separately in the pooled-summary section above.")

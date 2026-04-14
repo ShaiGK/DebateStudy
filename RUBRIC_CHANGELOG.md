@@ -28,3 +28,31 @@ The *acknowledgment* and *accuracy of representation* dimensions were left uncha
 ### Validation plan
 
 The v2 rubric will be re-evaluated against the same 20-debate pilot set after Claude is rerun with the updated prompt. If pooled within-1 agreement across the four 1–5 dimensions reaches 0.85 or higher and the overall judgment Cohen's κ reaches 0.40 or higher, the rubric will be considered validated for full-scale annotation across the approximately 830 debates in the Trimmed dataset. The concession dimension will be assessed separately on its 1–3 scale; given the scale compression, near-ceiling within-1 agreement is expected and the primary diagnostic will be whether the bias has been eliminated relative to v1.
+
+## v2 → v3
+
+### Summary
+Two targeted changes based on the v2 pilot rerun: a rewrite of the responsiveness anchors and a tightening of the concession_and_common_ground anchors.
+
+The v2 rewrite of responsiveness over-corrected. v2 required the debater's "position itself" to shift for high scores, but in competitive online debate practically no one changes their overall position. As a result, Claude systematically under-scored responsiveness on the v2 rerun, scoring 2 or 3 where the human annotator scored 4 or 5 in the large majority of cases. The v3 anchors refocus the dimension on tactical reaction to the opponent — new counter-examples, self-corrections, engaging specific objections — while explicitly instructing that maintaining one's overall thesis does not preclude a high score.
+
+Concession also received a minor clarification. v2 fixed the scale (1–3 rather than 1–5) and largely resolved the pilot disagreement, but the v2 anchors did not make the base rate explicit. v3 states plainly that a score of 1 is the default and most common, a score of 2 requires a specific on-the-record concession, and a score of 3 is reserved for debaters whose overall posture is collaborative rather than adversarial and should be assigned at most once across many debates. This is not a scale change; it is a calibration change intended to prevent drift toward 2s-by-default on the next rerun.
+
+### Pilot evidence motivating the change
+On the 20-debate v2 rerun:
+- Overall agreement moved substantially in the right direction: Cohen's κ on the stated overall judgment rose from 0.245 to 0.474 (3-class) and from 0.331 to 0.733 (2-class, dropping Tie debates). Concession_and_common_ground weighted κ rose from 0.13–0.33 to 0.50–0.58. Respectful engagement and acknowledgment remained stable.
+- However, Con responsiveness weighted κ stayed at 0.167 with a bias of −1.50 (Claude rated lower than the human annotator in 19 of 20 cases). The Con-side score distribution was human `{2:1, 3:3, 4:9, 5:7}` vs. Claude `{1:1, 2:8, 3:9, 4:2}` — a full point of median shift, with Claude capping Con responsiveness at 4.
+- Qualitative inspection of Claude's v2 justifications for debates 556, 1104, 25047, and 66182 showed Claude describing genuine tactical adaptation — correcting own errors, sharpening contested claims, introducing counter-estimates, engaging specific opponent points — and then assigning scores of 2 or 3 because "the overall framing remains unchanged." Claude was following the v2 rubric exactly as written; the rubric was wrong.
+
+### Changes to the rubric
+**responsiveness: anchors refocused on tactical reaction, not positional shift.**
+The v2 anchors required "underlying position" or "overall strategy" to change for scores of 4 or 5. The v3 anchors explicitly state that maintaining an overall thesis does not preclude a high score, and reframe the dimension around whether the debater's argumentation visibly reacts to the specific debate (new counter-examples, self-corrections, engaging the opponent's strongest objections). The distinction from acknowledgment is also made explicit: acknowledgment asks whether opponent points are referenced at all; responsiveness asks whether the debater's argumentation is visibly shaped by those points.
+
+**concession_and_common_ground: base-rate guidance added.**
+The scale (1–3) and the meta-concession exclusion are unchanged from v2. What is new is explicit base-rate language: 1 is stated to be the default and most common score, 2 requires a specific on-the-record concession, and 3 is described as extremely rare and reserved for debaters with a collaborative rather than adversarial posture. The output rules section is also updated to echo this guidance, so that base-rate information appears both in the rubric definition and in the scoring instructions.
+
+### What did not change
+No other dimensions were modified. Acknowledgment, accuracy of representation, and respectful_engagement all produced acceptable agreement on the v2 rerun and are unchanged in v3.
+
+### Validation plan
+The v3 rubric will be re-evaluated against the same 20-debate pilot set after Claude is rerun with the updated prompt. Targets: overall stated Cohen's κ ≥ 0.5 (3-class) or ≥ 0.75 (2-class); Con responsiveness weighted κ ≥ 0.35 with bias |Claude − human| < 0.7; concession_and_common_ground agreement maintained at or near v2 levels with no regression on bias. If these targets are met, the rubric will be considered validated for full-scale annotation across the Trimmed dataset.
