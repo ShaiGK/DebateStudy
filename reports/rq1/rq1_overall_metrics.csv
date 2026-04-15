@@ -1,0 +1,13 @@
+ground_truth,condition,n,accuracy,acc_lo95,acc_hi95,kappa,kappa_lo95,kappa_hi95,gwet_ac1,macro_f1,n_voters
+Q1 ground truth,3-class,833,48.14,44.65,51.38,0.1587,0.1066,0.2078,0.252,0.4052,
+Q1 ground truth,2-class,595,64.37,60.5,68.4,0.276,0.1991,0.3525,0.2997,0.6373,
+Majority winner,3-class,833,28.33,25.21,31.33,0.0189,-0.0191,0.0551,-0.062,0.2747,
+Majority winner,2-class,226,58.41,52.21,64.6,0.125,0.0012,0.2489,0.2131,0.5589,
+Majority winner (Pro/Con only),3-class,833,36.13,32.89,39.38,0.044,-0.0032,0.0895,0.0487,0.3481,
+Majority winner (Pro/Con only),2-class,430,55.81,51.4,60.23,0.0956,0.0038,0.1864,0.1391,0.5461,
+Q1 ground truth,3-class (voter-wtd),833,45.45,41.06,49.66,0.1223,0.0518,0.1844,0.2125,0.386,4871.0
+Q1 ground truth,2-class (voter-wtd),595,60.32,54.65,65.79,0.202,0.0948,0.3103,0.2159,0.5982,3490.0
+Majority winner,3-class (voter-wtd),833,26.75,22.77,30.65,-0.0093,-0.0583,0.0391,-0.0851,0.2582,4871.0
+Majority winner,2-class (voter-wtd),226,53.9,45.01,63.87,0.0637,-0.0898,0.2466,0.1146,0.5191,1269.0
+Majority winner (Pro/Con only),3-class (voter-wtd),833,34.08,29.93,38.36,0.01,-0.0519,0.0735,0.0169,0.3316,4871.0
+Majority winner (Pro/Con only),2-class (voter-wtd),430,50.91,43.92,57.43,0.0119,-0.1243,0.1389,0.0297,0.5033,2571.0
