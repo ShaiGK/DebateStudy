@@ -5,7 +5,6 @@ Reads from Thesis/data/processing/ (config.DATA_DIR).
 from __future__ import annotations
 
 import json
-from pathlib import Path
 from typing import Any
 
 import pandas as pd
@@ -16,6 +15,7 @@ from config import (
     ROUNDS_PATH,
     VOTES_FILTERED_PATH,
     Q1_OUTPUT_PATH,
+    TRIMMED_DATASET_PATH,
 )
 
 
@@ -47,15 +47,9 @@ def _load_ground_truth_dict() -> dict[int, str]:
 
 
 def get_valid_debate_ids() -> list[int]:
-    """Debate IDs that have valid propositions (intersection of filtered debates and propositions)."""
-    # debates_df = _load_debates_df()
-    # props_df = _load_propositions_df()
-    # valid_ids = set(debates_df["debate_id"]) & set(props_df["debate_id"])
-    # return sorted(valid_ids)
-
-    trimmed_debates = json.load(open("../data/tidy/datasets/datasets.json"))["Trimmed"]
-    valid_ids = set(trimmed_debates)
-    return sorted(valid_ids)
+    """Debate IDs in the Rescala et al. Trimmed set."""
+    trimmed_debates = json.load(open(TRIMMED_DATASET_PATH))["Trimmed"]
+    return sorted(set(trimmed_debates))
 
 
 # Cache for rounds and debates so we don't reload every time
@@ -163,10 +157,12 @@ def get_debate_outcomes(debate_id: int) -> dict[str, Any] | None:
     if v.empty:
         return {
             "majority_winner": "Tie",
+            "majority_winner_procon": "Tie",
             "num_votes": 0,
             "num_flipped": 0,
             "pct_switched_to_pro": 0.0,
             "pct_switched_to_con": 0.0,
+            "net_switch_toward_con": 0.0,
             "num_pro_after": 0,
             "num_con_after": 0,
             "num_tie_after": 0,
@@ -186,21 +182,47 @@ def get_debate_outcomes(debate_id: int) -> dict[str, Any] | None:
     else:
         majority_winner = "Tie"
 
-    # Switched to Pro: agreed_before != Pro and agreed_after == Pro (and flipped)
-    if "agreed_before" in v.columns and "flipped" in v.columns:
-        switched_to_pro = ((v["agreed_after"] == "Pro") & (v["flipped"])).sum()
-        switched_to_con = ((v["agreed_after"] == "Con") & (v["flipped"])).sum()
-        pct_pro = (switched_to_pro / n * 100) if n else 0.0
-        pct_con = (switched_to_con / n * 100) if n else 0.0
+    # Alternative: ignore Tie votes; winner is whoever has more Pro vs. Con post-votes.
+    # 1 Pro + 1 Tie + 0 Con → Pro (Tie votes are neutral, not a competing outcome).
+    if num_pro_after > num_con_after:
+        majority_winner_procon = "Pro"
+    elif num_con_after > num_pro_after:
+        majority_winner_procon = "Con"
     else:
-        pct_pro = pct_con = 0.0
+        majority_winner_procon = "Tie"
+
+    # Switch direction: Pro→Con, Pro→Tie, Tie→Con all count as "toward Con"; mirror for Pro.
+    if "agreed_before" in v.columns and "agreed_after" in v.columns:
+        ab = v["agreed_before"]
+        aa = v["agreed_after"]
+        toward_con = (
+                ((ab == "Pro") & (aa == "Con")) |
+                ((ab == "Pro") & (aa == "Tie")) |
+                ((ab == "Tie") & (aa == "Con"))
+        )
+        toward_pro = (
+                ((ab == "Con") & (aa == "Pro")) |
+                ((ab == "Con") & (aa == "Tie")) |
+                ((ab == "Tie") & (aa == "Pro"))
+        )
+        n_toward_con = int(toward_con.sum())
+        n_toward_pro = int(toward_pro.sum())
+        pct_con = (n_toward_con / n * 100) if n else 0.0
+        pct_pro = (n_toward_pro / n * 100) if n else 0.0
+        net_switch_toward_con = (n_toward_con - n_toward_pro) / n if n else 0.0
+    else:
+        n_toward_con = n_toward_pro = 0
+        pct_con = pct_pro = 0.0
+        net_switch_toward_con = 0.0
 
     return {
         "majority_winner": majority_winner,
+        "majority_winner_procon": majority_winner_procon,
         "num_votes": n,
         "num_flipped": num_flipped,
         "pct_switched_to_pro": round(pct_pro, 2),
         "pct_switched_to_con": round(pct_con, 2),
+        "net_switch_toward_con": round(net_switch_toward_con, 6),
         "num_pro_after": num_pro_after,
         "num_con_after": num_con_after,
         "num_tie_after": num_tie_after,
@@ -215,40 +237,10 @@ def get_votes_for_debate(debate_id: int) -> list[dict[str, Any]]:
 
     votes_df = _load_votes_df()
     v = votes_df[votes_df["debate_id"] == debate_id]
-    cols = ["voter_id", "agreed_before", "agreed_after"]
-    if "flipped" in v.columns:
-        cols.append("flipped")
+    cols = [
+        "voter_id", "agreed_before", "agreed_after", "flipped",
+        "better_conduct", "better_spelling_and_grammar",
+        "more_convincing_arguments", "most_reliable_sources",
+    ]
     available = [c for c in cols if c in v.columns]
     return v[available].to_dict("records")
-
-if __name__ == "__main__":
-    # print(get_votes_for_debate(358))
-    # print(get_debate_outcomes(1104))
-    # load = _load_votes_df()
-    _get_ground_truth_dict()
-    # load = json.load(open(Q1_OUTPUT_PATH))
-    # df = pd.DataFrame(load)
-    # df = df.set_index('debate_id')
-    # for row in df.iterrows():
-    #     assert row[1]['ground_truth'] == _ground_truth_dict[row[0]]
-    # There is a ground truth here
-    claude_path = Path(__file__).resolve().parent / "claude_listening_trial.json"
-    cdf = pd.read_json(claude_path)
-    claude_dict = {int(row["debate_id"]): row["judgment"] for _, row in cdf.iterrows()}
-
-    me_path = Path(__file__).resolve().parent / "annotations.json"
-    mdf = json.load(open(me_path))
-    # for debate_id, judgment in mdf.items():
-    #     print(debate_id)
-    #     print(judgment)
-    me_dict = {int(debate_id): judgment['listening']['overall_better_listener']['judgment'] for debate_id, judgment in mdf.items()}
-
-    for debate_id, claude_judge in claude_dict.items():
-        print(f"Debate ID: {debate_id}\t\t\tClaude Judgment: {claude_judge}\t\t\tHuman Judgment: {me_dict[debate_id]}\t\t\tGround Truth: {_ground_truth_dict[debate_id]}")
-
-    example = get_debate_outcomes(706)
-    votes = get_votes_for_debate(706)
-
-    print()
-    print("hi")
-    print()

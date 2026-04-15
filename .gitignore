@@ -6,6 +6,3 @@ __pycache__/
 .venv/
 venv/
 *.json
-report.txt
-requirements.txt
-/reports

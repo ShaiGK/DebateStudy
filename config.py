@@ -15,6 +15,7 @@ PROPOSITIONS_PATH = DATA_DIR / "propositions" / "propositions.json"
 VOTES_FILTERED_PATH = DATA_DIR / "filtered_data" / "votes_filtered_df.json"
 USERS_PATH = DATA_DIR / "processed_data" / "users_df.json"
 Q1_OUTPUT_PATH = THESIS_ROOT / "data" / "tidy" / "llm_outputs" / "q1.json"
+TRIMMED_DATASET_PATH = THESIS_ROOT / "data" / "tidy" / "datasets" / "datasets.json"
 
 # Outputs (created at runtime)
 ANNOTATIONS_PATH = PROJECT_DIR / "annotations.json"
