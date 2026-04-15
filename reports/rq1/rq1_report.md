@@ -54,6 +54,29 @@ Mean listening margin (raw) vs. net switch toward Con: Spearman ρ = 0.0360 (95%
 ![Switch scatter](rq1_switch_scatter.png)
 
 
+## Vote Switching: Conditional on Switching
+
+The correlation analysis above tests whether debates where Con listened better also saw *more* net switching toward Con — but most voters do not switch at all, which dilutes the signal. This section asks a sharper question: **among voters who actually switched their vote, did they tend to move toward the side Claude identified as the better listener?** The unit of analysis here is the individual switch event (voter × debate). Bootstrap CIs resample at the debate level to respect within-debate clustering (all switchers in a debate share the same Claude judgment).
+
+Total switch events across all 833 debates: 354 (from 235 debates that had at least one vote flip). After excluding debates where Claude's judgment was Tie: 283 switch events across 187 debates.
+
+
+### Headline: switch direction vs. Claude judgment (Tie debates excluded)
+
+| n switches | n debates | Accuracy (%) | 95% CI | Cohen's κ | 95% CI | Gwet's AC1 | Macro F1 |
+|---|---|---|---|---|---|---|---|
+| 283 | 187 | 56.54 | [50.00, 62.54] | 0.1282 | [-0.0029, 0.2483] | 0.1335 | 0.5640 |
+
+Chi-square test of independence (switch direction × Claude judgment): χ²(1) = 4.1582, p = 0.04143.
+
+
+### Robustness: clean Pro↔Con switches only
+
+Restricting to voters who switched cleanly between Pro and Con (excluding Pro↔Tie and Tie↔Con transitions): n = 102 switch events. Accuracy = 58.82%, Cohen's κ = 0.1652.
+
+![Switch confusion matrix](rq1_switch_confusion.png)
+
+
 ## Per-Dimension × Per-Sub-Vote Heatmap
 
 The following heatmap shows Spearman ρ between each listening-dimension margin (Con − Pro mean score) and each persuasion sub-vote margin ((n_Con − n_Pro) / n_votes on that sub-vote). This is an exploratory 5×4 analysis (20 simultaneous tests); starred cells (★) survive Benjamini–Hochberg correction at q < 0.05.

@@ -4,14 +4,16 @@ rq1_analysis.py — Phase 3 RQ1 Correlation Analysis
 Does listening quality predict debate effectiveness?
 
 Outputs under reports/rq1/:
-    rq1_report.md              markdown report for thesis
-    rq1_joined.csv             one row per debate, all features and outcomes
-    rq1_overall_metrics.csv    headline winner-agreement table
-    rq1_switching.csv          listening margin vs. vote-switching correlations
-    rq1_heatmap_cells.csv      5x4 cell values with rho, p, BH-corrected q
-    rq1_winner_confusion.png   2x2 grid of confusion matrices
-    rq1_switch_scatter.png     listening margin vs. net switch toward Con
-    rq1_heatmap.png            5x4 Spearman rho heatmap
+    rq1_report.md                  markdown report for thesis
+    rq1_joined.csv                 one row per debate, all features and outcomes
+    rq1_overall_metrics.csv        headline winner-agreement table
+    rq1_switching.csv              listening margin vs. vote-switching correlations
+    rq1_switchers_conditional.csv  voter-level switcher table (conditional analysis)
+    rq1_heatmap_cells.csv          5x4 cell values with rho, p, BH-corrected q
+    rq1_winner_confusion.png       2x2 grid of confusion matrices
+    rq1_switch_scatter.png         listening margin vs. net switch toward Con
+    rq1_switch_confusion.png       confusion matrix: Claude judgment × switch direction
+    rq1_heatmap.png                5x4 Spearman rho heatmap
 
 Sign convention: all "margin" values are con − pro.
   Positive listening margin → Con listened better.
@@ -543,6 +545,199 @@ def analyze_vote_switching(df: pd.DataFrame, n_boot: int, output_dir: Path, no_p
 
 
 # ===========================================================================
+# 3b-conditional. SWITCHERS ONLY — does switch direction match Claude's judgment?
+# ===========================================================================
+
+def analyze_switchers_conditional(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: bool):
+    """
+    Among voters who actually switched their vote, does the direction of the switch
+    (toward Pro or toward Con) agree with Claude's overall better-listener judgment?
+
+    This is a sharper test than the correlation across all debates: it asks whether
+    the side Claude identified as the better listener is the side that persuaded
+    the voters who were persuadable enough to change their mind.
+
+    Unit of analysis: individual switch events (voter × debate).
+    Bootstrap resamples at the DEBATE level to respect within-debate clustering.
+    """
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        HAS_MPL = True
+    except ImportError:
+        HAS_MPL = False
+
+    # Build voter-level switcher table joined with Claude's debate-level judgment
+    switcher_rows = []
+    for _, row in df.iterrows():
+        did = int(row["debate_id"])
+        claude_j = row["claude_overall"]
+        votes = get_votes_for_debate(did)
+        for v in votes:
+            ab = v.get("agreed_before")
+            aa = v.get("agreed_after")
+            if ab is None or aa is None or ab == aa:
+                continue  # stable voter — skip
+            toward_con = (
+                (ab == "Pro" and aa == "Con") or
+                (ab == "Pro" and aa == "Tie") or
+                (ab == "Tie" and aa == "Con")
+            )
+            toward_pro = (
+                (ab == "Con" and aa == "Pro") or
+                (ab == "Con" and aa == "Tie") or
+                (ab == "Tie" and aa == "Pro")
+            )
+            if not toward_con and not toward_pro:
+                continue
+            switcher_rows.append({
+                "debate_id": did,
+                "agreed_before": ab,
+                "agreed_after": aa,
+                "switch_direction": "Con" if toward_con else "Pro",
+                "claude_judgment": claude_j,
+            })
+
+    sw_voter_df = pd.DataFrame(switcher_rows)
+    sw_voter_df.to_csv(output_dir / "rq1_switchers_conditional.csv", index=False)
+    print(f"Saved rq1_switchers_conditional.csv ({len(sw_voter_df)} switcher events)")
+
+    n_total_switchers = len(sw_voter_df)
+    n_debates_with_switches = sw_voter_df["debate_id"].nunique()
+
+    # ---- headline: all directional switches, Tie claude judgments excluded ----
+    sub = sw_voter_df[sw_voter_df["claude_judgment"].isin(["Pro", "Con"])].copy()
+    labels = ["Con", "Pro"]
+
+    y_true = sub["switch_direction"].tolist()   # what voters actually did
+    y_pred = sub["claude_judgment"].tolist()     # what Claude predicted
+
+    n_2class = len(sub)
+    n_debates_2class = sub["debate_id"].nunique()
+
+    acc = accuracy(y_true, y_pred)
+    kap = cohen_kappa(y_true, y_pred, labels=labels)
+    ac1 = gwet_ac1(y_true, y_pred, labels=labels)
+    mf1 = macro_f1(y_true, y_pred, labels=labels)
+
+    # Bootstrap at debate level (switchers within a debate share the same claude_judgment
+    # so are not independent; resample debates, then pool their switchers)
+    debate_ids_arr = sub["debate_id"].unique()
+    debate_switchers_lookup = {
+        did: list(zip(g["switch_direction"], g["claude_judgment"]))
+        for did, g in sub.groupby("debate_id")
+    }
+
+    def _pool(sampled_ids):
+        yt, yp = [], []
+        for did in sampled_ids:
+            for sd, cj in debate_switchers_lookup.get(did, []):
+                yt.append(sd)
+                yp.append(cj)
+        return yt, yp
+
+    rng = np.random.default_rng(42)
+    n_d = len(debate_ids_arr)
+    acc_boots, kap_boots = [], []
+    for _ in range(n_boot):
+        sampled = debate_ids_arr[rng.integers(0, n_d, size=n_d)]
+        yt, yp = _pool(sampled)
+        if len(yt) == 0:
+            acc_boots.append(np.nan)
+            kap_boots.append(np.nan)
+            continue
+        acc_boots.append(accuracy(yt, yp))
+        try:
+            kap_boots.append(cohen_kappa(yt, yp, labels=labels))
+        except Exception:
+            kap_boots.append(np.nan)
+
+    acc_lo = float(np.nanpercentile(acc_boots, 2.5))
+    acc_hi = float(np.nanpercentile(acc_boots, 97.5))
+    kap_lo = float(np.nanpercentile(kap_boots, 2.5))
+    kap_hi = float(np.nanpercentile(kap_boots, 97.5))
+
+    # Chi-square test of independence
+    from scipy.stats import chi2_contingency
+    from sklearn.metrics import confusion_matrix as _cm_fn
+    cm = _cm_fn(y_true, y_pred, labels=labels)
+    chi2_stat, p_chi2, dof, _ = chi2_contingency(cm)
+
+    # ---- clean-switch sub-analysis (Pro↔Con only, no Tie intermediary) ----
+    clean = sub[
+        ((sub["agreed_before"] == "Pro") & (sub["agreed_after"] == "Con")) |
+        ((sub["agreed_before"] == "Con") & (sub["agreed_after"] == "Pro"))
+    ].copy()
+    n_clean = len(clean)
+    if n_clean >= 5:
+        acc_clean = accuracy(clean["switch_direction"].tolist(), clean["claude_judgment"].tolist())
+        kap_clean = cohen_kappa(clean["switch_direction"].tolist(), clean["claude_judgment"].tolist(), labels=labels)
+        cm_clean = _cm_fn(clean["switch_direction"].tolist(), clean["claude_judgment"].tolist(), labels=labels)
+    else:
+        acc_clean = kap_clean = cm_clean = None
+
+    result = {
+        "n_total_switchers": n_total_switchers,
+        "n_debates_with_switches": n_debates_with_switches,
+        "n_2class_switchers": n_2class,
+        "n_2class_debates": n_debates_2class,
+        "n_clean_switchers": n_clean,
+        "accuracy": round(acc * 100, 2),
+        "acc_lo95": round(acc_lo * 100, 2),
+        "acc_hi95": round(acc_hi * 100, 2),
+        "kappa": round(kap, 4),
+        "kappa_lo95": round(kap_lo, 4),
+        "kappa_hi95": round(kap_hi, 4),
+        "gwet_ac1": round(ac1, 4),
+        "macro_f1": round(mf1, 4),
+        "chi2": round(float(chi2_stat), 4),
+        "chi2_p": round(float(p_chi2), 5),
+        "chi2_dof": int(dof),
+        "acc_clean": round(acc_clean * 100, 2) if acc_clean is not None else None,
+        "kappa_clean": round(kap_clean, 4) if kap_clean is not None else None,
+        "confusion_matrix": cm,
+        "confusion_matrix_clean": cm_clean,
+        "labels": labels,
+    }
+
+    # ---- confusion matrix plot ----
+    if HAS_MPL and not no_plots:
+        n_panels = 2 if (cm_clean is not None) else 1
+        fig, axes = plt.subplots(1, n_panels, figsize=(5 * n_panels, 4))
+        if n_panels == 1:
+            axes = [axes]
+
+        def _plot_cm(ax, mat, title, total):
+            im = ax.imshow(mat, cmap="Blues", aspect="auto")
+            ax.set_xticks(range(len(labels)))
+            ax.set_xticklabels([f"Claude: {l}" for l in labels], fontsize=10)
+            ax.set_yticks(range(len(labels)))
+            ax.set_yticklabels([f"Switch→{l}" for l in labels], fontsize=10)
+            ax.set_xlabel("Claude's judgment", fontsize=11)
+            ax.set_ylabel("Switch direction", fontsize=11)
+            ax.set_title(title, fontsize=11)
+            for i in range(len(labels)):
+                for j in range(len(labels)):
+                    pct = mat[i, j] / total * 100 if total else 0
+                    color = "white" if mat[i, j] > mat.max() * 0.6 else "black"
+                    ax.text(j, i, f"{mat[i,j]}\n({pct:.1f}%)", ha="center", va="center",
+                            fontsize=9, color=color)
+
+        _plot_cm(axes[0], cm, f"All directional switches\n(n={n_2class} switch events, {n_debates_2class} debates)", cm.sum())
+        if cm_clean is not None:
+            _plot_cm(axes[1], cm_clean, f"Clean Pro↔Con switches only\n(n={n_clean})", cm_clean.sum())
+
+        plt.suptitle("Switch direction vs. Claude's better-listener judgment", fontsize=12, y=1.02)
+        plt.tight_layout()
+        plt.savefig(output_dir / "rq1_switch_confusion.png", dpi=150, bbox_inches="tight")
+        plt.close()
+        print(f"Saved rq1_switch_confusion.png")
+
+    return result
+
+
+# ===========================================================================
 # 3c. CONTINUOUS — vote margin
 # ===========================================================================
 
@@ -727,7 +922,7 @@ def analyze_logistic(df: pd.DataFrame):
 # 4. REPORT
 # ===========================================================================
 
-def write_report(df, metrics_df, sw_df, hm_df, cont, logit_df, output_dir: Path):
+def write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_dir: Path):
     lines = []
 
     def h(level, text):
@@ -842,6 +1037,56 @@ def write_report(df, metrics_df, sw_df, hm_df, cont, logit_df, output_dir: Path)
     blank()
 
     p("![Switch scatter](rq1_switch_scatter.png)")
+    blank()
+
+    # --- Conditional switchers analysis ---
+    h(2, "Vote Switching: Conditional on Switching")
+    p(
+        "The correlation analysis above tests whether debates where Con listened better "
+        "also saw *more* net switching toward Con — but most voters do not switch at all, "
+        "which dilutes the signal. "
+        "This section asks a sharper question: **among voters who actually switched their vote, "
+        "did they tend to move toward the side Claude identified as the better listener?** "
+        "The unit of analysis here is the individual switch event (voter × debate). "
+        "Bootstrap CIs resample at the debate level to respect within-debate clustering "
+        "(all switchers in a debate share the same Claude judgment)."
+    )
+    blank()
+    n_sw = sw_cond["n_total_switchers"]
+    n_d_sw = sw_cond["n_debates_with_switches"]
+    n_2c = sw_cond["n_2class_switchers"]
+    n_d_2c = sw_cond["n_2class_debates"]
+    p(f"Total switch events across all {len(df)} debates: {n_sw} "
+      f"(from {n_d_sw} debates that had at least one vote flip). "
+      f"After excluding debates where Claude's judgment was Tie: "
+      f"{n_2c} switch events across {n_d_2c} debates.")
+    blank()
+
+    h(3, "Headline: switch direction vs. Claude judgment (Tie debates excluded)")
+    p("| n switches | n debates | Accuracy (%) | 95% CI | Cohen's κ | 95% CI | Gwet's AC1 | Macro F1 |")
+    p("|---|---|---|---|---|---|---|---|")
+    p(f"| {n_2c} | {n_d_2c} | {sw_cond['accuracy']:.2f} | "
+      f"[{sw_cond['acc_lo95']:.2f}, {sw_cond['acc_hi95']:.2f}] | "
+      f"{sw_cond['kappa']:.4f} | [{sw_cond['kappa_lo95']:.4f}, {sw_cond['kappa_hi95']:.4f}] | "
+      f"{sw_cond['gwet_ac1']:.4f} | {sw_cond['macro_f1']:.4f} |")
+    blank()
+
+    p(f"Chi-square test of independence (switch direction × Claude judgment): "
+      f"χ²({sw_cond['chi2_dof']}) = {sw_cond['chi2']:.4f}, p = {sw_cond['chi2_p']:.5f}.")
+    blank()
+
+    if sw_cond["acc_clean"] is not None:
+        n_cl = sw_cond["n_clean_switchers"]
+        h(3, "Robustness: clean Pro↔Con switches only")
+        p(
+            f"Restricting to voters who switched cleanly between Pro and Con "
+            f"(excluding Pro↔Tie and Tie↔Con transitions): "
+            f"n = {n_cl} switch events. "
+            f"Accuracy = {sw_cond['acc_clean']:.2f}%, Cohen's κ = {sw_cond['kappa_clean']:.4f}."
+        )
+        blank()
+
+    p("![Switch confusion matrix](rq1_switch_confusion.png)")
     blank()
 
     # --- Heatmap ---
@@ -1008,6 +1253,9 @@ def main():
     print("Running vote-switching analysis...")
     sw_df = analyze_vote_switching(df, args.bootstrap, output_dir, args.no_plots)
 
+    print("Running conditional vote-switching analysis...")
+    sw_cond = analyze_switchers_conditional(df, args.bootstrap, output_dir, args.no_plots)
+
     print("Running continuous analysis...")
     cont = analyze_continuous(df, args.bootstrap)
 
@@ -1018,7 +1266,7 @@ def main():
     logit_df = analyze_logistic(df)
 
     print("Writing report...")
-    write_report(df, metrics_df, sw_df, hm_df, cont, logit_df, output_dir)
+    write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_dir)
 
     print(f"\nDone. All outputs in {output_dir}/")
 
