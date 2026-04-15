@@ -92,10 +92,11 @@ def parse_structured_response(response_text: str) -> dict:
             if not isinstance(dim_obj, dict):
                 continue
             score = dim_obj.get("score")
+            min_val, max_val = (1, 3) if dim == "concession_and_common_ground" else (1, 5)
             normalized_score = None
-            if isinstance(score, int) and 1 <= score <= 5:
+            if isinstance(score, int) and min_val <= score <= max_val:
                 normalized_score = score
-            elif isinstance(score, str) and score.isdigit() and 1 <= int(score) <= 5:
+            elif isinstance(score, str) and score.isdigit() and min_val <= int(score) <= max_val:
                 normalized_score = int(score)
 
             evaluation[side][dim] = {

@@ -322,6 +322,7 @@ def main():
         print("Parsed evaluation:")
         print(json.dumps(evaluation, indent=2))
         print("Parsed overall judgment:", judgment)
+        print("Usage:", usage or {})
 
         results.append(
             {
