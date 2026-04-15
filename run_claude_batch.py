@@ -285,7 +285,7 @@ def main():
         start = time.perf_counter()
         msg = client.messages.create(
             model=args.model,
-            max_tokens=1200,
+            max_tokens=1500,
             temperature=0,
             system=system_content,
             messages=[{"role": "user", "content": user_blocks}],
@@ -299,7 +299,7 @@ def main():
             "request_id": request_id,
             "model": args.model,
             "temperature": 0,
-            "max_tokens": 1200,
+            "max_tokens": 1500,
             "cache_enabled": args.enable_cache,
             "cache_ttl": args.cache_ttl,
             "cache_marker": args.cache_marker,
@@ -356,7 +356,7 @@ def main():
                     start = time.perf_counter()
                     msg = client.messages.create(
                         model=args.model,
-                        max_tokens=1200,
+                        max_tokens=1500,
                         temperature=0,
                         system=system_content,
                         messages=[{"role": "user", "content": user_blocks}],
@@ -371,7 +371,7 @@ def main():
                         "request_id": request_id,
                         "model": args.model,
                         "temperature": 0,
-                        "max_tokens": 1200,
+                        "max_tokens": 1500,
                         "cache_enabled": args.enable_cache,
                         "cache_ttl": args.cache_ttl,
                         "cache_marker": args.cache_marker,
@@ -397,7 +397,7 @@ def main():
                         "request_id": request_id,
                         "model": args.model,
                         "temperature": 0,
-                        "max_tokens": 1200,
+                        "max_tokens": 1500,
                         "cache_enabled": args.enable_cache,
                         "cache_ttl": args.cache_ttl,
                         "cache_marker": args.cache_marker,
@@ -495,7 +495,7 @@ def main():
                     "request_id": request_id,
                     "model": args.model,
                     "temperature": 0,
-                    "max_tokens": 1200,
+                    "max_tokens": 1500,
                     "cache_enabled": args.enable_cache,
                     "cache_ttl": args.cache_ttl,
                     "cache_marker": args.cache_marker,
@@ -516,7 +516,7 @@ def main():
                         "custom_id": custom_id,
                         "params": {
                             "model": args.model,
-                            "max_tokens": 1200,
+                            "max_tokens": 1500,
                             "temperature": 0,
                             "system": system_content,
                             "messages": [{"role": "user", "content": user_blocks}],
@@ -556,70 +556,35 @@ def main():
             status = None
             while True:
                 batch = client.messages.batches.retrieve(batch_id)
-                status = (
-                    batch.processing_status
-                    if hasattr(batch, "processing_status")
-                    else batch.get("processing_status")
-                )
-                if status in {"completed", "failed", "canceled", "expired"}:
+                status = batch.processing_status
+                if status == "ended":
                     break
-                print(f"  Batch status: {status}. Waiting {args.batch_poll_secs}s.")
+                request_counts = getattr(batch, "request_counts", None)
+                print(f"  Batch status: {status}. Request counts: {request_counts}. Waiting {args.batch_poll_secs}s.")
                 time.sleep(args.batch_poll_secs)
 
-            if status != "completed":
-                _write_report(
-                    "ended",
-                    {
-                        "mode": "batch",
-                        "model": args.model,
-                        "total": len(requests),
-                        "batch_id": batch_id,
-                        "status": status,
-                        "completed": len(results),
-                    },
-                )
-                raise RuntimeError(f"Batch ended with status: {status}")
-
-            result_items = client.messages.batches.list_results(batch_id)
-            if hasattr(result_items, "data"):
-                result_items = result_items.data
-
-            for item in result_items:
-                custom_id = (
-                    item.custom_id
-                    if hasattr(item, "custom_id")
-                    else item.get("custom_id")
-                )
-                result = item.result if hasattr(item, "result") else item.get("result", {})
+            print(f"  Batch ended. Retrieving results.")
+            for item in client.messages.batches.results(batch_id):
+                custom_id = item.custom_id
+                result = item.result
                 debate_id = debate_map.get(str(custom_id), custom_id)
                 request_metadata = request_meta_map.get(str(debate_id), {}).copy()
                 request_metadata["batch_id"] = batch_id
                 request_metadata["custom_id"] = custom_id
 
-                if result and (
-                    result.get("type") == "succeeded" or hasattr(result, "message")
-                ):
-                    message = (
-                        result.get("message")
-                        if isinstance(result, dict)
-                        else result.message
-                    )
-                    content = (
-                        message.get("content")
-                        if isinstance(message, dict)
-                        else message.content
-                    )
-                    response_text = content[0].text if content else ""
+                if result.type == "succeeded":
+                    message = result.message
+                    response_text = message.content[0].text if message.content else ""
                     evaluation = parse_structured_response(response_text)
                     judgment = evaluation["overall_better_listener"]["judgment"]
                     response_metadata = _extract_response_meta(message, None)
                     usage = _extract_usage(message)
                 else:
-                    error = result.get("error") if isinstance(result, dict) else None
-                    response_text = str(error) if error else "Batch request failed."
+                    error = getattr(result, "error", None)
+                    response_text = str(error) if error else f"Batch request {result.type}."
                     evaluation = _empty_evaluation()
                     judgment = "Tie"
-                    response_metadata = {"error": response_text}
+                    response_metadata = {"error": response_text, "result_type": result.type}
                     usage = {}
 
                 results.append(

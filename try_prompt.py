@@ -72,7 +72,7 @@ def _call_with_retries(
             start = time.perf_counter()
             msg = client.messages.create(
                 model=model,
-                max_tokens=1200,
+                max_tokens=1500,
                 temperature=0,
                 system=system_content,
                 messages=[{"role": "user", "content": user_content}],
@@ -408,7 +408,7 @@ def main():
             "request_id": request_id,
             "model": args.model,
             "temperature": 0,
-            "max_tokens": 1200,
+            "max_tokens": 1500,
             "cache_enabled": args.enable_cache,
             "cache_ttl": args.cache_ttl,
             "cache_marker": args.cache_marker,
