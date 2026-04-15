@@ -601,8 +601,8 @@ def main():
                     }
                 )
                 _maybe_warn_cache(request_metadata, usage)
-                if len(results) % 50 == 0:
-                    _write_checkpoint()
+                # if len(results) % 50 == 0:
+                #     _write_checkpoint()
 
             _write_report(
                 "completed",
