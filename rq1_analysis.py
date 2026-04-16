@@ -9,11 +9,14 @@ Outputs under reports/rq1/:
     rq1_overall_metrics.csv        headline winner-agreement table
     rq1_switching.csv              listening margin vs. vote-switching correlations
     rq1_switchers_conditional.csv  voter-level switcher table (conditional analysis)
-    rq1_heatmap_cells.csv          5x4 cell values with rho, p, BH-corrected q
+    rq1_heatmap_cells.csv          5x5 cell values with rho, p, BH-corrected q
+    rq1_dim_gt_correlations.csv    per-dimension rho vs 3 binarized ground truths
+    rq1_classifier.csv             cross-validated logistic classifier summary
     rq1_winner_confusion.png       2x2 grid of confusion matrices
     rq1_switch_scatter.png         listening margin vs. net switch toward Con
     rq1_switch_confusion.png       confusion matrix: Claude judgment × switch direction
-    rq1_heatmap.png                5x4 Spearman rho heatmap
+    rq1_heatmap.png                5x5 Spearman rho heatmap
+    rq1_dim_gt_barchart.png        bar chart: per-dim rho vs 3 ground truths
 
 Sign convention: all "margin" values are con − pro.
   Positive listening margin → Con listened better.
@@ -59,6 +62,9 @@ SUBVOTES = [
     "more_convincing_arguments",
     "most_reliable_sources",
 ]
+# 5th heatmap column: continuous post-debate vote margin
+HEATMAP_COLS = SUBVOTES + ["vote_margin"]
+
 # Rescala et al. (2024) Table 2 benchmark numbers (cited, not reproduced)
 RESCALA_RANDOM   = 33.33   # percent
 RESCALA_MAJORITY = 60.69   # percent
@@ -759,7 +765,7 @@ def analyze_continuous(df: pd.DataFrame, n_boot: int):
 
 
 # ===========================================================================
-# 3d. HEATMAP — 5x4 Spearman correlations
+# 3d. HEATMAP — 5×5 Spearman correlations (5 dims × 4 sub-votes + vote_margin)
 # ===========================================================================
 
 def analyze_heatmap(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: bool):
@@ -773,15 +779,15 @@ def analyze_heatmap(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: b
         HAS_MPL = False
 
     rows = []
-    rhos = np.zeros((len(DIMS), len(SUBVOTES)))
-    pvals = np.zeros((len(DIMS), len(SUBVOTES)))
-
-    rhos_wtd = np.zeros((len(DIMS), len(SUBVOTES)))
+    n_cols = len(HEATMAP_COLS)  # 5
+    rhos = np.zeros((len(DIMS), n_cols))
+    pvals = np.zeros((len(DIMS), n_cols))
+    rhos_wtd = np.zeros((len(DIMS), n_cols))
 
     for i, dim in enumerate(DIMS):
-        for j, sv in enumerate(SUBVOTES):
+        for j, col in enumerate(HEATMAP_COLS):
             x_col = f"margin_{dim}"
-            y_col = f"subvote_margin_{sv}"
+            y_col = "vote_margin" if col == "vote_margin" else f"subvote_margin_{col}"
             sub = df[[x_col, y_col]].dropna()
             n = len(sub)
             rho, p = spearmanr(sub[x_col].values, sub[y_col].values)
@@ -795,11 +801,11 @@ def analyze_heatmap(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: b
             rho_w, p_w = spearmanr(exp_w[x_col].values, exp_w[y_col].values)
             rhos_wtd[i, j] = rho_w
 
-            rows.append({"dim": dim, "subvote": sv, "n": n,
+            rows.append({"dim": dim, "subvote": col, "n": n,
                          "rho": round(rho, 4), "p": round(p, 5),
                          "rho_wtd": round(rho_w, 4), "p_wtd": round(p_w, 5)})
 
-    # BH correction over all 20 cells (unweighted p)
+    # BH correction over all 25 cells (5×5; unweighted p)
     from statsmodels.stats.multitest import multipletests
     all_p     = [r["p"]     for r in rows]
     all_p_wtd = [r["p_wtd"] for r in rows]
@@ -815,17 +821,13 @@ def analyze_heatmap(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: b
     # Heatmap PNG
     if HAS_MPL and not no_plots:
         import matplotlib.pyplot as plt
-        import matplotlib.colors as mcolors
-        fig, ax = plt.subplots(figsize=(9, 6))
-        vmax = max(abs(rhos.min()), abs(rhos.max()), 0.1)
-        im = ax.imshow(rhos, cmap="RdBu_r", vmin=-vmax, vmax=vmax, aspect="auto")
-        plt.colorbar(im, ax=ax, label="Spearman ρ")
 
-        short_sv = {
+        short_col = {
             "better_conduct": "Conduct",
             "better_spelling_and_grammar": "Grammar",
             "more_convincing_arguments": "Arguments",
             "most_reliable_sources": "Sources",
+            "vote_margin": "Vote\nMargin",
         }
         short_dim = {
             "acknowledgment": "Acknowledge",
@@ -834,51 +836,43 @@ def analyze_heatmap(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: b
             "concession_and_common_ground": "Concession",
             "respectful_engagement": "Respect",
         }
-        ax.set_xticks(range(len(SUBVOTES)))
-        ax.set_xticklabels([short_sv[s] for s in SUBVOTES], fontsize=10)
-        ax.set_yticks(range(len(DIMS)))
-        ax.set_yticklabels([short_dim[d] for d in DIMS], fontsize=10)
-        ax.set_xlabel("Persuasion sub-vote (Con − Pro margin)", fontsize=11)
-        ax.set_ylabel("Listening dimension margin (Con − Pro)", fontsize=11)
-        ax.set_title("Spearman ρ: listening margin × persuasion sub-vote margin\n(★ = BH-corrected q < 0.05)", fontsize=11)
 
-        # annotate cells
-        for i in range(len(DIMS)):
-            for j in range(len(SUBVOTES)):
-                r_entry = hm_df[(hm_df["dim"] == DIMS[i]) & (hm_df["subvote"] == SUBVOTES[j])].iloc[0]
-                star = "★" if r_entry["q_bh"] < 0.05 else ""
-                text = f"{rhos[i,j]:.2f}{star}"
-                color = "white" if abs(rhos[i, j]) > vmax * 0.6 else "black"
-                ax.text(j, i, text, ha="center", va="center", fontsize=9, color=color)
+        def _draw_heatmap(rho_mat, title, filename, wtd=False):
+            fig, ax = plt.subplots(figsize=(11, 6))
+            vmax = max(abs(rho_mat.min()), abs(rho_mat.max()), 0.1)
+            im = ax.imshow(rho_mat, cmap="RdBu_r", vmin=-vmax, vmax=vmax, aspect="auto")
+            plt.colorbar(im, ax=ax, label="Spearman ρ" + (" (voter-weighted)" if wtd else ""))
+            ax.set_xticks(range(n_cols))
+            ax.set_xticklabels([short_col[c] for c in HEATMAP_COLS], fontsize=10)
+            ax.set_yticks(range(len(DIMS)))
+            ax.set_yticklabels([short_dim[d] for d in DIMS], fontsize=10)
+            ax.set_xlabel("Sub-vote / vote margin (Con − Pro)", fontsize=11)
+            ax.set_ylabel("Listening dimension margin (Con − Pro)", fontsize=11)
+            ax.set_title(title, fontsize=11)
+            q_key = "q_bh_wtd" if wtd else "q_bh"
+            for i in range(len(DIMS)):
+                for j in range(n_cols):
+                    r_entry = hm_df[(hm_df["dim"] == DIMS[i]) & (hm_df["subvote"] == HEATMAP_COLS[j])].iloc[0]
+                    star = "★" if r_entry[q_key] < 0.05 else ""
+                    text = f"{rho_mat[i,j]:.2f}{star}"
+                    color = "white" if abs(rho_mat[i, j]) > vmax * 0.6 else "black"
+                    ax.text(j, i, text, ha="center", va="center", fontsize=9, color=color)
+            plt.tight_layout()
+            plt.savefig(filename, dpi=150, bbox_inches="tight")
+            plt.close()
+            print(f"Saved {Path(filename).name}")
 
-        plt.tight_layout()
-        plt.savefig(output_dir / "rq1_heatmap.png", dpi=150, bbox_inches="tight")
-        plt.close()
-        print(f"Saved rq1_heatmap.png")
-
-        # Weighted heatmap
-        fig, ax = plt.subplots(figsize=(9, 6))
-        vmax_w = max(abs(rhos_wtd.min()), abs(rhos_wtd.max()), 0.1)
-        im = ax.imshow(rhos_wtd, cmap="RdBu_r", vmin=-vmax_w, vmax=vmax_w, aspect="auto")
-        plt.colorbar(im, ax=ax, label="Spearman ρ (voter-weighted)")
-        ax.set_xticks(range(len(SUBVOTES)))
-        ax.set_xticklabels([short_sv[s] for s in SUBVOTES], fontsize=10)
-        ax.set_yticks(range(len(DIMS)))
-        ax.set_yticklabels([short_dim[d] for d in DIMS], fontsize=10)
-        ax.set_xlabel("Persuasion sub-vote (Con − Pro margin)", fontsize=11)
-        ax.set_ylabel("Listening dimension margin (Con − Pro)", fontsize=11)
-        ax.set_title("Spearman ρ (voter-weighted): listening × persuasion\n(★ = BH-corrected q < 0.05)", fontsize=11)
-        for i in range(len(DIMS)):
-            for j in range(len(SUBVOTES)):
-                r_entry = hm_df[(hm_df["dim"] == DIMS[i]) & (hm_df["subvote"] == SUBVOTES[j])].iloc[0]
-                star = "★" if r_entry["q_bh_wtd"] < 0.05 else ""
-                text = f"{rhos_wtd[i,j]:.2f}{star}"
-                color = "white" if abs(rhos_wtd[i, j]) > vmax_w * 0.6 else "black"
-                ax.text(j, i, text, ha="center", va="center", fontsize=9, color=color)
-        plt.tight_layout()
-        plt.savefig(output_dir / "rq1_heatmap_weighted.png", dpi=150, bbox_inches="tight")
-        plt.close()
-        print(f"Saved rq1_heatmap_weighted.png")
+        _draw_heatmap(
+            rhos,
+            "Spearman ρ: listening margin × sub-vote / vote margin\n(★ = BH-corrected q < 0.05, 25 tests)",
+            output_dir / "rq1_heatmap.png",
+        )
+        _draw_heatmap(
+            rhos_wtd,
+            "Spearman ρ (voter-weighted): listening × sub-vote / vote margin\n(★ = BH-corrected q < 0.05, 25 tests)",
+            output_dir / "rq1_heatmap_weighted.png",
+            wtd=True,
+        )
 
     return hm_df
 
@@ -919,10 +913,267 @@ def analyze_logistic(df: pd.DataFrame):
 
 
 # ===========================================================================
+# 3f. PER-DIMENSION CORRELATIONS WITH BINARIZED GROUND TRUTH
+# ===========================================================================
+
+def analyze_dim_vs_ground_truth(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: bool):
+    """
+    For each listening dimension margin, compute Spearman rho against three binarized
+    ground truths (Con=1, Pro=0; Tie debates excluded).
+
+    This directly answers "which listening dimensions individually predict who won"
+    without multicollinearity, complementing the heatmap (which correlates against
+    sub-vote margins) and the logistic regression (which suffers from correlated
+    predictors). Bootstrap 95% CIs from n_boot debate-level resamples.
+    """
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        HAS_MPL = True
+    except ImportError:
+        HAS_MPL = False
+
+    GT_VARIANTS = [
+        ("q1_ground_truth",        "Q1 ground truth"),
+        ("majority_winner_procon",  "Majority winner (Pro/Con)"),
+        ("majority_winner",         "Majority winner"),
+    ]
+
+    rows = []
+    for dim in DIMS:
+        x_col = f"margin_{dim}"
+        for gt_col, gt_label in GT_VARIANTS:
+            sub = df[[x_col, gt_col]].dropna()
+            sub = sub[sub[gt_col].isin(["Pro", "Con"])].copy()
+            sub["y_bin"] = (sub[gt_col] == "Con").astype(float)
+            n = len(sub)
+            if n < 5:
+                continue
+            rho, p = stats.spearmanr(sub[x_col].values, sub["y_bin"].values)
+            ci_lo, ci_hi = bootstrap_ci(
+                lambda d: stats.spearmanr(d[x_col].values, d["y_bin"].values)[0],
+                sub, n_boot
+            )
+            rows.append({
+                "dimension": dim,
+                "ground_truth_variant": gt_label,
+                "n": n,
+                "rho": round(float(rho), 4),
+                "p": round(float(p), 5),
+                "ci_lo_95": round(float(ci_lo), 4),
+                "ci_hi_95": round(float(ci_hi), 4),
+            })
+
+    dim_gt_df = pd.DataFrame(rows)
+    dim_gt_df.to_csv(output_dir / "rq1_dim_gt_correlations.csv", index=False)
+    print(f"Saved rq1_dim_gt_correlations.csv ({len(dim_gt_df)} rows)")
+
+    if HAS_MPL and not no_plots:
+        import matplotlib.pyplot as plt
+
+        short_dim = {
+            "acknowledgment": "Acknowledge",
+            "accuracy_of_representation": "Accuracy",
+            "responsiveness": "Responsive",
+            "concession_and_common_ground": "Concession",
+            "respectful_engagement": "Respect",
+        }
+        gt_labels_ordered = [v for _, v in GT_VARIANTS]
+        colors = ["#4C72B0", "#DD8452", "#55A868"]
+        x = np.arange(len(DIMS))
+        width = 0.25
+
+        fig, ax = plt.subplots(figsize=(12, 6))
+        for gi, gt_label in enumerate(gt_labels_ordered):
+            rhos_gt, errs_lo, errs_hi = [], [], []
+            for dim in DIMS:
+                r = dim_gt_df[(dim_gt_df["dimension"] == dim) &
+                               (dim_gt_df["ground_truth_variant"] == gt_label)]
+                if len(r) == 0:
+                    rhos_gt.append(0.0)
+                    errs_lo.append(0.0)
+                    errs_hi.append(0.0)
+                else:
+                    r = r.iloc[0]
+                    rhos_gt.append(r["rho"])
+                    errs_lo.append(r["rho"] - r["ci_lo_95"])
+                    errs_hi.append(r["ci_hi_95"] - r["rho"])
+            offset = (gi - 1) * width
+            ax.bar(x + offset, rhos_gt, width, label=gt_label,
+                   color=colors[gi], alpha=0.8)
+            ax.errorbar(x + offset, rhos_gt,
+                        yerr=[errs_lo, errs_hi],
+                        fmt="none", color="black", capsize=3, linewidth=1)
+        ax.set_xticks(x)
+        ax.set_xticklabels([short_dim[d] for d in DIMS], fontsize=11)
+        ax.set_ylabel("Spearman ρ", fontsize=12)
+        ax.set_xlabel("Listening dimension", fontsize=12)
+        ax.set_title(
+            "Per-dimension Spearman ρ with binarized ground truth (Con=1, Pro=0)\n"
+            "95% bootstrap CIs shown; Tie debates excluded",
+            fontsize=11,
+        )
+        ax.axhline(0, color="black", linewidth=0.8, linestyle="--")
+        ax.legend(title="Ground truth", fontsize=10)
+        plt.tight_layout()
+        plt.savefig(output_dir / "rq1_dim_gt_barchart.png", dpi=150, bbox_inches="tight")
+        plt.close()
+        print(f"Saved rq1_dim_gt_barchart.png")
+
+    return dim_gt_df
+
+
+# ===========================================================================
+# 3g. CROSS-VALIDATED LOGISTIC CLASSIFIER
+# ===========================================================================
+
+def analyze_cv_classifier(df: pd.DataFrame, output_dir: Path):
+    """
+    Cross-validated logistic regression predicting debate winner from eight features:
+      - 5 listening-dimension margins
+      - 3 binary indicators for Claude's overall judgment (Pro / Con / Tie)
+
+    2-class condition: Q1 ground truth, Tie rows excluded from ground truth;
+      all Claude judgment values (including Tie) retained as features.
+    3-class condition: Q1 ground truth, Tie included; all rows with non-null Q1 label.
+
+    GridSearchCV over C and penalty with StratifiedKFold(10, shuffle=True, seed=42).
+    """
+    try:
+        from sklearn.linear_model import LogisticRegression
+        from sklearn.model_selection import StratifiedKFold, GridSearchCV
+    except ImportError:
+        print("scikit-learn not available; skipping CV classifier analysis")
+        return None
+
+    import warnings
+
+    feat_cols = [f"margin_{d}" for d in DIMS]
+
+    # Binary claude_overall indicators
+    df2 = df.copy()
+    for label in ["Pro", "Con", "Tie"]:
+        df2[f"claude_{label.lower()}"] = (df2["claude_overall"] == label).astype(float)
+
+    feature_cols = feat_cols + ["claude_pro", "claude_con", "claude_tie"]
+
+    cv = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
+    param_grid = {
+        "C": [0.001, 0.01, 0.1, 1, 10, 100],
+        "penalty": ["l1", "l2"],
+    }
+
+    result_rows = []
+    details = {}
+
+    # ------------------------------------------------------------------
+    # 2-class: Q1 ground truth, Tie rows excluded
+    # ------------------------------------------------------------------
+    sub2 = (
+        df2[df2["q1_ground_truth"].isin(["Pro", "Con"])]
+        .dropna(subset=feature_cols + ["q1_ground_truth"])
+        .copy()
+    )
+    X2 = sub2[feature_cols].values
+    y2 = (sub2["q1_ground_truth"] == "Con").astype(int).values
+    n2 = len(sub2)
+    counts2 = np.bincount(y2)
+    majority_baseline_2 = round(100.0 * counts2.max() / n2, 2)
+
+    lr2 = LogisticRegression(solver="saga", max_iter=5000, random_state=42)
+    gs2 = GridSearchCV(lr2, param_grid, cv=cv, scoring="accuracy", n_jobs=-1, refit=True)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        gs2.fit(X2, y2)
+
+    idx2 = gs2.best_index_
+    cv_mean_2 = round(gs2.cv_results_["mean_test_score"][idx2] * 100, 2)
+    cv_std_2  = round(gs2.cv_results_["std_test_score"][idx2]  * 100, 2)
+
+    result_rows.append({
+        "condition":              "2-class",
+        "n":                      n2,
+        "cv_accuracy_mean":       cv_mean_2,
+        "cv_accuracy_std":        cv_std_2,
+        "best_C":                 gs2.best_params_["C"],
+        "best_penalty":           gs2.best_params_["penalty"],
+        "heuristic_accuracy":     64.37,
+        # always_majority_class_pct: accuracy of a classifier that always predicts
+        # whichever class (Con or Pro) is most frequent in the 2-class subset
+        "always_majority_class_pct": majority_baseline_2,
+        "random_baseline":        50.0,
+        "rescala_gpt4":           None,
+        "rescala_majority_vote":  None,
+    })
+    details["2class"] = {
+        "n": n2, "cv_mean": cv_mean_2, "cv_std": cv_std_2,
+        "best_C": gs2.best_params_["C"], "best_penalty": gs2.best_params_["penalty"],
+        "heuristic_accuracy": 64.37, "majority_baseline": majority_baseline_2, "random_baseline": 50.0,
+    }
+
+    # ------------------------------------------------------------------
+    # 3-class: Q1 ground truth including Tie
+    # ------------------------------------------------------------------
+    sub3 = (
+        df2[df2["q1_ground_truth"].isin(["Pro", "Con", "Tie"])]
+        .dropna(subset=feature_cols + ["q1_ground_truth"])
+        .copy()
+    )
+    X3 = sub3[feature_cols].values
+    y3_labels = sub3["q1_ground_truth"].values
+    n3 = len(sub3)
+    # Create integer codes for bincount
+    y3_encoded = pd.Categorical(y3_labels, categories=["Pro", "Con", "Tie"]).codes
+    counts3 = np.bincount(y3_encoded[y3_encoded >= 0])  # filter out any -1 (missing)
+    majority_baseline_3 = round(100.0 * counts3.max() / n3, 2)
+
+    # Use the original labels for the model
+    lr3 = LogisticRegression(solver="saga", max_iter=5000, random_state=42)
+    gs3 = GridSearchCV(lr3, param_grid, cv=cv, scoring="accuracy", n_jobs=-1, refit=True)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        gs3.fit(X3, y3_labels)
+
+    idx3 = gs3.best_index_
+    cv_mean_3 = round(gs3.cv_results_["mean_test_score"][idx3] * 100, 2)
+    cv_std_3  = round(gs3.cv_results_["std_test_score"][idx3]  * 100, 2)
+
+    result_rows.append({
+        "condition":              "3-class",
+        "n":                      n3,
+        "cv_accuracy_mean":       cv_mean_3,
+        "cv_accuracy_std":        cv_std_3,
+        "best_C":                 gs3.best_params_["C"],
+        "best_penalty":           gs3.best_params_["penalty"],
+        "heuristic_accuracy":     48.14,
+        "always_majority_class_pct": majority_baseline_3,
+        "random_baseline":        RESCALA_RANDOM,
+        "rescala_gpt4":           RESCALA_GPT4,
+        "rescala_majority_vote":  RESCALA_MAJORITY,
+    })
+    details["3class"] = {
+        "n": n3, "cv_mean": cv_mean_3, "cv_std": cv_std_3,
+        "best_C": gs3.best_params_["C"], "best_penalty": gs3.best_params_["penalty"],
+        "heuristic_accuracy": 48.14, "majority_baseline": majority_baseline_3, "random_baseline": RESCALA_RANDOM,
+    }
+
+    clf_df = pd.DataFrame(result_rows)
+    clf_df.to_csv(output_dir / "rq1_classifier.csv", index=False)
+    print(f"Saved rq1_classifier.csv")
+
+    details["df"] = clf_df
+    return details
+
+
+# ===========================================================================
 # 4. REPORT
 # ===========================================================================
 
-def write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_dir: Path):
+def write_report(
+    df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df,
+    dim_gt_df, clf_result, output_dir: Path
+):
     lines = []
 
     def h(level, text):
@@ -952,7 +1203,7 @@ def write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_d
         "both Claude's output and the ground truth) to match the Phase 1 IAA framing; "
         "3-class results are reported as robustness checks. "
         "Bootstrap 95% CIs use 2000 debate-level resamples (percentile method). "
-        "The 5×4 heatmap reports uncorrected Spearman ρ with p-values; "
+        "The 5×5 heatmap reports uncorrected Spearman ρ with p-values; "
         "a Benjamini–Hochberg q-value column is included in the CSV and significant cells "
         "(q < 0.05) are starred on the figure. The heatmap is explicitly exploratory. "
         "Two operationalizations of majority winner from post-debate votes are reported: "
@@ -1000,6 +1251,34 @@ def write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_d
     blank()
 
     p("![Confusion matrices](rq1_winner_confusion.png)")
+    blank()
+
+    # -----------------------------------------------------------------------
+    # NEW SECTION: Per-Dimension Correlations with Binarized Ground Truth
+    # -----------------------------------------------------------------------
+    h(2, "Per-Dimension Correlations with Binarized Ground Truth")
+    p(
+        "To determine which listening dimensions individually predict who won, "
+        "we compute Spearman ρ between each dimension margin (Con − Pro) and three "
+        "binarized ground truths (Con = 1, Pro = 0; Tie debates excluded in all variants). "
+        "This avoids the multicollinearity problem of the joint logistic regression. "
+        "Bootstrap 95% CIs from 2000 debate-level resamples."
+    )
+    blank()
+
+    if dim_gt_df is not None and len(dim_gt_df):
+        p("| Dimension | Ground truth variant | n | ρ | p | 95% CI |")
+        p("|---|---|---|---|---|---|")
+        for _, r in dim_gt_df.iterrows():
+            p(f"| {r['dimension']} | {r['ground_truth_variant']} | {r['n']} | "
+              f"{r['rho']:.4f} | {r['p']:.5f} | "
+              f"[{r['ci_lo_95']:.4f}, {r['ci_hi_95']:.4f}] |")
+        blank()
+    else:
+        p("*(dimension–ground-truth correlation table not available)*")
+        blank()
+
+    p("![Per-dimension ρ bar chart](rq1_dim_gt_barchart.png)")
     blank()
 
     # --- Vote switching ---
@@ -1090,12 +1369,13 @@ def write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_d
     blank()
 
     # --- Heatmap ---
-    h(2, "Per-Dimension × Per-Sub-Vote Heatmap")
+    h(2, "Per-Dimension × Per-Sub-Vote Heatmap (5×5)")
     p(
         "The following heatmap shows Spearman ρ between each listening-dimension margin "
         "(Con − Pro mean score) and each persuasion sub-vote margin "
-        "((n_Con − n_Pro) / n_votes on that sub-vote). "
-        "This is an exploratory 5×4 analysis (20 simultaneous tests); "
+        "((n_Con − n_Pro) / n_votes on that sub-vote), plus the overall post-debate vote margin "
+        "(the 5th column). "
+        "This is an exploratory 5×5 analysis (25 simultaneous tests); "
         "starred cells (★) survive Benjamini–Hochberg correction at q < 0.05."
     )
     blank()
@@ -1107,7 +1387,7 @@ def write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_d
     if len(sig_cells):
         p(f"**BH-significant cells (q < 0.05):**")
         blank()
-        p("| Listening dim | Sub-vote | n | ρ | p | q |")
+        p("| Listening dim | Sub-vote / vote margin | n | ρ | p | q |")
         p("|---|---|---|---|---|---|")
         for _, r in sig_cells.iterrows():
             p(f"| {r['dim']} | {r['subvote']} | {r['n']} | {r['rho']:.4f} | {r['p']:.5f} | {r['q_bh']:.5f} |")
@@ -1118,7 +1398,7 @@ def write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_d
     # Full heatmap table
     p("**Full heatmap values:**")
     blank()
-    p("| Listening dim | Sub-vote | n | ρ | p | q (BH) |")
+    p("| Listening dim | Sub-vote / vote margin | n | ρ | p | q (BH) |")
     p("|---|---|---|---|---|---|")
     for _, r in hm_df.iterrows():
         star = " ★" if r["q_bh"] < 0.05 else ""
@@ -1154,6 +1434,79 @@ def write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_d
             p(f"| {r['feature']} | {r['coef']:.4f} | {r['se']:.4f} | {r['p']:.5f} | "
               f"[{r['ci_lo']:.4f}, {r['ci_hi']:.4f}] |")
         blank()
+
+    # -----------------------------------------------------------------------
+    # NEW SECTION: Cross-Validated Logistic Classifier
+    # -----------------------------------------------------------------------
+    h(2, "Cross-Validated Logistic Classifier")
+    p(
+        "To assess whether listening features can predict the debate winner beyond "
+        "Claude's own categorical judgment, we train a logistic regression classifier "
+        "using eight features: the five listening-dimension margins plus three binary indicators "
+        "for Claude's overall judgment (one each for Pro, Con, Tie — set to 1 if Claude's overall "
+        "judgment matches that label, 0 otherwise). "
+        "Model selection uses GridSearchCV over C ∈ {0.001, 0.01, 0.1, 1, 10, 100} and "
+        "penalty ∈ {L1, L2} with solver='saga' and max_iter=5000. "
+        "Cross-validation uses StratifiedKFold(n_splits=10, shuffle=True, random_state=42). "
+        "Accuracy is the mean CV score at the best hyperparameter combination."
+    )
+    blank()
+    p(
+        "**2-class condition:** Q1 ground truth (Con = 1, Pro = 0); Tie debates excluded from the "
+        "ground truth label but Claude's Tie judgments are retained as features. "
+        "**3-class condition:** Q1 ground truth with Tie included as a third class; "
+        "all debates with a non-null Q1 label."
+    )
+    blank()
+
+    if clf_result is not None:
+        c2 = clf_result["2class"]
+        c3 = clf_result["3class"]
+        p(
+            "Baselines: *heuristic* = Claude's single overall-judgment label used directly as a "
+            "classifier (no learning); *always-majority* = accuracy of always "
+            "predicting the most frequent class in the dataset; *random* = uniform random "
+            "over classes. Rescala benchmarks apply to 3-class only and are on a related task "
+            "(see Methods Note)."
+        )
+        blank()
+        p("| Condition | n | CV accuracy (%) | ±std | Best C | Best penalty | "
+          "Heuristic (%) | Always-majority (%) | Random (%) | "
+          "Rescala GPT-4 (%) | Rescala majority (%) |")
+        p("|---|---|---|---|---|---|---|---|---|---|---|")
+        p(
+            f"| 2-class | {c2['n']} | {c2['cv_mean']:.2f} | {c2['cv_std']:.2f} | "
+            f"{c2['best_C']} | {c2['best_penalty']} | "
+            f"{c2['heuristic_accuracy']:.2f} | {c2['majority_baseline']:.2f} | {c2['random_baseline']:.2f} | — | — |"
+        )
+        p(
+            f"| 3-class | {c3['n']} | {c3['cv_mean']:.2f} | {c3['cv_std']:.2f} | "
+            f"{c3['best_C']} | {c3['best_penalty']} | "
+            f"{c3['heuristic_accuracy']:.2f} | {c3['majority_baseline']:.2f} | {c3['random_baseline']:.2f} | "
+            f"{RESCALA_GPT4:.2f} | {RESCALA_MAJORITY:.2f} |"
+        )
+        blank()
+        p(
+            f"The 2-class CV accuracy ({c2['cv_mean']:.2f}%) compares to the "
+            f"single-judgment heuristic ({c2['heuristic_accuracy']:.2f}%), the "
+            f"always-majority baseline ({c2['majority_baseline']:.2f}% — always predict "
+            f"the more frequent class in the 2-class subset), and to "
+            f"the random baseline ({c2['random_baseline']:.2f}%), "
+            f"The 3-class CV accuracy ({c3['cv_mean']:.2f}%) compares to the "
+            f"single-judgment heuristic ({c3['heuristic_accuracy']:.2f}%), the "
+            f"always-majority baseline ({c3['majority_baseline']:.2f}% — always predict "
+            f"the more frequent class in the 3-class subset), "
+            f"the random baseline ({c3['random_baseline']:.2f}%), "
+            f"Rescala et al.'s GPT-4 benchmark ({RESCALA_GPT4:.2f}%), "
+            f"and their majority-vote baseline ({RESCALA_MAJORITY:.2f}%). "
+            "Note that the Rescala benchmarks are on a related but not identical task; "
+            "comparisons are contextual."
+        )
+        blank()
+        p("Full results saved to `rq1_classifier.csv`.")
+    else:
+        p("*(CV classifier results not available — scikit-learn may not be installed)*")
+    blank()
 
     # --- Robustness footer ---
     h(2, "Robustness Notes")
@@ -1220,7 +1573,7 @@ def write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_d
       "`rho_wtd`, `p_wtd`, `q_bh_wtd` columns of `rq1_heatmap_cells.csv`.")
     sig_wtd = hm_df[hm_df["q_bh_wtd"] < 0.05].sort_values("rho_wtd", key=abs, ascending=False)
     if len(sig_wtd):
-        p(f"BH-significant cells in the weighted heatmap: {len(sig_wtd)}/20.")
+        p(f"BH-significant cells in the weighted heatmap: {len(sig_wtd)}/25.")
     blank()
 
     report_text = "\n".join(lines)
@@ -1237,15 +1590,30 @@ def main():
     parser.add_argument("--bootstrap", type=int, default=2000)
     parser.add_argument("--output-dir", type=str, default="reports/rq1")
     parser.add_argument("--no-plots", action="store_true")
+    parser.add_argument("--reuse-df", action="store_true")
     args = parser.parse_args()
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    print("Building dataframe...")
-    df = build_dataframe()
-    df.to_csv(output_dir / "rq1_joined.csv", index=False)
-    print(f"Saved rq1_joined.csv ({len(df)} rows)")
+    successful_load = False
+    if args.reuse_df:
+        df_path = output_dir / "rq1_joined.csv"
+        if df_path.exists():
+            try:
+                df = pd.read_csv(df_path)
+                print(f"Successfully loaded existing dataframe from {df_path} ({len(df)} rows)")
+                successful_load = True
+            except Exception as e:
+                print(f"Did not find valid df at {df_path}: {e}")
+        else:
+            print(f"Did not find file at {df_path}")
+
+    if not successful_load:
+        print("Building dataframe...")
+        df = build_dataframe()
+        df.to_csv(output_dir / "rq1_joined.csv", index=False)
+        print(f"Saved rq1_joined.csv ({len(df)} rows)")
 
     print(f"\nRunning headline analysis (bootstrap n={args.bootstrap})...")
     metrics_df = analyze_winner_agreement(df, args.bootstrap, output_dir, args.no_plots)
@@ -1259,14 +1627,23 @@ def main():
     print("Running continuous analysis...")
     cont = analyze_continuous(df, args.bootstrap)
 
-    print("Running heatmap analysis...")
+    print("Running heatmap analysis (5×5)...")
     hm_df = analyze_heatmap(df, args.bootstrap, output_dir, args.no_plots)
 
     print("Running logistic regression...")
     logit_df = analyze_logistic(df)
 
+    print("Running per-dimension vs. ground-truth correlations...")
+    dim_gt_df = analyze_dim_vs_ground_truth(df, args.bootstrap, output_dir, args.no_plots)
+
+    print("Running cross-validated logistic classifier...")
+    clf_result = analyze_cv_classifier(df, output_dir)
+
     print("Writing report...")
-    write_report(df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df, output_dir)
+    write_report(
+        df, metrics_df, sw_df, sw_cond, hm_df, cont, logit_df,
+        dim_gt_df, clf_result, output_dir
+    )
 
     print(f"\nDone. All outputs in {output_dir}/")
 

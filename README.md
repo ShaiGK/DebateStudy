@@ -177,11 +177,14 @@ Writes to `reports/rq1/`:
 - `rq1_report.md` — full write-up with methods note, headline tables, and robustness checks
 - `rq1_overall_metrics.csv` — winner-agreement accuracy / κ / AC1 / macro-F1 under three ground-truth definitions × {3-class, 2-class} × {unweighted, voter-weighted}
 - `rq1_switching.csv` — Spearman / Pearson correlations between each listening-dimension margin and `net_switch_toward_con`
-- `rq1_heatmap_cells.csv` — 5 listening dims × 4 persuasion sub-votes, Spearman ρ with Benjamini–Hochberg q-values
+- `rq1_dim_gt_correlations.csv` — per-dimension Spearman ρ against three binarized ground truths (Con=1, Pro=0, Tie dropped), with bootstrap 95% CIs
+- `rq1_heatmap_cells.csv` — 5 listening dims × 5 columns (4 persuasion sub-votes + overall vote margin), Spearman ρ with Benjamini–Hochberg q-values (25 tests)
+- `rq1_classifier.csv` — cross-validated logistic classifier results (2-class and 3-class)
 - `rq1_joined.csv` — the joined debate-level feature table
 - `rq1_winner_confusion.png`, `rq1_winner_confusion_weighted.png` — confusion matrices
 - `rq1_switch_scatter.png` — composite listening margin vs. net switch toward Con
-- `rq1_heatmap.png`, `rq1_heatmap_weighted.png` — the 5×4 ρ heatmap
+- `rq1_dim_gt_barchart.png` — grouped bar chart: per-dimension ρ vs. three binarized ground truths
+- `rq1_heatmap.png`, `rq1_heatmap_weighted.png` — the 5×5 ρ heatmap (5 dims × 4 sub-votes + vote margin)
 
 ---
 
@@ -195,7 +198,7 @@ Writes to `reports/rq1/`:
 
 **Unit of analysis.** The debate, unweighted, is the headline. Voter-weighted variants (each debate replicated by its `n_votes`) are reported as robustness. Bootstrap CIs always resample debates, then expand by vote counts for weighted stats.
 
-**Multiple comparisons.** The 5×4 heatmap applies Benjamini–Hochberg correction across its 20 cells and stars cells with q < 0.05. It's labeled exploratory.
+**Multiple comparisons.** The 5×5 heatmap applies Benjamini–Hochberg correction across its 25 cells (5 dims × 4 sub-votes + vote margin) and stars cells with q < 0.05. It's labeled exploratory.
 
 ---
 
