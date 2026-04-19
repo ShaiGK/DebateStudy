@@ -23,10 +23,11 @@ Internal consistency
     you'd get by taking the mean of their own sub-scores? Sanity check.
 
 Outputs:
-  reports/iaa/iaa_report.md         - full markdown report
-  reports/iaa/iaa_per_dimension.csv - per-cell metrics (for thesis tables)
-  reports/iaa/iaa_disagreements.md  - every disagreement, side by side
-  reports/iaa/iaa_heatmap.png       - per-dimension weighted-kappa heatmap
+  reports/iaa/iaa_report.md              - full markdown report
+  reports/iaa/iaa_per_dimension.csv      - per-cell metrics (for thesis tables)
+  reports/iaa/iaa_disagreements.md       - every disagreement, side by side
+  reports/iaa/iaa_heatmap.png            - per-dimension weighted-kappa heatmap
+  reports/iaa/iaa_confusion_matrix.png   - 3×3 overall judgment confusion matrix
 
 Usage:
     python compare.py                         # vs. claude_listening_trial.json (default)
@@ -773,9 +774,12 @@ def write_report(result: dict, output_dir: Path, make_plots: bool) -> None:
     df = pd.DataFrame(dims["per_cell"])
     df.to_csv(output_dir / "iaa_per_dimension.csv", index=False)
 
-    # Heatmap
+    # Heatmaps
     if make_plots:
         _write_heatmap(dims["per_cell"], output_dir)
+        if o.get("n", 0) > 0:
+            cm3 = np.array(o["confusion_matrix_3class"])
+            _write_confusion_heatmap(cm3, output_dir)
 
 
 def write_disagreements(human: dict, claude: dict, output_dir: Path) -> None:
@@ -874,6 +878,42 @@ def _write_heatmap(per_cell: list[dict], output_dir: Path) -> None:
     plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
     plt.tight_layout()
     plt.savefig(output_dir / "iaa_heatmap.png", dpi=150)
+    plt.close(fig)
+
+
+def _write_confusion_heatmap(cm: np.ndarray, output_dir: Path) -> None:
+    """Generate a 3×3 confusion matrix heatmap for overall better-listener judgment."""
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+    except ImportError:
+        print("matplotlib not installed; skipping confusion matrix heatmap.")
+        return
+
+    fig, ax = plt.subplots(figsize=(6, 5))
+    im = ax.imshow(cm, cmap="Blues", aspect="auto")
+
+    ax.set_xticks(range(3))
+    ax.set_xticklabels(JUDGMENT_LABELS)
+    ax.set_yticks(range(3))
+    ax.set_yticklabels(JUDGMENT_LABELS)
+
+    ax.set_xlabel("Claude's Judgment", fontsize=12)
+    ax.set_ylabel("Human Judgment", fontsize=12)
+    ax.set_title("Overall Better-Listener Judgment Confusion Matrix", fontsize=13, pad=15)
+
+    # Annotate cells with counts
+    for i in range(3):
+        for j in range(3):
+            count = cm[i, j]
+            text_color = "white" if cm[i, j] > cm.max() / 2 else "black"
+            ax.text(j, i, str(count), ha="center", va="center",
+                   color=text_color, fontsize=14, fontweight="bold")
+
+    plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    plt.tight_layout()
+    plt.savefig(output_dir / "iaa_confusion_matrix.png", dpi=150)
     plt.close(fig)
 
 
