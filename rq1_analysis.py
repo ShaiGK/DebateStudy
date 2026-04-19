@@ -726,7 +726,7 @@ def analyze_switchers_conditional(df: pd.DataFrame, n_boot: int, output_dir: Pat
             for i in range(len(labels)):
                 for j in range(len(labels)):
                     pct = mat[i, j] / total * 100 if total else 0
-                    color = "white" if mat[i, j] > mat.max() * 0.6 else "black"
+                    color = "white" if mat[i, j] > mat.max() * 0.8 else "black"
                     ax.text(j, i, f"{mat[i,j]}\n({pct:.1f}%)", ha="center", va="center",
                             fontsize=9, color=color)
 
