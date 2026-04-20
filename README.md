@@ -1,16 +1,15 @@
 # Debate Study: LLM Listening Judgments and Debate Outcomes
 
-Undergraduate thesis code. The project asks a simple question:
+Undergraduate thesis code. The project asks: can a large language model identify which side of an online debate "listened" better — and does that judgment predict who won?
 
-> When a large language model reads an online debate, can it identify which side "listened" better — and does that judgment line up with which side actually won?
+The corpus is the debate.org dataset curated by Rescala et al. (2024) — 833 multi-round debates with pre- and post-debate votes from readers. This repo adds a five-dimension **listening rubric**, a human pilot annotation tool, a Claude evaluation pipeline, inter-annotator agreement analyses, correlational analyses against persuasion outcomes, and a cross-validated classifier that uses listening features to predict debate winners.
 
-The corpus is the debate.org dataset curated by Rescala et al. (2024) — roughly 830 multi-round debates with pre- and post-debate votes from readers. On top of their dataset, this repo adds a five-dimension **listening rubric**, a human pilot annotation tool, a Claude evaluation pipeline, inter-annotator agreement analyses, and correlational analyses against persuasion outcomes.
+The work is organized around four research questions:
 
-The work is organized around three research questions:
-
-- **RQ0 — Validity.** Does Claude's listening judgment agree with trained human annotators on a pilot sample? (inter-annotator agreement / IAA)
-- **RQ1 — Winner agreement.** On all ~830 debates, does the side Claude rates as the better listener match the side that actually won the vote?
-- **RQ2 — Vote switching.** Do more individual voters flip toward the side Claude rates as the better listener?
+- **RQ0 — Validity.** Does Claude's listening judgment agree with trained human annotators on a 20-debate pilot? (IAA: 87.5% accuracy, Cohen's κ = 0.750 on 2-class)
+- **RQ1 — Winner agreement.** Does the side Claude rates as the better listener match the side that actually won the vote? (64.37% 2-class accuracy vs. Q1 ground truth, n = 595)
+- **RQ2 — Vote switching.** Among voters who switched their stance, did they tend to move toward the better listener? (56.54% of 283 switch events, p = 0.041)
+- **RQ3 — Classifier.** Can the five listening-dimension scores, fed to a cross-validated logistic regression, predict debate winners competitively with purpose-built persuasion models? (57.15% 3-class CV accuracy vs. Rescala et al.'s 60.50% GPT-4 baseline)
 
 ---
 
@@ -26,7 +25,7 @@ Each debater is scored on five dimensions. Four use a 1–5 scale; `concession_a
 | `concession_and_common_ground` | Does the debater concede valid points or identify agreement? (1–3) |
 | `respectful_engagement` | Does the debater engage respectfully with the opposing perspective? |
 
-Plus an **overall better listener** judgment: `Pro`, `Con`, or `Tie`. The full rubric and score anchors live in [`listening_evaluation_prompt_template.md`](listening_evaluation_prompt_template.md); revisions are tracked in [`RUBRIC_CHANGELOG.md`](RUBRIC_CHANGELOG.md).
+Plus an **overall better listener** judgment: `Pro`, `Con`, or `Tie`. The full rubric with score anchors is in [`listening_evaluation_prompt_template.md`](listening_evaluation_prompt_template.md); iterative development history is in [`RUBRIC_CHANGELOG.md`](RUBRIC_CHANGELOG.md).
 
 ---
 
@@ -35,25 +34,25 @@ Plus an **overall better listener** judgment: `Pro`, `Con`, or `Tie`. The full r
 ```
 debate_study/
 ├── app.py                     # Flask app for human pilot annotation
-├── sample_pilot.py            # Pick a balanced pilot sample to annotate
+├── sample_pilot.py            # Pick a stratified pilot sample to annotate
 ├── try_prompt.py              # Run Claude on one or a few debates (prompt iteration)
-├── run_claude_batch.py        # Run Claude on all ~830 debates (sync or Batch API)
-├── compare.py                 # RQ0: IAA between humans and Claude
-├── rq1_analysis.py            # RQ1: listening ↔ winner / vote switching
+├── run_claude_batch.py        # Run Claude on all 833 debates (sync or Batch API)
+├── compare.py                 # RQ0: IAA between human and Claude annotations
+├── rq1_analysis.py            # RQ1–RQ3: all correlation and classifier analyses
 ├── data_loader.py             # Reads the Rescala et al. processed data
-├── config.py                  # Centralized paths
+├── config.py                  # Centralized paths (no secrets)
 ├── prompt_templates/          # System + user prompts sent to Claude
-│   ├── listening_system.txt
-│   └── listening_user.txt
-├── listening_evaluation_prompt_template.md  # Human-readable rubric description
-├── RUBRIC_CHANGELOG.md        # History of rubric revisions
+│   ├── listening_system.txt   #   full v3 rubric + scoring instructions
+│   └── listening_user.txt     #   debate payload + JSON output contract
+├── listening_evaluation_prompt_template.md  # Human-readable rubric
+├── RUBRIC_CHANGELOG.md        # v1 → v2 → v3 rubric development history
 ├── templates/, static/        # HTML + CSS for the Flask annotator
+├── annotations.json           # Human pilot annotations (20 debates)
+├── claude_listening.json      # Claude v3 annotations, all 833 debates
+├── claude_listening_trial.json# Claude outputs from prompt-iteration runs
 ├── reports/
 │   ├── iaa/                   # RQ0 outputs (compare.py)
-│   └── rq1/                   # RQ1 outputs (rq1_analysis.py)
-├── annotations.json           # Human pilot annotations            (git-ignored)
-├── claude_listening.json      # Claude full-dataset output          (git-ignored)
-├── claude_listening_trial.json# Claude trial-run output             (git-ignored)
+│   └── rq1/                   # RQ1–RQ3 outputs (rq1_analysis.py)
 └── requirements.txt
 ```
 
@@ -61,7 +60,7 @@ debate_study/
 
 ## Data dependencies
 
-`.gitignore` excludes all `*.json` files (data + outputs) and the `.env`, so a fresh clone does not ship with any data. You need to obtain the processed Rescala et al. dataset and place it under the parent `<parent>/data/` tree. The paths `config.py` expects are:
+This repo ships with the annotation outputs (`annotations.json`, `claude_listening.json`, `claude_listening_trial.json`) but **not** with the underlying Rescala et al. processed data, which lives in the parent thesis directory. `config.py` expects the following layout:
 
 ```
 <parent>/
@@ -69,33 +68,27 @@ debate_study/
 └── data/
     ├── processing/
     │   ├── filtered_data/
-    │   │   ├── debates_filtered_df.json     # ~830 valid debates
-    │   │   └── votes_filtered_df.json       # voter-level votes, pre/post
+    │   │   ├── debates_filtered_df.json     # ~830 valid debates + metadata
+    │   │   └── votes_filtered_df.json       # voter-level pre/post votes
     │   ├── processed_data/
     │   │   ├── rounds_df.json               # debate text by round and side
     │   │   └── users_df.json
     │   └── propositions/
     │       └── propositions.json            # one proposition per debate
     └── tidy/
-        ├── datasets/datasets.json           # the "Trimmed" debate-id set
+        ├── datasets/datasets.json           # the "Trimmed" 833-debate ID set
         └── llm_outputs/q1.json              # Q1 ground-truth winners (Rescala)
 ```
 
-The four core data files are produced by the Rescala et al. preprocessing pipeline; `datasets.json` and `q1.json` come from their tidy outputs.
+These files come from the Rescala et al. (2024) preprocessing pipeline. Without them, the analysis scripts (`rq1_analysis.py`, `compare.py`) will raise `FileNotFoundError` when they try to join listening scores with vote outcomes.
 
-Outputs produced locally (git-ignored) and regenerated by the scripts:
-
-- `annotations.json` — your human pilot annotations
-- `claude_listening.json` — Claude judgments on the full set (one row per debate × run)
-- `claude_listening_trial.json` — Claude judgments from prompt-iteration runs
-- `reports/iaa/**` — RQ0 artifacts
-- `reports/rq1/**` — RQ1 artifacts
+If you only want to inspect the annotation outputs, `annotations.json` and `claude_listening.json` are self-contained and do not require the data files.
 
 ---
 
 ## Setup
 
-Requires Python 3.10+ (uses `X | Y` union syntax and `from __future__ import annotations`).
+Requires Python 3.10+.
 
 ```bash
 cd debate_study
@@ -105,14 +98,14 @@ cp .env.example .env
 # Edit .env and set ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-Place the data files listed above under `../data/`. Sanity-check with:
+Verify the data link is in place:
 
 ```bash
 python -c "from data_loader import get_valid_debate_ids; print(len(get_valid_debate_ids()))"
 # expected: 833
 ```
 
-Libraries pulled in by `requirements.txt`: flask, pandas, numpy, scipy, scikit-learn, matplotlib, statsmodels, anthropic, python-dotenv.
+Libraries: flask, pandas, numpy, scipy, scikit-learn, matplotlib, statsmodels, anthropic, python-dotenv.
 
 ---
 
@@ -121,11 +114,11 @@ Libraries pulled in by `requirements.txt`: flask, pandas, numpy, scipy, scikit-l
 ### 1. Pick a pilot sample and annotate it (human side of RQ0)
 
 ```bash
-python sample_pilot.py --n 25 --min-votes 5 --seed 7 --write pilot_ids.json
+python sample_pilot.py --n 20 --min-votes 5 --seed 7 --write pilot_ids.json
 python app.py    # open http://127.0.0.1:5000
 ```
 
-`sample_pilot.py` picks debates balanced across the Q1 ground-truth classes (Pro / Con / Tie), excluding anything already in `annotations.json`. The Flask app walks you through each debate and writes structured scores back to `annotations.json`.
+`sample_pilot.py` selects debates stratified by Q1 ground-truth class (Pro / Con / Tie) to ensure the pilot covers the full range of outcomes, excluding any already in `annotations.json`. The Flask app walks through each debate and records structured per-dimension scores plus an overall better-listener judgment.
 
 ### 2. Iterate on the Claude prompt
 
@@ -133,23 +126,23 @@ Edit [`prompt_templates/listening_system.txt`](prompt_templates/listening_system
 
 ```bash
 python try_prompt.py --debate-ids 358,412,900 --save-results
-python try_prompt.py --debate-ids 358,412,900 --max-workers 3 --enable-cache
+python try_prompt.py --debate-ids 358,412,900 --max-workers 3
 ```
 
-Results land in `claude_listening_trial.json` when `--save-results` is on.
+Results go to `claude_listening_trial.json` when `--save-results` is set.
 
 ### 3. Run Claude on the full dataset
 
 ```bash
-# Synchronous (simple, slower, pay per-call):
+# Synchronous:
 python run_claude_batch.py
 
-# Message Batches API (cheaper, async):
-python run_claude_batch.py --use-batch --batch-poll-secs 30 --enable-cache
-python run_claude_batch.py --model claude-opus-4-6 --limit 10   # smoke test
+# Message Batches API (50% discount, async):
+python run_claude_batch.py --use-batch --batch-poll-secs 30
+python run_claude_batch.py --model claude-sonnet-4-6 --limit 10   # smoke test
 ```
 
-Writes to `claude_listening.json` (one record per debate including rubric scores, overall judgment, model, token usage, and request/response metadata). Progress reports and checkpoints go to `reports/run_claude_batch_*.json`.
+Appends to `claude_listening.json`. Each record includes rubric scores, overall judgment, model, token usage, and request/response metadata. Progress checkpoints go to `reports/run_claude_batch_*.json`.
 
 ### 4. RQ0 — human vs. Claude agreement
 
@@ -159,14 +152,16 @@ python compare.py --use-full --bootstrap 2000
 
 Writes to `reports/iaa/`:
 
-- `iaa_report.md` — headline accuracy, Cohen's κ (3-class + 2-class), Gwet's AC1, weighted κ per dimension, bootstrap CIs
-- `iaa_per_dimension.csv` — per-cell metrics
-- `iaa_disagreements.md` — every case where human and Claude disagreed, side by side
-- `iaa_heatmap.png` — per-dimension weighted-kappa heatmap
+| File | Contents |
+|---|---|
+| `iaa_report.md` | Headline accuracy, Cohen's κ, Gwet's AC1, Krippendorff's α, weighted κ per dimension, bootstrap CIs |
+| `iaa_per_dimension.csv` | Per-cell metrics (10 cells: 5 dims × Pro/Con) |
+| `iaa_disagreements.md` | Every disagreement shown side by side |
+| `iaa_heatmap.png` | Per-dimension weighted-κ heatmap |
 
 Use `--use-trials` to compare against `claude_listening_trial.json` while iterating on the prompt.
 
-### 5. RQ1 — listening ↔ persuasion outcomes
+### 5. RQ1–RQ3 — listening ↔ persuasion outcomes
 
 ```bash
 python rq1_analysis.py
@@ -174,44 +169,51 @@ python rq1_analysis.py
 
 Writes to `reports/rq1/`:
 
-- `rq1_report.md` — full write-up with methods note, headline tables, and robustness checks
-- `rq1_overall_metrics.csv` — winner-agreement accuracy / κ / AC1 / macro-F1 under three ground-truth definitions × {3-class, 2-class} × {unweighted, voter-weighted}
-- `rq1_switching.csv` — Spearman / Pearson correlations between each listening-dimension margin and `net_switch_toward_con`
-- `rq1_dim_gt_correlations.csv` — per-dimension Spearman ρ against three binarized ground truths (Con=1, Pro=0, Tie dropped), with bootstrap 95% CIs
-- `rq1_heatmap_cells.csv` — 5 listening dims × 5 columns (4 persuasion sub-votes + overall vote margin), Spearman ρ with Benjamini–Hochberg q-values (25 tests)
-- `rq1_classifier.csv` — cross-validated logistic classifier results (2-class and 3-class)
-- `rq1_joined.csv` — the joined debate-level feature table
-- `rq1_winner_confusion.png`, `rq1_winner_confusion_weighted.png` — confusion matrices
-- `rq1_switch_scatter.png` — composite listening margin vs. net switch toward Con
-- `rq1_dim_gt_barchart.png` — grouped bar chart: per-dimension ρ vs. three binarized ground truths
-- `rq1_heatmap.png`, `rq1_heatmap_weighted.png` — the 5×5 ρ heatmap (5 dims × 4 sub-votes + vote margin)
+| File | Contents |
+|---|---|
+| `rq1_report.md` | Full markdown write-up with all tables and figures |
+| `rq1_joined.csv` | Master feature table: one row per debate, all listening scores + outcome metrics |
+| `rq1_overall_metrics.csv` | RQ1 winner-agreement: accuracy / κ / AC1 / macro-F1 for 3 ground truths × {2-class, 3-class} × {unweighted, voter-weighted} |
+| `rq1_dim_gt_correlations.csv` | RQ1 per-dimension Spearman ρ against 3 binarized ground truths |
+| `rq1_switching.csv` | RQ2 correlational: composite and per-dimension ρ vs. net_switch_toward_con |
+| `rq1_switchers_conditional.csv` | RQ2 conditional: voter-level switch events with direction + Claude judgment |
+| `rq1_heatmap_cells.csv` | 5×5 Spearman ρ matrix with BH-corrected q-values (unweighted + voter-weighted) |
+| `rq1_classifier.csv` | RQ3: cross-validated logistic classifier summary (accuracy, best C, best penalty) |
+| `rq1_winner_confusion.png` | RQ1 confusion matrices (3 ground truths × 2 conditions) |
+| `rq1_winner_confusion_weighted.png` | Voter-weighted version |
+| `rq1_dim_gt_barchart.png` | RQ1 grouped bar chart: per-dimension ρ vs. 3 ground truths |
+| `rq1_switch_scatter.png` | RQ2 scatter: composite listening margin vs. net switch toward Con |
+| `rq1_switch_confusion.png` | RQ2 conditional: confusion matrix of switch direction vs. Claude judgment |
+| `rq1_heatmap.png` | 5×5 Spearman ρ heatmap (unweighted) |
+| `rq1_heatmap_weighted.png` | Voter-weighted version |
 
 ---
 
 ## Conventions worth knowing before reading the code
 
-**Sign convention.** All margins are Con-positive: `margin = con_score − pro_score` for listening dimensions, and `(n_Con − n_Pro) / n_votes` for vote margins. Positive numbers mean Con.
+**Sign convention.** All margins are Con-positive: `margin = con_score − pro_score` for listening dimensions, and `(n_Con − n_Pro) / n_votes` for vote margins. Positive = Con.
 
-**Vote switching direction.** A voter switches "toward Con" on any of: Pro→Con, Pro→Tie, Tie→Con. The mirror set counts as switching toward Pro. `net_switch_toward_con = (n_toward_con − n_toward_pro) / n_votes`.
+**Vote switching direction.** The post-debate vote options form an ordered scale: Pro < Tie < Con. A voter switches "toward Con" on any upward movement (Pro→Con, Pro→Tie, Tie→Con); the mirror set counts as switching toward Pro. `net_switch_toward_con = (n_toward_con − n_toward_pro) / n_votes`.
 
-**Two majority-winner definitions.** `majority_winner` takes the three-way plurality among Pro / Con / Tie post-debate votes. `majority_winner_procon` ignores Tie votes and awards the debate to whichever of Pro/Con has more. Both are reported; the latter treats Tie votes as neutral rather than as a competing outcome.
+**Two majority-winner definitions.** `majority_winner` takes the three-way plurality among Pro / Con / Tie post-debate votes. `majority_winner_procon` ignores Tie votes and awards the debate to whichever of Pro/Con has more (Tie only when n_Pro = n_Con). The Pro/Con-only variant is the more interpretable default.
 
-**Unit of analysis.** The debate, unweighted, is the headline. Voter-weighted variants (each debate replicated by its `n_votes`) are reported as robustness. Bootstrap CIs always resample debates, then expand by vote counts for weighted stats.
+**Unit of analysis.** The debate, unweighted, is the headline. Voter-weighted variants (each debate replicated by its `n_votes`) are reported as robustness throughout. Bootstrap CIs always resample at the debate level, then expand by vote counts for weighted stats.
 
-**Multiple comparisons.** The 5×5 heatmap applies Benjamini–Hochberg correction across its 25 cells (5 dims × 4 sub-votes + vote margin) and stars cells with q < 0.05. It's labeled exploratory.
+**Heatmap is 5×5 and exploratory.** Five listening dimension margins × five persuasion outcomes (four sub-vote margins + overall vote margin). Benjamini–Hochberg FDR correction over the 25 cells; starred cells survive q < 0.05. Do not over-read individual cells.
+
+**Classifier feature set.** The RQ3 cross-validated logistic regression uses 8 features: the 5 listening-dimension margins plus 3 binary indicator variables derived from Claude's overall better-listener judgment (is_pro, is_con, is_tie). StratifiedKFold with 10 folds; hyperparameter search over C and penalty (L1/L2).
 
 ---
 
 ## Citing the underlying data
 
-Rescala, P. et al. (2024). *Can language models recognize convincing arguments?* — Table 2 benchmarks (33.33% random, 60.69% majority, 60.50% GPT-4) are referenced in the RQ1 report for context.
+Rescala, P. et al. (2024). *Can language models recognize convincing arguments?* The 833-debate Trimmed corpus and Q1 ground truth are theirs. Their Table 2 benchmarks (33.33% random baseline, 60.69% majority-vote baseline, 60.50% GPT-4) are used as comparison points in the RQ1 and RQ3 analyses.
 
 ---
 
 ## Troubleshooting
 
-- **`FileNotFoundError` on a `data/processing/...` path** — the Rescala et al. data tree isn't in place under `../data/`. See "Data dependencies" above.
-- **`ANTHROPIC_API_KEY` missing** — copy `.env.example` to `.env` and fill it in; the scripts load it via `python-dotenv`.
-- **`len(get_valid_debate_ids()) != 833`** — `datasets.json` is missing or wrong; the "Trimmed" key defines the valid debate set.
-- **Batch runs appear stuck** — `--use-batch` submits to the Message Batches API and polls; status is written to `reports/run_claude_batch_*.json`. Check that file for progress and errors rather than killing the process.
-- **Markdown tables look wrong in `rq1_report.md`** — the generator requires a blank line before each table header. If you edit `rq1_analysis.py`'s `write_report`, keep the `blank()` calls before any `h(...)` that introduces a table.
+- **`FileNotFoundError` on a `data/processing/...` path** — the Rescala et al. data tree is not in place under `<parent>/data/`. See "Data dependencies" above. The annotation JSON files in this repo work without it, but the analysis scripts require the vote and debate metadata.
+- **`ANTHROPIC_API_KEY` missing** — copy `.env.example` to `.env` and fill it in; scripts load it via `python-dotenv`.
+- **`get_valid_debate_ids()` returns fewer than 833** — `datasets.json` is missing or the path in `config.py` is wrong; the `"Trimmed"` key defines the valid debate set.
+- **Batch run appears stuck** — `--use-batch` polls the Message Batches API on an interval; current status is written to `reports/run_claude_batch_*.json`. Check that file rather than killing the process.
