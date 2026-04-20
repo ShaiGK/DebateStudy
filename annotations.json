@@ -1,0 +1,1082 @@
+{
+  "358": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 2,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 2,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 2,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": "Quotes all points"
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 5,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "They were less polite but addressed all points very well."
+      },
+      "notes": "",
+      "timestamp": "2026-02-25T12:53:55.028312"
+    }
+  },
+  "556": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 2,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 5,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 5,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "He refuted specific points better"
+      },
+      "notes": "",
+      "timestamp": "2026-02-25T13:07:31.098074"
+    }
+  },
+  "674": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "Con addresses more specific points from Pro."
+      },
+      "notes": "Skip? Very blah debate.",
+      "timestamp": "2026-02-25T16:22:06.648789"
+    }
+  },
+  "706": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 2,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "They are both kind of wacky but Con is a bit crazy."
+      },
+      "notes": "Difficult one.",
+      "timestamp": "2026-02-25T19:45:25.605430"
+    }
+  },
+  "831": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 5,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "I think Pro doesn't really respond always, Con sometimes misunderstands but tries."
+      },
+      "notes": "",
+      "timestamp": "2026-03-02T18:26:45.766966"
+    }
+  },
+  "1104": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 5,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 3,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 5,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "It is close, but honestly Con was kind of mean and harsh."
+      },
+      "notes": "",
+      "timestamp": "2026-03-24T15:16:47.697253"
+    }
+  },
+  "1826": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 2,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Forfeits"
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": ""
+      },
+      "notes": "CON FORFEITED, I assume because Pro was a child.",
+      "timestamp": "2026-04-13T12:32:54.600765"
+    }
+  },
+  "21820": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "Pro was better listener, but not sure who won."
+      },
+      "notes": "",
+      "timestamp": "2026-04-13T12:58:11.111650"
+    }
+  },
+  "74424": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 2,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "This is a close one."
+      },
+      "notes": "",
+      "timestamp": "2026-04-13T13:08:17.022042"
+    }
+  },
+  "71033": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "He treated the other side as a good faith interlocutor."
+      },
+      "notes": "This was a close one as well.",
+      "timestamp": "2026-04-13T15:20:50.201238"
+    }
+  },
+  "41714": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": ""
+      },
+      "notes": "",
+      "timestamp": "2026-04-13T15:43:15.552265"
+    }
+  },
+  "63231": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 5,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Got a bit better at the end, still not great on the whole."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": ""
+      },
+      "notes": "",
+      "timestamp": "2026-04-13T16:06:22.913180"
+    }
+  },
+  "68893": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Tie",
+        "justification": ""
+      },
+      "notes": "",
+      "timestamp": "2026-04-13T16:17:42.892590"
+    }
+  },
+  "61894": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 5,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": ""
+      },
+      "notes": "",
+      "timestamp": "2026-04-13T16:33:19.065118"
+    }
+  },
+  "11171": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 2,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": ""
+      },
+      "notes": "",
+      "timestamp": "2026-04-13T16:48:27.168788"
+    }
+  },
+  "66182": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": ""
+      },
+      "notes": "Note",
+      "timestamp": "2026-04-13T17:32:55.224092"
+    }
+  },
+  "41577": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 2,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Does better later in the debate"
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "This is a really close one, but I think Con does a better job of actually arguing with the points Pro makes and not just repeating the same thing. This is despite Pro's better job of addressing specific points."
+      },
+      "notes": "",
+      "timestamp": "2026-04-14T15:00:29.168870"
+    }
+  },
+  "3727": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Gets better in the last round"
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 5,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "They were both very cordial here, but Con did a better job of addressing actual points throughout."
+      },
+      "notes": "",
+      "timestamp": "2026-04-14T15:26:25.845523"
+    }
+  },
+  "25047": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 2,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 1,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 5,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": ""
+      },
+      "notes": "",
+      "timestamp": "2026-04-14T15:38:04.390061"
+    }
+  },
+  "40604": {
+    "listening": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": ""
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": ""
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": ""
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": ""
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": ""
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": ""
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Tie",
+        "justification": "Both did the debate very nicely."
+      },
+      "notes": "",
+      "timestamp": "2026-04-14T15:46:16.278798"
+    }
+  }
+}

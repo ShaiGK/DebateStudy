@@ -1,8 +1,5 @@
 .env
-annotations.json
-claude_listening.json
 __pycache__/
 *.pyc
 .venv/
 venv/
-*.json

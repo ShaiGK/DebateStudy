@@ -1,0 +1,1762 @@
+[
+  {
+    "debate_id": 358,
+    "judgment": "Con",
+    "overall_judgment": "Con",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Pro references some of Con's points\u2014e.g., addressing Con's WTC7 explanation, the Pentagon debris claims, and the hijacker identity argument\u2014but frequently ignores or glosses over Con's strongest rebuttals, such as the thermite chemistry refutation, the tube-in-tube design argument, and the whistleblower argument. Major Con points are repeatedly left unaddressed."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "When Pro does engage with Con's arguments, the representation is sometimes fair (e.g., acknowledging Con's WTC7 fire explanation before disputing it), but Pro also misrepresents or ignores nuance\u2014e.g., claiming Con 'dropped' the Pentagon airspace argument when Con had actually addressed it, and continuing to assert the towers collapsed 'from the bottom' without engaging Con's video evidence to the contrary."
+        },
+        "responsiveness": {
+          "score": 2,
+          "justification": "Pro largely repeats the same talking points across rounds (free-fall speed, Pentagon hole size, alive hijackers, Zionist motive) without meaningfully adapting to Con's specific rebuttals. For instance, after Con provided detailed chemistry refuting the thermite hypothesis, Pro never revisited it. After Con addressed the Pentagon debris with specific items found, Pro simply reasserted 'no visible debris.' The argumentation is mostly static."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con. Every Con argument is either ignored or dismissed without acknowledgment of any merit."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Pro's tone is generally neutral and not personally hostile, though there are dismissive moments (e.g., calling Con's position unsupported without engaging the substance). No ad hominem attacks, but also no particular warmth or acknowledgment of Con's good-faith effort."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": "Con systematically addresses virtually every one of Pro's arguments across rounds: building collapse (WTC1, WTC2, WTC7 separately), thermite, witness testimony, evidence removal, Pentagon crash (hole size, debris, cameras, airspace), false terrorist link (alive hijackers, Osama videos), and the Zionist connection. Con leaves very few of Pro's points unaddressed."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con generally represents Pro's arguments accurately and engages with their actual content\u2014e.g., correctly characterizing Pro's free-fall claim, the Pentagon hole-size argument, and the alive-hijackers claim. Occasionally Con is slightly dismissive in framing (e.g., 'absurd position'), but does not materially distort Pro's arguments."
+        },
+        "responsiveness": {
+          "score": 5,
+          "justification": "Con's argumentation is highly reactive. In Round 3, Con introduces specific technical rebuttals (tube-in-tube design, thermite chemistry, Pentagon debris inventory, DNA evidence) directly in response to Pro's claims. In Round 4, Con continues to adapt\u2014e.g., providing video evidence of collapse initiation at impact floors to counter Pro's 'collapsed from the bottom' claim, and explicitly noting which of Pro's arguments were dropped. Con consistently introduces new material tailored to Pro's specific points."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con never concedes any point to Pro. Con does acknowledge that the ATC tape destruction showed 'lack of transparency' but frames this as not supporting a conspiracy, which is a reframing rather than a concession."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Con's tone is occasionally dismissive of Pro's arguments as 'absurd' and makes a sarcastic remark about the 'Illuminati,' but does not engage in personal attacks. The overall posture is forceful and at times condescending toward the arguments, though not toward Pro personally."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "Con is clearly the better listener across all dimensions. Con systematically acknowledges and accurately represents nearly all of Pro's arguments, introduces specific and tailored counter-evidence in response to each, and visibly adapts argumentation across rounds. Pro, by contrast, largely repeats the same claims regardless of Con's rebuttals, ignores Con's strongest points (thermite chemistry, tube-in-tube design, whistleblower argument), and fails to adapt meaningfully to the debate in front of them."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:20:25.998630",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "f86777b2-d629-4c5b-beb6-12edcc524665",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "877996e3c12b10df29786b1754f5eb55f7cc4174d0145cc1d547bf274b8df20c",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "b07d1b1b08a3fbdede9af51478385d3c70802b9bf01e3d669b9926c3c27c535c",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 57210
+    },
+    "response_metadata": {
+      "message_id": "msg_01SaZqTNM8W6wcBvHRTJMPSj",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 25233
+    },
+    "usage": {
+      "input_tokens": 15676,
+      "output_tokens": 1160,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 674,
+    "judgment": "Con",
+    "overall_judgment": "Con",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Pro references some of Con's arguments, particularly the point about people not spending more when they earn more, and addresses the business expansion claim. However, Pro misses several of Con's key arguments such as inflation, global competitiveness, and the alternative subsidy/distribution proposal."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Pro's engagement with Con's arguments is partially accurate. The rebuttal about business expansion somewhat addresses Con's point, but Pro characterizes Con's position as claiming 'companies would just take the profit themselves,' which is a simplification of Con's more nuanced argument about labor cost optimization and global competition."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Pro does adapt somewhat \u2014 the Texas minimum wage calculation is a direct response to Con's claim about maintaining standard of living, and is new material introduced in Round 2. However, Pro ignores Con's inflation argument, the global competitiveness point, and the alternative poverty solution, suggesting much of the argument remains pre-planned."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con, treating all of Con's arguments as wrong or deflecting them."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Pro maintains a calm and respectful tone throughout, consistent with the ground rules set in Round 0. No personal attacks or dismissive language toward the opponent."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": "Con consistently and directly quotes Pro's arguments verbatim before responding to them, engaging with the specific Texas wage calculation, the luxury spending argument, and the business expansion claim. Con addresses nearly every point Pro raises."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con quotes Pro directly and responds to the actual arguments made. The representations are generally fair and accurate. Con's rebuttal about Warren Buffett and Apple is a direct and accurate engagement with Pro's claim about how rich people use money."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Con clearly reacts to Pro's specific arguments in Round 2 \u2014 introducing the bailout trickle-down example, the Apple/China manufacturing example, and the Warren Buffett counter-example as new material directly responsive to Pro's claims. Con's argumentation visibly evolves in response to what Pro said."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con never concedes any point to Pro, consistently treating all of Pro's arguments as flawed or insufficient."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Con maintains a respectful tone throughout, engaging with Pro's arguments substantively without personal attacks or dismissiveness. The tone is firm but not hostile."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "Con demonstrates stronger listening behavior across the board. Con directly quotes Pro's arguments before responding, engages with nearly all of Pro's key points, and introduces new responsive material (Apple/China, Warren Buffett, bailout examples) that directly counters Pro's specific claims. Pro, while somewhat responsive, misses several of Con's major arguments (inflation, global competitiveness, alternative poverty solutions) and engages with a narrower slice of the debate."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:20:42.208980",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "48468de1-2bf8-4de2-a349-fce68561b1bd",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "a6a8b5545381f55fc168a7f9c4ef9e3ba8006b2fd174610a9e9f07052663ee65",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "cf346e79c8e851b4e60feb9a36eaa38902da8c39d025cc24821e8acd8a9058dd",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 13323
+    },
+    "response_metadata": {
+      "message_id": "msg_01PQxvkyKN9GUaRXmivyC7XK",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 16191
+    },
+    "usage": {
+      "input_tokens": 4926,
+      "output_tokens": 811,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 556,
+    "judgment": "Con",
+    "overall_judgment": "Con",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Pro addresses some of Con's specific points, such as the Wyoming overrepresentation claim and the 'all men are created equal' quote, but ignores others entirely, such as the argument about votes not counting in non-competitive states and the historical instances of candidates winning without the popular vote."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Pro accurately quotes Con's Wyoming argument and the Declaration of Independence line, but then challenges the Wyoming numbers with a factual correction that is itself somewhat confused (conflating electoral votes with population ratios). The representation is mixed \u2014 sometimes fair, sometimes distorted."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Pro does react to Con's specific Wyoming statistic and the equality argument, sharpening the rural neglect point in the closing round with the Great Depression example. However, several of Con's arguments (non-competitive state votes, third-party votes, historical popular vote losses) go entirely unaddressed, suggesting much of the argumentation remained pre-planned."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con, treating every opponent argument as wrong or deflecting it throughout the debate."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Pro's tone is generally respectful and closes with 'Thanks for this debate was fun,' indicating good faith engagement. No personal attacks or dismissiveness toward Con as a person."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Con consistently references Pro's specific arguments \u2014 the four-state dominance claim, the equality quote, the founding fathers argument \u2014 and addresses them directly across rounds. Con also explicitly acknowledges their own error regarding the Wyoming statistic in Round 2."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con quotes Pro's arguments accurately, including the exact wording of the 'all men are created equal' rebuttal and the four-state argument. Con does not strawman Pro's position and engages with what Pro actually said."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Con visibly adapts across rounds: corrects their own Wyoming overrepresentation error in Round 2, directly addresses Pro's four-state dominance claim with a quantitative counter (one-fifth vs. one-fourth of the electorate), and sharpens the individual vs. state-based power argument in response to Pro's equality framing. This shows genuine reactive argumentation."
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": "In Round 2, Con explicitly and on the record concedes: 'I must say I was incorrect in stating that Wyoming was more overrepresented in the Electoral College by a margin of 6 to one, I meant 3 to 1.' This is a genuine, non-sarcastic admission of error on a specific factual point."
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": "Con is consistently respectful, acknowledges being new to the platform, thanks Pro at the end ('Thank you for the debate. I have enjoyed it.'), and engages with Pro's arguments as a good-faith interlocutor throughout."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "Con outperforms Pro on nearly every dimension: more consistent acknowledgment of Pro's specific points, accurate representation, genuine responsiveness including self-correction, an explicit on-record concession, and a respectful tone throughout. Pro engages with some of Con's arguments but leaves several major ones unaddressed and never concedes anything, making Con the clearly better listener in this debate."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:20:44.664774",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "36bcd514-03ff-4cf9-b5c0-5e7ae9450210",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "ef0aee46d93fefb198d9d656c6b59b43a728577418f907f75db84b8c6c1cd24f",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "c38d88386c4a45f226892b9bc2c9030556dd651b4db2b66f8361457d67c5c97d",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 7006
+    },
+    "response_metadata": {
+      "message_id": "msg_01Gn717H2iFnLu4jzvt1JxJV",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 18649
+    },
+    "usage": {
+      "input_tokens": 3570,
+      "output_tokens": 894,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 706,
+    "judgment": "Pro",
+    "overall_judgment": "Pro",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro consistently references Con's specific contentions \u2014 addressing the consent argument, the mental comprehension point, the 'volunteering for death' evidence, and the proportionality claim. Pro does not ignore Con's case and returns to it across rounds."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Pro generally captures Con's arguments but sometimes simplifies or slightly distorts them. For example, Pro characterizes Con's third contention as 'based on what the criminal believes and not what justice really is,' which is a partial misread. The representation is mixed \u2014 sometimes fair, sometimes reductive."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Pro introduces new material in response to Con's challenges (e.g., the grocery store analogy, the Ten Commandments point, the vengeance vs. justice distinction), but also repeats the core 'unmeasurability' argument across rounds without substantially sharpening it in response to Con's specific rebuttals. Some real reaction, but much remains pre-planned."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never explicitly concedes any point to Con. Pro defends every position and does not acknowledge Con being correct about anything."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Pro's tone is generally neutral to mildly combative. Phrases like 'barbaric' and 'eye for an eye mentality' are directed at ideas rather than the person. No personal attacks, but not particularly warm or collaborative either."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Con explicitly addresses Pro's arguments across rounds \u2014 the proportionality argument, the baby/stove analogy, the mental illness point, the US Constitution reference, and the grocery store analogy. Con maps Pro's case and responds to it systematically."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Con sometimes accurately represents Pro's arguments (e.g., the proportionality claim, the mental illness point) but also frequently characterizes Pro's case as 'fancy writing' and 'contradictory' without always engaging the substance fairly. The 'he drops my arguments' framing is used repeatedly and sometimes overstated."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Con does adapt across rounds \u2014 responding to the baby/stove analogy, the US Constitution point, and the grocery store analogy specifically. However, Con also relies heavily on the 'he contradicts himself' and 'he dropped my arguments' framing as a substitute for substantive engagement, and the consent framework is repeated without much evolution."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con never concedes any point to Pro. Every Pro argument is treated as dropped, flawed, or irrelevant."
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": "Con repeatedly uses dismissive language toward Pro personally \u2014 'don't let his fancy writing confuse your judgment,' 'a person who just sits and plays computer all day,' and 'don't let him get away with this.' These comments are directed at Pro as a person rather than at Pro's arguments, crossing into personal dismissiveness."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "Both debaters engage with each other's arguments at a similar level of acknowledgment, but Pro edges out Con on respectful engagement and accuracy of representation. Con's repeated use of dismissive personal characterizations ('fancy writing,' 'plays computer all day') and the formulaic 'he dropped my arguments' framing undermine the quality of Con's listening. Pro, while imperfect in representation, engages with Con's substantive points more charitably and without personal dismissiveness."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:20:59.926527",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "dab3ed46-bfee-4665-8c1f-cd93ad85d191",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "e04241e28b8824854398be0f029081355fcc2c5605fea278a33d6be159e7fcac",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "8bb1aa3d0e57d37c2c866e4bdb6b920906ca6868a48dbee9af27e2397f80062d",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 29500
+    },
+    "response_metadata": {
+      "message_id": "msg_019AY5ARYnuSrnb8Jj1itJKX",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 17700
+    },
+    "usage": {
+      "input_tokens": 8441,
+      "output_tokens": 923,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 831,
+    "judgment": "Tie",
+    "overall_judgment": "Tie",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro consistently references Con's specific arguments across rounds. In Round 1, Pro directly addresses Con's 'who was there first' argument and the Florida analogy rebuttal. In Round 2, Pro quotes Con's argument about Palestinian state causing more problems and responds to it directly."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro generally represents Con's arguments accurately. In Round 2, Pro quotes Con verbatim before responding, which ensures fair representation. Pro does not significantly distort Con's positions, though the engagement is sometimes at a surface level."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro visibly adapts across rounds. In Round 1, Pro directly counters Con's historical claim argument with a broader historical survey (Sumerians, Babylonians, etc.) and sharpens the 'power over history' thesis. In Round 2, Pro introduces the practical 'two options' framing and the equation analogy in direct response to Con's stability concerns."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never explicitly concedes any point to Con. Pro reiterates support for a Jewish state but this was stated in Round 0 before Con's arguments, not in response to them."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Pro maintains a respectful tone throughout, explicitly noting 'I am not in any way trying to attack the Jews' and engaging with Con's points substantively rather than personally. No ad hominem or dismissive language toward Con."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Con references Pro's arguments regularly. In Round 1, Con directly quotes Pro's 'land belongs to whoever holds the power' statement and turns it against Pro. In Round 2, Con addresses Pro's two-state solution and the 'happy people' equation."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con quotes Pro directly in Round 1, ensuring accurate representation. Con's characterization of Pro's position as wanting a two-state solution is fair. Con does not significantly strawman Pro's arguments."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Con demonstrates real adaptation. Most notably in Round 1, Con takes Pro's own 'power determines ownership' argument and uses it to argue for Israeli legitimacy \u2014 a direct and clever reactive move. In Round 2, Con responds to Pro's optimism about a Palestinian state with specific counter-evidence (Hamas-Fatah civil war, Hamas election victory)."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con never concedes any point to Pro. Con briefly acknowledges that 'maybe the creation of Israel could have been done better' in Round 0, but this is a general historical musing rather than a concession to Pro's specific argument."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Con's tone is largely neutral and argumentative without being personally hostile. However, characterizations like Palestinians being unable to 'manage themselves' and references to a 'terrorist theocracy' are dismissive of the Palestinian side, though not directed personally at Pro."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Tie",
+        "justification": "Both debaters score similarly across dimensions. Both acknowledge and accurately represent each other's arguments, both adapt their reasoning in response to specific opponent points, and neither concedes anything. Con's clever judo move of turning Pro's own 'power determines ownership' argument back on Pro is a standout moment of responsiveness, while Pro's direct quoting and structured rebuttal in Round 2 shows comparable engagement. The scores are effectively equal, making this a tie."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:21:04.286051",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "203c1dcb-9010-413d-8ccc-882667e623a8",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "cb389bd30fc40018715871d2c5251cd8b9bc6b1a4a6d200cd1f9898fb4bbcd14",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "dfd6d5f283335574264f31e161f9a1066f48f32e4e338a71d6a88aca5beb9383",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 11028
+    },
+    "response_metadata": {
+      "message_id": "msg_014bdcLPeo4bcEqQExRQwNtL",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 19604
+    },
+    "usage": {
+      "input_tokens": 4557,
+      "output_tokens": 919,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 1826,
+    "judgment": "Con",
+    "overall_judgment": "Con",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Pro references several of Con's specific points (birth control/condoms argument, the blob/first trimester argument, the rape scenario, the 80% dropout statistic) but misses or glosses over some of Con's stronger points, such as the physical/emotional effects of rape beyond money."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Pro sometimes represents Con's arguments fairly (e.g., the condom/birth control point, the rape scenario) but also distorts or oversimplifies at times \u2014 for instance, characterizing Con's position as 'money solves everything' when Con was actually arguing the opposite, and misreading Con's blob argument as 'it's okay to kill a baby because it doesn't look like one.'"
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Pro does respond to several of Con's specific challenges \u2014 clarifying the sperm/fertilization distinction, addressing the rape scenario, proposing a detailed penalty framework for rapists. However, some responses are deflective (e.g., blaming parents for teen pregnancy rather than engaging Con's point about the teen's future) and the argumentation doesn't substantially evolve beyond Round 1."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con. Even when Con raises strong objections (emotional trauma, poverty), Pro deflects rather than acknowledging any validity."
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": "Pro makes a dismissive political jab ('you liberals') and uses condescending framing ('you need to find your facts'). While not overtly hostile, these personal characterizations lower the score below neutral."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "In Round 0, Con systematically addresses each of Pro's three main points, quoting them directly and responding to each in turn. The engagement is thorough and structured."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con quotes Pro's arguments verbatim and engages with them as stated. The representations are fair and Con does not strawman Pro's positions \u2014 e.g., accurately capturing Pro's dismissal of the rape exception and the parental blame argument."
+        },
+        "responsiveness": {
+          "score": 2,
+          "justification": "Con's only substantive round is Round 0, which is a strong initial response. However, Con forfeits Rounds 1 and 2, so there is no opportunity to observe adaptation or evolution in response to Pro's rebuttals. The score is limited by the forfeits."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con makes no explicit concessions to Pro in the one round they participated in."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Con opens by explicitly requesting a formal, respectful debate and maintains a measured, non-personal tone throughout their argument. The emotional appeal about the rape scenario is pointed but not disrespectful toward Pro personally."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "Despite forfeiting two rounds, Con's single substantive round demonstrates stronger listening behavior: direct quotation of Pro's arguments, fair representation, and structured point-by-point engagement. Pro engages more across rounds but distorts some of Con's arguments, makes a dismissive political characterization, and does not fully grapple with Con's strongest objections."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:21:21.198769",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "5d6fc185-f680-4e9d-9e19-7aa546e40c94",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "1248ac54ea88a6bca4f2bebd30f01c62ae745b685d08de216c92c5e059841e05",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "7348a06a4a786d08c8c510e7e055cc72757fe4ed7318ee1f2ba2c0d3e7e0a1b6",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 8142
+    },
+    "response_metadata": {
+      "message_id": "msg_01LfCbhv7kjGRk9vJvzQmgP7",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 16893
+    },
+    "usage": {
+      "input_tokens": 4081,
+      "output_tokens": 852,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 1104,
+    "judgment": "Pro",
+    "overall_judgment": "Pro",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro explicitly addresses most of Con's specific challenges in Round 2, including the Gettysburg Address/Emancipation Proclamation correction, the transcontinental railroad error, the composition of Congress, the Emancipation Proclamation's limited scope, Lincoln's racial views, and Andrew Johnson. Pro engages with nearly all of Con's numbered points."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro generally represents Con's arguments fairly and accurately when responding to them. For example, Pro correctly quotes and addresses Con's point about Congress being all-Republican, Con's point about Lincoln's racial views, and Con's point about Johnson. No significant strawmanning is evident."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro opens Round 2 by explicitly acknowledging factual errors (Gettysburg Address vs. Emancipation Proclamation, transcontinental railroad) and corrects them. Pro then directly engages with Con's specific challenges \u2014 the Congress composition, the Emancipation Proclamation's scope, Lincoln's racial views in historical context \u2014 rather than simply repeating Round 1 talking points. The argumentation visibly adapts to the debate."
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": "Pro explicitly concedes two factual errors at the start of Round 2: 'Yes, I meant the Emancipation Proclamation' and 'With the transcontinental railroad, I meant to only say that Lincoln supported the completion of it. Yes, Grant was president when it was actually completed. My mistakes.' These are genuine, on-the-record admissions that Con was correct on specific points."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Pro maintains a respectful and professional tone throughout, consistent with the stated goal of debating 'seriously and professionally.' Pro acknowledges mistakes graciously and does not attack Con personally, even when pushing back firmly on Con's arguments."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Con consistently references Pro's specific arguments across both rounds \u2014 addressing the crisis framing, the Congress composition claim, the Gettysburg Address error, the Emancipation Proclamation's scope, Lincoln's racial views, the transcontinental railroad, and Andrew Johnson. Con also constructs a numbered comparative list directly responding to Pro's framing."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con generally represents Pro's arguments accurately, quoting them directly before responding. Con correctly identifies Pro's factual errors (Gettysburg Address, transcontinental railroad) and engages with Pro's actual claims rather than distorting them. The representation is fair throughout."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Con adapts meaningfully across rounds. In Round 2, Con responds to Pro's corrections and new arguments \u2014 e.g., pushing back on the Congress composition point with new historical detail about Radical Republicans, countering Pro's defense of Lincoln's racial views with a personal analogy, and responding to Pro's Constitutional rights defense with a distinction between privacy invasion and outright repeal. Con introduces new material in response to Pro's specific rebuttals."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con opens by noting they are playing devil's advocate and don't actually believe Obama is better than Lincoln, but this is a meta-statement about the debate framing, not a concession of a substantive point within the debate. Con never explicitly concedes that Pro is correct about any specific argument during the debate itself."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Con's tone is frequently casual and sarcastic (e.g., 'muaHAHAHAHAHAHA,' 'horsesh*t argument,' 'retarded like that,' 'dumba**,' 'Oh for f*cks sake'). While much of this is directed at ideas or political figures rather than Pro personally, the overall tone is dismissive and irreverent rather than respectful. It does not rise to personal hostility toward Pro, but it is clearly not respectful engagement."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "Both debaters engage substantively with each other's arguments, but Pro edges out Con on listening behavior. Pro explicitly concedes factual errors \u2014 a rare and notable behavior \u2014 and then systematically addresses Con's specific challenges with adapted arguments. Con is also responsive and accurate, but the dismissive and sarcastic tone lowers the respectful engagement score, and Con makes no concessions despite Pro correcting genuine errors. Pro's willingness to acknowledge mistakes and engage seriously with Con's points makes Pro the better listener overall."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:21:24.259240",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "bcc91cf0-d332-412e-ac3a-453c516aa4c6",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "26a5274af203901800700d41b2ee5039f1dac25a0a5131e37ccb389a2a37d210",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "4117870ce939b99fd74d11eff52fc77a6d6278e72f81b7a9cf64536c61ce50a4",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 22590
+    },
+    "response_metadata": {
+      "message_id": "msg_017Wk3pkZXNHb72Gix9vhtiQ",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 24317
+    },
+    "usage": {
+      "input_tokens": 6990,
+      "output_tokens": 1137,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 74424,
+    "judgment": "Con",
+    "overall_judgment": "Con",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro consistently references Con's specific arguments, quoting them directly and responding to points about suspect groups, compelling state interest, the pedophile analogy, white males, and the government's role in wealth creation. Most of Con's key points are addressed."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro quotes Con directly and engages with the actual arguments made. The representation is generally fair, though Pro occasionally simplifies (e.g., reducing Con's nuanced point about diminishing returns to 'the rich can afford it'), but there is no systematic strawmanning."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Pro does react to Con's arguments with counter-examples (the grocery store sales tax analogy) and direct rebuttals, but much of the argumentation feels pre-planned around the core thesis of flat-tax fairness. Pro does not substantially adapt when Con raises the law of diminishing returns, largely restating the flat-percentage argument without engaging the new challenge deeply."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con. Every Con argument is treated as wrong or deflected, including the diminishing returns argument which Pro essentially ignores rather than acknowledges."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Pro's tone is mostly neutral but occasionally sharp (e.g., 'Nice' in response to the pedophile comparison, and the slavery comparison). These are directed at arguments rather than the person, keeping it at a neutral level overall."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "In Round 2, Con directly quotes and addresses multiple specific Pro arguments: the voting power claim, the historical mistreatment claim, the grocery store analogy, the capitalist success claim, and the flat-tax fairness argument. Coverage is thorough given the single substantive round."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con quotes Pro accurately and engages with the actual substance of Pro's arguments. The representation of Pro's flat-tax argument and grocery store analogy is fair and precise. No significant distortion is evident."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Con introduces new material directly responsive to Pro's challenges: the law of diminishing returns (introduced as a direct counter to the flat-tax argument), the point about wealthy political influence (countering Pro's 'defenseless minority' claim), and the rebuttal of 'historical mistreatment.' These are genuine adaptations to Pro's specific arguments rather than pre-planned talking points."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con does not concede any point to Pro. The apology for missing a round is procedural, not a substantive concession."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Con's tone is consistently measured and analytical. The opening pedophile analogy in Round 0 could be seen as provocative, but Con engages substantively and without personal hostility throughout, treating Pro's arguments seriously."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "Both debaters acknowledge and accurately represent each other's arguments, but Con demonstrates stronger responsiveness by introducing genuinely new counter-arguments (diminishing returns, political influence of the wealthy) that directly address Pro's specific challenges. Pro, by contrast, largely restates the flat-tax thesis without deeply engaging Con's strongest objections. Con's single substantive round shows more adaptive, reactive argumentation than Pro's across multiple rounds."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:21:42.316330",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "db14dd2a-3c61-4456-8f7f-6748b77f0320",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "be35aeb286f960db329ea20a68f5289eec493521f38897d588dd7945d90027d9",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "aaaae00c4c1adf721a8ad485751f38bd3b0a2a526a9f2abdab4728a20dd05cff",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 11310
+    },
+    "response_metadata": {
+      "message_id": "msg_01QFPtxhB7CnsprayTboETAy",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 18041
+    },
+    "usage": {
+      "input_tokens": 4504,
+      "output_tokens": 881,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 21820,
+    "judgment": "Pro",
+    "overall_judgment": "Pro",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro consistently references Con's specific arguments across rounds \u2014 addressing the Madison comparison, the SAT/IQ claims, the Biden point, the Roosevelt wheelchair analogy, and Dr. Price's diagnosis. Pro rarely lets a major Con argument go unaddressed, though some points (like the Bob Woodward reference) receive only glancing treatment."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro generally represents Con's arguments fairly. For example, Pro accurately quotes Con's claim about Bush's 'encyclopedic ability to recall names and faces' and then challenges it with specific evidence. There are occasional moments of slight oversimplification (e.g., framing Con's burden-of-proof argument), but no systematic strawmanning."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro visibly adapts across rounds \u2014 introducing the video of Bush failing to name world leaders in direct response to Con's memory claim, engaging the deterioration challenge with the governor-vs-president comparison, and sharpening the dementia argument in response to Con's ethics objection. The argumentation is clearly reactive rather than pre-planned."
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": "Pro explicitly concedes in Round 2 that Biden 'does seem to have made a lot of gaffes' and is 'willing to accept that he may be a foolish idiot too' \u2014 a genuine on-the-record acknowledgment that Con's Biden point has some merit, even while deflecting its relevance to the Bush debate."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Pro maintains a respectful and even warm tone throughout, opening with compliments to Con and closing with thanks for 'an excellent debate.' Pro pushes back firmly but without personal attacks, and the humor is directed at Bush rather than at Con."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Con engages with most of Pro's specific arguments across rounds \u2014 addressing the dementia diagnosis, the speech deterioration claim, the policy list, the burden-of-proof argument, and the definition of equivocation. Con does tend to re-litigate the same structural objections repeatedly, but the engagement with Pro's specific points is consistent."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Con sometimes accurately represents Pro's arguments (e.g., the dementia claim, the SAT critique) but also frequently frames Pro's position in loaded terms like 'Bush Derangement Syndrome,' which caricatures Pro's stance as ideologically driven rather than engaging its substance. The repeated BDS framing distorts Pro's actual argument."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Con introduces new material in response to Pro (e.g., the Farewell Address as counter-evidence to deterioration, the Woodward book, the Reagan physician quote), but also repeats the same structural objections (BDS, burden of proof, equivocation) across multiple rounds with little evolution. The responsiveness is real but uneven."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con never concedes any point to Pro. Every Pro argument is treated as wrong, politically motivated, or irrelevant. Con does not acknowledge any merit in Pro's case at any point."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Con's tone is forceful and at times dismissive of Pro's arguments as 'BDS,' 'lame,' or 'irresponsible,' and repeatedly frames Pro as an ideologue rather than engaging the arguments on their merits. This stops short of personal insult but is noticeably less respectful than Pro's tone toward Con."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "Pro scores higher on accuracy of representation, concession, and respectful engagement, and matches Con on acknowledgment and responsiveness. Pro engages Con's specific points without distorting them, makes a genuine on-the-record concession on the Biden point, and maintains a consistently respectful tone. Con, while substantively engaged, repeatedly frames Pro's position through the 'Bush Derangement Syndrome' lens, which misrepresents Pro's actual arguments, and never acknowledges any merit in Pro's case."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:21:42.788623",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "66f8968c-0ad2-4375-8988-a253f92c38ca",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "56ea327dfa7cb2a1cdbba898ddbc68422de9c12bb7c3b4b229899d995a64c52f",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "8f54b4a13846e9c14c5cbb1de674ad0d40666f09618d9125cd59a1c3b14de056",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 46767
+    },
+    "response_metadata": {
+      "message_id": "msg_01PwKym7FUfsLCKokqNcy9du",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 21576
+    },
+    "usage": {
+      "input_tokens": 12492,
+      "output_tokens": 1043,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 71033,
+    "judgment": "Tie",
+    "overall_judgment": "Tie",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": "Pro systematically enumerates Con's points (17 numbered items in Round 2) and responds to each one individually. Throughout the debate, Pro directly quotes and addresses Con's specific arguments, including the party scenario, the UK gun statistics, the Hitler reference, and the cancer surgery analogy."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro generally represents Con's arguments accurately, quoting them directly before responding. There are occasional moments of slight distortion, such as characterizing Con's position as favoring criminals over victims, but overall the representations are fair and grounded in what Con actually said."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro actively adapts across rounds, adding option 4 to Con's party scenario, introducing the North Dakota vs. DC comparison in response to Con's gun death statistics, and crafting the cancer surgery analogy specifically to counter Con's statistical argument. The argumentation visibly reacts to Con's specific challenges rather than repeating pre-planned talking points."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con. Every argument Con makes is countered or dismissed. Pro does not acknowledge any merit in Con's positions."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Pro thanks Con for the debate and calls it 'stimulating,' and engages substantively with Con's arguments. While Pro uses some charged language (calling Con's thinking 'Marxian' and suggesting Con favors criminals), the tone is generally respectful and not personally hostile."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Con frequently references Pro's specific arguments, including the personal self-defense anecdotes, the Hitler/oven analogy, the cancer surgery analogy, and the disabled veteran story. In Round 2, Con explicitly addresses Pro's numbered points by number, showing systematic engagement."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con generally represents Pro's arguments accurately and charitably, such as correctly interpreting the cancer surgery analogy as being about risk and acknowledging Pro's personal self-defense experiences. Con does not significantly strawman Pro's positions."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Con adapts meaningfully across rounds, introducing the Tony Martin case in Round 2 as a direct response to Pro's self-defense arguments, engaging with the proportionality issue raised by Pro's intruder stories, and addressing the orphanage hypothetical directly. Con also concedes the orphanage scenario at the end, showing genuine responsiveness."
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": "Con explicitly concedes the orphanage hypothetical at the end of Round 2, stating 'yes, I would break open the gun cabinet.' Con also explicitly agrees that 'everybody does, indeed, have the right to self-defence' and in Round 2 agrees with Pro's point 5 that the enraged father could strangle him. These are genuine on-the-record concessions of specific points."
+        },
+        "respectful_engagement": {
+          "score": 5,
+          "justification": "Con consistently maintains a respectful, even warm tone throughout, thanking Pro for 'comprehensive and somewhat amusing' contributions, acknowledging Pro's arguments as 'most enlightening,' and engaging with humor and good faith. Con never attacks Pro personally and treats the debate as a genuine intellectual exchange."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Tie",
+        "justification": "Both debaters demonstrate strong listening behaviors. Pro excels at systematic acknowledgment, enumerating and responding to all of Con's points in detail. Con matches Pro on acknowledgment and accuracy, and edges ahead on concession and common ground by making genuine on-the-record concessions (the orphanage scenario, the right to self-defense, the enraged father scenario) and maintaining a more consistently respectful and collaborative tone. The two debaters are closely matched overall, with Pro's systematic point-by-point engagement balancing Con's greater willingness to concede ground and more respectful posture."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:22:02.060583",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "b8335893-477e-454f-bf63-bfad11fa7681",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "076faa6dbfe30470b91e2eb744588f7a14531fff5420e2a3e2f27557c3a432c1",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "b5097323561f7fd6ed3ac1a52d8853990902540dd8c9e6c1751066b101e7ebe9",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 29234
+    },
+    "response_metadata": {
+      "message_id": "msg_01N57AcF8MmHosWnSUbcCcwu",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 19727
+    },
+    "usage": {
+      "input_tokens": 8958,
+      "output_tokens": 993,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 41714,
+    "judgment": "Con",
+    "overall_judgment": "Con",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Pro does reference Con's arguments, particularly in Round 2 where he picks up Con's three points (Ignorance, Legalism, Karl Rove) and tries to incorporate them as support for his own position. However, he largely ignores Con's substantive rebuttals about the burden of proof, the Supreme Court deciding 2000, and the Democratic nomination process, and misses several of Con's key challenges."
+        },
+        "accuracy_of_representation": {
+          "score": 2,
+          "justification": "Pro repeatedly misrepresents Con's position, most notably claiming Con is 'arguing for' him when Con explicitly stated he was arguing that Obama *might* not be President \u2014 a distinct position. Pro also accuses Con of 'twisting words' when Con was asking for clarification, and mischaracterizes Con's rhetorical examples as concessions to Pro's stance."
+        },
+        "responsiveness": {
+          "score": 2,
+          "justification": "Pro's Round 1 is almost entirely a copy-paste of Con's own arguments with minimal original engagement. In Round 2, Pro spends most of the round on a lengthy grammar digression rather than advancing new substantive arguments. He does not meaningfully adapt to Con's challenges about the burden of proof, the population sample problem, or the Democratic nomination point."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro makes a fake concession joke ('I will now con... Just kidding') but never genuinely concedes any point. He treats all of Con's corrections as victories for his own side rather than acknowledging any opponent point as valid."
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": "Pro repeatedly uses condescending framing ('Thank you for arguing for me,' 'I urge you to drop the smug attitude,' 'sweating palms and racing heartbeat'), implies Con knows Obama will lose but won't admit it, and uses dismissive rhetoric throughout, crossing into personally dismissive territory on multiple occasions."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Con systematically addresses each of Pro's three original arguments (Race, Division, Income) in Round 0, then responds to Pro's grammar argument in detail in Round 2, and engages with specific quotes from Pro throughout. Con consistently references Pro's specific points rather than arguing in a vacuum."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con generally quotes Pro directly and engages with what Pro actually said. Con correctly identifies that Pro's workmates are not a representative sample, accurately characterizes Pro's burden of proof position, and fairly represents Pro's 'One house' claim while asking for clarification. The representation is largely accurate and fair."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Con adapts across rounds: in Round 1 he clarifies his own position in response to Pro's mischaracterization, in Round 2 he directly engages with Pro's extended grammar argument point by point, corrects 'model' vs. 'modal,' finds and critiques Pro's actual sources, and addresses the Palin polling point Pro raised. Con's argumentation visibly reacts to what Pro says each round."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con never explicitly concedes any substantive point to Pro. He calls Pro's division point 'almost correct' but immediately qualifies it away. No genuine on-the-record concession is made."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Con's tone is often sharp and sarcastic (e.g., 'Good show, old chap,' mocking Pro's grammar sources, 'increasingly senile head'), but the sarcasm is directed more at Pro's arguments and sources than at Pro personally. Con does clarify he never thought Pro was a particular type of person and notes shared Alabama roots. Overall neutral-to-slightly-dismissive but not personally hostile."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "Con consistently acknowledged Pro's specific arguments, represented them accurately with direct quotes, and adapted his responses round by round \u2014 including engaging with Pro's grammar digression with specific source citations. Pro, by contrast, misrepresented Con's position as agreement with his own, failed to engage with Con's substantive rebuttals, and spent much of his time on a grammar tangent rather than responding to the actual challenges raised. Con is the clearly better listener across all dimensions."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:22:06.382727",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "ed385aab-0599-46c6-9bff-84169938da0a",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "57c5f45ae62e7b4195a0f5faaf575ff6e952bd861a5e593fe78d807367af4671",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "0bd4a6d2cae2db3db00e8b0c4020c3258a6fa9002547cf3aebda6264d14207f6",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 26003
+    },
+    "response_metadata": {
+      "message_id": "msg_01EWgZTL2m2vbMW4jHBWnee6",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 23577
+    },
+    "usage": {
+      "input_tokens": 8067,
+      "output_tokens": 1074,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 68893,
+    "judgment": "Tie",
+    "overall_judgment": "Tie",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro consistently references Con's specific arguments \u2014 the 'future generations' point, the definition of winning as restoring peace, the economic costs, and the innocent lives argument \u2014 and addresses each one directly across rounds."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro quotes Con directly and accurately in most instances, engaging with the actual words used. There is some selective framing (e.g., reducing Con's economic argument to a single statistic), but no significant strawmanning."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro adapts meaningfully across rounds \u2014 clarifying in Round 1 that the nuke argument is about possibility not prescription, then in Round 2 narrowing the resolution's scope to rebut the embargo and morality objections. These are genuine reactive moves, not mere repetition."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con. Even when Con raises strong objections (morality, innocent lives), Pro deflects or reframes rather than acknowledging any validity."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Pro's tone is largely neutral and debate-focused, though some responses ('death is freedom,' 'nuclear wastelands are very peaceful') are flippant and dismissive of Con's moral concerns, though not personally insulting."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Con consistently references Pro's nuclear argument and engages with its specific implications \u2014 economic costs, international relations, innocent lives, and the definition of victory \u2014 across all rounds."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con accurately represents Pro's nuke proposal and quotes Pro directly. Con does not strawman; the characterization of Pro's position as advocating mass civilian death is a fair reading of what Pro argued."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Con introduces new angles in response to Pro (embargoes, the definition of freedom, the definition of victory), but largely continues pressing the same moral and economic objections without substantially evolving the argument in response to Pro's specific rebuttals."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con never concedes any point to Pro. Every Pro argument is countered or dismissed without acknowledgment of any validity."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Con maintains a respectful and serious tone throughout, engaging with Pro's arguments substantively and without personal attacks, even when characterizing Pro's position as showing 'contempt for human life' \u2014 which is directed at the argument, not the person."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Tie",
+        "justification": "Both debaters score similarly across dimensions. Pro is slightly more reactive and adaptive in narrowing the resolution's scope and clarifying the nuke argument, while Con is slightly more respectful in tone. Neither concedes anything, and both accurately represent the other's positions. The overall listening quality is comparable enough to call a tie."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:22:23.270041",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "69201c8b-d5a6-4ccd-b8ed-9ea2d304aa3a",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "e0da43174e85414e67636bb00feb334fb7fb1e2792b2783f8fef4aa523bdac70",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "30983ca6c9519ec61482f410a20e7089ea8060df0b0bf0ce3b725ca46512a5f8",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 9234
+    },
+    "response_metadata": {
+      "message_id": "msg_01N7AQfsCi9EiXYTZnKNXbuK",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 16869
+    },
+    "usage": {
+      "input_tokens": 4065,
+      "output_tokens": 764,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 63231,
+    "judgment": "Pro",
+    "overall_judgment": "Pro",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro systematically goes through Con's points one by one in Round 2, explicitly quoting and responding to each of Con's arguments about competition, innovation, historical examples, liberty, and military spending. Coverage is thorough across the key points Con raised."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro quotes Con directly and generally represents the arguments fairly. Pro does occasionally narrow Con's points (e.g., treating all of Con's objections as being about past communist regimes rather than engaging the underlying theoretical critique), but does not significantly strawman."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro clearly adapts in Round 2, introducing new counter-examples (Russia, Cuba, The Jungle), new arguments about scientists' motivations, and a structured rebuttal to each of Con's points. The response is clearly shaped by what Con said rather than being a repetition of Round 1."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con. Every Con argument is either dismissed as referring to non-ideal communism or countered directly. No explicit on-the-record admission that Con is right about anything."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Pro's tone is mostly neutral and argumentative. There is one mildly dismissive remark ('If you didn't want to argue ideals then don't bother taking the debate'), but no personal attacks. Generally forceful but not hostile."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Con engages with Pro's specific claims in both rounds, quoting Pro's arguments directly and responding to points about efficiency, innovation, scientists' motivations, historical examples, liberty, and excess money. Key arguments are addressed."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Con generally quotes Pro accurately but sometimes oversimplifies or dismisses Pro's points without fully engaging the argument (e.g., 'It's obvious that is not true' on innovation, or reducing Pro's ideal model to past failures without engaging the 'ideal' framing). Some misrepresentation of Pro's nuanced points about scientists and motivation."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Con does respond to Pro's specific points in Round 2, introducing new examples (Canada, Pol Pot, patent lawyers, anti-trust law) in reaction to Pro's Round 2 arguments. However, Con also repeats the core objection about real-world communist failures throughout without fully engaging Pro's 'ideal' framing, which limits the depth of adaptation."
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": "Con explicitly grants Pro a partial point on the question of how governments determine best products: 'I'll give you half a point here. Idealism neutral (I'm being generous).' This is a genuine, on-the-record, non-sarcastic concession of a specific point, qualifying for a score of 2."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Con's tone is largely argumentative and occasionally condescending (e.g., 'You are slipping off the idealism high chair again. Let me prop you back up since at this point you can't determine the difference between the floor and your seat'; 'You are a lazy debater'). These remarks border on dismissive of the person, not just the argument, but do not rise to sustained hostility."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "Both debaters engage substantively with each other's arguments, but Pro edges out Con on acknowledgment and accuracy. Pro systematically quotes and addresses each of Con's points in Round 2 with generally fair representation, while Con occasionally dismisses Pro's arguments without engaging their substance (e.g., the 'ideal' framing) and uses more personally dismissive language. Con's partial concession is notable, but Pro's more thorough and accurate engagement with the opponent's specific arguments makes Pro the marginally better listener overall."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:22:23.810143",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "d152ed3c-1580-45e5-95bc-ad7d4a1ec2fd",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "2bd661550a1ec25f56d8f9a693837a1d7d6ffae542212930d59b2f8f1168526d",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "d6d4011c57622cd50932b9c2a048ae5b027838b57ca7b86113a97da798a2415c",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 20045
+    },
+    "response_metadata": {
+      "message_id": "msg_01Ejwki5bLWRQT2A5EG4WE6N",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 21732
+    },
+    "usage": {
+      "input_tokens": 6452,
+      "output_tokens": 993,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 11171,
+    "judgment": "Pro",
+    "overall_judgment": "Pro",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro consistently references Con's specific points across rounds \u2014 acknowledging Con's argument about the right to be offended, the business logic critique, and the tradition argument. For example, in Round 2 Pro explicitly says 'You're also right that Happy Holidays is actually offending Christians' and engages with the majority argument directly."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro generally represents Con's arguments fairly. When Con argues Christians have the right to be offended, Pro accurately restates this and responds to it. Pro does not strawman Con's positions in any notable way."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro visibly adapts across rounds \u2014 clarifying the free speech point in Round 1 after Con challenged it, conceding the irony of 'Happy Holidays' offending Christians in Round 2, and directly engaging with the majority argument. The argumentation is reactive rather than static."
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": "Pro explicitly concedes in Round 2: 'You're also right that Happy Holidays (used by companies to avoid offense) is actually offending Christians.' This is a genuine on-the-record acknowledgment of a specific point Con made."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Pro maintains a light, good-humored tone throughout, even acknowledging confusion in Round 1 with a smiley face. No personal attacks or dismissiveness toward Con as a person."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Con consistently engages with Pro's specific arguments \u2014 the business motivation point, the right to be offended, the majority argument \u2014 and addresses them directly in each round."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con accurately represents Pro's positions. For instance, Con correctly identifies that Pro's argument implies businesses should care more about non-Christians, and fairly characterizes Pro's stance on the right to be offended versus the need to be offended."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Con introduces the tradition/heritage argument in Round 1 as a genuine new angle, and in Round 2 reinforces it with the point that non-Christians also celebrate Christmas. However, by Round 2 Con largely restates and consolidates earlier points rather than introducing new reactive material in response to Pro's Round 2 arguments."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con never explicitly concedes any specific point to Pro. While Con agrees the 'War on Christmas' is overblown, this is stated in Round 0 as an independent position, not as a concession to Pro's argument."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Con engages respectfully throughout, treating Pro's arguments seriously and responding substantively without personal attacks or dismissiveness."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "Both debaters engage well, but Pro edges out Con by explicitly conceding a specific point Con made (that 'Happy Holidays' ironically offends Christians), demonstrating genuine responsiveness to opponent pressure. Pro also adapts more visibly across rounds, clarifying and adjusting claims in direct reaction to Con's challenges, whereas Con's Round 2 is more consolidating than reactive."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:22:41.484079",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "e6c11317-956c-41cd-9f64-49f9a630d8f5",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "e0b1ac3c6a699b52332cd654f691ef4f1ced056eac2f6aa988249be9fe8c1345",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "5dff938a15781031c012226e351c46e1d500f6752977eb15eb84902778c57298",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 7367
+    },
+    "response_metadata": {
+      "message_id": "msg_015zveG8MuJuJ7Xg7MJXcETk",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 17663
+    },
+    "usage": {
+      "input_tokens": 3766,
+      "output_tokens": 835,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 61894,
+    "judgment": "Pro",
+    "overall_judgment": "Pro",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro consistently references Con's arguments across rounds \u2014 addressing Con's admission of ACLU bias, the 'who isn't biased' point, and the 'organizations are important' argument. Pro engages with Con's specific claims rather than arguing in a vacuum."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro accurately quotes and engages with Con's concession about ACLU bias and Con's general defense of the ACLU's importance. Pro does not significantly distort Con's positions, though the engagement is sometimes selective."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro adapts across rounds \u2014 in Round 1, directly responds to Con's 'who isn't biased' framing with the Fox News ratings point and the equal representation argument. In Round 2, escalates with new case examples (NAMBLA, BSA) that directly address Con's claim that the ACLU simply defends constitutional rights. The argumentation visibly reacts to Con's challenges."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con. Pro acknowledges Con's framing only to rebut it, and does not admit Con is correct about anything substantive."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Pro's tone is generally neutral and forceful but not personally disrespectful. The debate is adversarial but Pro does not attack Con personally."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Con references some of Pro's arguments \u2014 acknowledging the NAMBLA case and the BSA case in Round 2 \u2014 but misses or glosses over several of Pro's specific examples (e.g., the Islamic course vs. Christian cross teacher case is not addressed at all)."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Con generally represents Pro's arguments at a surface level but sometimes oversimplifies. For example, Con reduces Pro's NAMBLA argument to a general 'discrimination' issue and mischaracterizes the rape case as merely a 'romantic relationship' dispute, which distorts Pro's specific point about the murder and the manual."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Con introduces some new material in response to Pro \u2014 quoting NAMBLA's website in Round 2 and reframing the BSA case \u2014 but much of Con's argumentation repeats the same core thesis ('ACLU defends constitutional rights,' 'everyone is biased') without deeply engaging Pro's strongest specific examples. The Islamic course/Christian cross case from Round 1 goes entirely unaddressed."
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": "In Round 2, Con explicitly states 'I agree with you' regarding the NAMBLA situation being sickening, which is a genuine on-the-record partial concession of Pro's moral framing, even while Con then pivots to defend the ACLU's legal rationale. This qualifies as at least one explicit concession."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Con's tone is neutral throughout. There are no personal attacks or dismissive comments directed at Pro as a person, though Con's argumentation is at times dismissive of conservative concerns ('Since when did conservatives care about the equality and welfare of all races or sexual orientations?')."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "Pro more consistently acknowledged and engaged with Con's specific arguments across all rounds, accurately represented Con's positions, and adapted argumentation in direct response to Con's claims. Con addressed some of Pro's points but left major arguments (the Islamic course/Christian cross case) entirely unaddressed and sometimes distorted Pro's specific claims (reframing the NAMBLA murder case as a consensual relationship dispute). Pro's higher acknowledgment and responsiveness scores make Pro the better listener overall."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:22:43.044639",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "1cbe656c-5a2d-4165-9887-749b82d00199",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "99e6a7406101c5a352d6e94bbcb2635be2b50c7f57774c3107c2f7715505b939",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "d83bbfc7ac6b8956ebc58f95b6c20a2fec4fa70ea4859388b7533dc5c1901c3a",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 8505
+    },
+    "response_metadata": {
+      "message_id": "msg_015n1UZSaXbvp7mnrzQejd2b",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 19750
+    },
+    "usage": {
+      "input_tokens": 3981,
+      "output_tokens": 965,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 41577,
+    "judgment": "Pro",
+    "overall_judgment": "Pro",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro consistently references Con's specific arguments across rounds \u2014 addressing the apology tour contention, the Jimmy Carter comparison, the Nobel Committee authority argument, and the European popularity point. Pro rarely lets a Con argument pass without some response."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Pro generally captures Con's arguments but sometimes oversimplifies or reframes them. For example, Pro repeatedly reduces Con's entire case to 'chronic apologies,' which is a partial but not fully fair characterization of Con's multi-part argument about the Nobel Committee's own standards and criteria."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro visibly adapts across rounds \u2014 responding to the Jimmy Carter example, engaging the former-recipients-have-a-say claim with a direct challenge, and sharpening the argument about the committee's criteria vs. Alfred Nobel's original intent. Pro also pushes back on the fallacy accusation and asks Con to name it specifically."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con. Every Con argument is treated as wrong or irrelevant."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Pro's tone is mostly neutral but occasionally dismissive ('I could give a s*it less what some foreigner thinks') and uses condescending phrasing ('That is an absurd idea'). No personal attacks, but not particularly respectful either."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Con explicitly states in Round 0 that they will not rebut Pro's arguments, and in later rounds Con does engage some of Pro's points (the leadership/vision argument, the Jimmy Carter comparison, the world opinion claim). However, Con frequently sidesteps Pro's core contentions about Obama's admitted failures and broken promises."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Con generally represents Pro's arguments adequately but sometimes reduces them to 'personal opinions' without engaging their substance, which is a mild distortion. The characterization that Pro has provided 'zero arguments' is an overstatement given Pro's cited sources."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Con introduces new material in response to Pro \u2014 the Wikipedia source on former recipients, the Guardian poll on European opinion, the Carter precedent \u2014 showing genuine reaction. However, Con repeatedly falls back on the 'burden of proof' and 'Nobel Committee authority' framing rather than directly engaging Pro's specific evidence about Obama's admitted failures."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con never concedes any point. In the final round Con even frames Obama's award as 'ridiculous' but still affirms it was deserved, which is rhetorical rather than a genuine concession."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Con maintains a consistently collegial tone throughout, using phrases like 'gentle readers,' expressing sympathy for Pro's MEPS situation in the final round, and framing the debate as 'fun.' No personal attacks or dismissiveness toward Pro as a person."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "Pro more consistently acknowledged and engaged with Con's specific arguments across rounds \u2014 addressing the apology tour, the Carter comparison, the former-recipients claim, and the European popularity point with direct responses. Con, despite introducing relevant new material, repeatedly deflected Pro's core evidence by labeling it 'personal opinion' and retreating to the 'Nobel Committee authority' frame rather than engaging the substance. Pro's acknowledgment and responsiveness scores are both higher, making Pro the marginally better listener despite Con's more respectful tone."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:23:02.188569",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "95bf6d40-f81d-45bc-9589-cbfce29b816d",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "8a4248d30f39ca2a02e1cf5a16a3247d6a5b63c1a2bc85ee2fd605673ca3fdf3",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "1f125f15ce0a84b1a2f8d0e45f9fc40e278f0464d1454b92f6109b8fc9a6b643",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 21378
+    },
+    "response_metadata": {
+      "message_id": "msg_01BuMuGykRT5igody5MzErHV",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 19128
+    },
+    "usage": {
+      "input_tokens": 6787,
+      "output_tokens": 916,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 66182,
+    "judgment": "Pro",
+    "overall_judgment": "Pro",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro consistently references Con's specific points throughout the debate \u2014 addressing the '95% coverage' figure, the Medicaid argument, the pre-existing conditions point, the Lincoln comment, and the 'taxes go to things you don't approve of' statement. Pro rarely lets a Con argument pass without some engagement."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro generally represents Con's arguments accurately, quoting them directly (e.g., 'If you don't already have insurance and don't want Obama Care, then go buy insurance!') and engaging with the actual substance. There is some slight framing of Con's position as pro-government-dictatorship that edges toward characterization, but overall representation is fair."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro adapts across rounds \u2014 introducing the Caterpillar/AT&T cost examples in Round 3 in response to the small business discussion, clarifying the 5% figure using Con's own numbers, and responding to the Medicaid point with a targeted counter-proposal. The argumentation visibly reacts to what Con said rather than simply repeating opening points."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never explicitly concedes any point to Con. Pro acknowledges the pre-existing conditions issue is real but frames it as insufficient justification for the bill, which is not a concession."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Pro is mostly civil but becomes pointed in Round 2, accusing Con of being unable to have 'an educated debate on a very serious topic' and sarcastically noting Con's 'last line of defense.' These are directed at Con's debating behavior, bordering on personal dismissiveness, though not overtly hostile."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Con does reference several of Pro's points \u2014 the 5% figure, the Medicaid argument, the small business issue, and the tax concerns \u2014 but frequently pivots away from direct engagement into general pro-reform talking points, especially in Round 3 where the closing argument is largely a restatement of benefits without addressing Pro's specific Round 3 claims."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Con sometimes engages accurately (e.g., correctly quoting Pro on the 5% figure and the Medicaid point) but also misrepresents or oversimplifies at times \u2014 for instance, treating Pro's concern about government overreach as simply being 'scared of change' or implying Pro should 'move' if they disagree, which caricatures the position."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Con shows some responsiveness \u2014 addressing the Medicaid limbo issue directly in Round 2 and clarifying the public vote point \u2014 but Round 3 is largely a pre-planned summary of reform benefits that does not engage with Pro's specific Round 3 arguments about Caterpillar, AT&T, student loan takeover, union exemptions, or end-of-life panels. The final round feels like a retreat to talking points."
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": "In the final round, Con explicitly states 'I do admit though, the bill could be better, perhaps, but reform has to start somewhere.' This is a genuine, on-the-record acknowledgment that Pro's criticisms have some merit, making it a notable concession."
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": "Con is frequently dismissive toward Pro personally \u2014 telling Pro to 'move' if they don't like it, saying 'Lincoln is dead,' using 'blah, blah, blah,' implying Pro is spreading fear and misinformation, and suggesting the opposition is racially motivated ('I think the problem goes beyond what ya'll are saying, but nobody wants to admit it'). These go beyond forceful argumentation into personal dismissiveness."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "Pro more consistently acknowledged and accurately represented Con's specific arguments across all rounds, and adapted argumentation in direct response to Con's claims (e.g., using Con's own 95% figure to derive the 5% calculation, proposing Medicaid reform as a targeted counter to Con's limbo argument, introducing corporate cost data in response to the small business discussion). Con showed some responsiveness in the middle rounds but largely retreated to pre-planned talking points in the final round and was more prone to caricaturing Pro's position rather than engaging it directly."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:23:06.853444",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "42910d20-28d4-4792-833f-0d98925b6a1a",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "9cea6a1274aed1a701020075d744de14d09475b413e3b7a9c18a7768913f492d",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "282a54f6cbfc7e570e589caeb248c9fd4b17814dc57e65a4a87e7a2bc346da20",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 29480
+    },
+    "response_metadata": {
+      "message_id": "msg_018qRPdV13WKimjwTt1BAYvr",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 25352
+    },
+    "usage": {
+      "input_tokens": 8606,
+      "output_tokens": 1112,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 3727,
+    "judgment": "Con",
+    "overall_judgment": "Con",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro frequently references Con's specific arguments \u2014 the Treaty of Tripoli, the founders' religious beliefs, the Enlightenment claim, and the government/nation distinction. Pro engages with most of Con's key points across rounds, though sometimes superficially."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Pro sometimes represents Con's arguments fairly (e.g., acknowledging Con's Treaty of Tripoli wording in Round 1), but also distorts or sidesteps them. For instance, Pro claims Con is 'trying to prove that America is not a Christian nation based on the fact that America's government is not based on the Christian religion,' which is a partial mischaracterization of Con's broader argument. Pro also dismisses the Enlightenment connection without engaging its substance."
+        },
+        "responsiveness": {
+          "score": 3,
+          "justification": "Pro does adapt somewhat \u2014 notably conceding the Treaty of Tripoli wording in Round 1 and pivoting to the nation/government distinction. However, Pro also retreats from the founders' religion debate rather than engaging it, and the 80% Christian population argument is repeated across rounds without development in response to Con's rebuttal."
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": "Pro explicitly concedes in Round 1 that the Treaty of Tripoli wording is accurate ('I must say that I actually agree with the wording'), which is a genuine on-the-record concession of a specific point. Pro also acknowledges near-agreement on the government question in Round 2."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Pro maintains a generally respectful tone throughout, engaging Con's arguments without personal attacks or condescension. The debate is conducted in a collegial manner."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": "Con consistently and thoroughly engages with Pro's specific arguments across all rounds \u2014 addressing each founder Pro cited, responding to the colonies argument, the prayer motion, the 80% statistic, and the nation/government distinction. Con rarely lets a Pro argument go unaddressed."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con generally represents Pro's arguments accurately and engages with them on their own terms. Con correctly identifies that Pro is backing off the founders' religion argument and calls this out directly. Con does not significantly strawman Pro's positions."
+        },
+        "responsiveness": {
+          "score": 5,
+          "justification": "Con is highly reactive throughout. In Round 1, Con directly counters each founder Pro quoted with counter-quotes and context. In Round 2, Con responds to Pro's nation/government distinction with a substantive argument about republics, addresses the Declaration's Enlightenment basis, and anticipates and rebuts the 80% argument with an analogy. Con's argumentation visibly evolves in direct response to Pro's challenges."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con makes no explicit concessions to Pro at any point in the debate. Con maintains its position throughout without acknowledging Pro as correct on any specific point."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Con is generally respectful and engages Pro's arguments seriously. There is mild sarcasm (e.g., the winking emoticon after quoting Paine), but this is directed at ideas rather than at Pro personally. No ad hominem or personal dismissiveness is present."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "Con outperforms Pro on acknowledgment, responsiveness, and accuracy of representation. Con systematically addresses each of Pro's specific arguments with counter-evidence and adapts its argumentation across rounds in direct response to Pro's challenges. Pro does engage meaningfully and earns credit for an explicit concession on the Treaty of Tripoli, but also retreats from key arguments and relies on the repeated 80% statistic without developing it in response to Con's rebuttals. Con is the clearly better listener overall."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:23:22.685199",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "994ba2f1-f91f-4d25-961b-1fd9e1b2f6a6",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "7acc0f2b32e018cc5d80827f6747367cc631ed52b48f08088d16bd705c89e566",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "0f5b08fcf1c62e38828d196bb6300dca7f9645447c0d860016ab95913b24c5d7",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 33434
+    },
+    "response_metadata": {
+      "message_id": "msg_01G71JNDsc6SKq24hYqTmUrv",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 20481
+    },
+    "usage": {
+      "input_tokens": 9589,
+      "output_tokens": 976,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 25047,
+    "judgment": "Con",
+    "overall_judgment": "Con",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Pro references Con's arguments at times (e.g., responding to the healthcare point, the divisiveness point, the Bill Clinton mention), but frequently pivots to independent rhetoric, Hitler comparisons, and Clinton quotes rather than engaging Con's specific rebuttals. Major points like Con's correction that Clinton's plan is not socialized medicine are largely ignored."
+        },
+        "accuracy_of_representation": {
+          "score": 2,
+          "justification": "Pro repeatedly misrepresents Con's positions. Most notably, Con explicitly clarified that Clinton's plan is not socialized healthcare, yet Pro continues to argue against socialized healthcare. Pro also characterizes Con as a 'socialist' or 'communist' based on a selective reading of Con's argument about majority rule in democracy."
+        },
+        "responsiveness": {
+          "score": 2,
+          "justification": "Pro's argumentation is largely static. The Hitler comparison is introduced in Round 1 and repeated. The closing round abandons direct engagement almost entirely in favor of Clinton quotes and personal attacks on Con. Pro does not adapt to Con's substantive corrections (e.g., the nature of Clinton's healthcare proposal) and largely repeats pre-planned talking points."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro makes no concessions whatsoever. In Round 2, Pro even doubles down on the school grade analogy after Con pointed out its irrelevance, rather than acknowledging the critique."
+        },
+        "respectful_engagement": {
+          "score": 2,
+          "justification": "Pro makes personal attacks on Con, calling them ignorant of history, a socialist/communist, and stating 'You know nothing of history.' These are directed at Con personally, not merely at Con's arguments, crossing into dismissiveness and condescension."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 5,
+          "justification": "Con systematically addresses each of Pro's five numbered points in every round, explicitly referencing and engaging with Pro's specific claims throughout the debate. Con also picks up on new arguments Pro introduces (Hitler comparison, Monica Lewinsky, Sandy Berger, Chinese dishwashers) and addresses them directly."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Con generally represents Pro's arguments accurately and fairly. Con correctly identifies that Pro is arguing for socialized healthcare concerns, wealth redistribution objections, and divisiveness claims. Con does not significantly strawman Pro's positions, though occasionally simplifies them."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Con visibly adapts across rounds \u2014 clarifying that Clinton's plan is not socialized medicine in direct response to Pro's Round 1 argument, correcting the school grade analogy, addressing the Hitler comparison directly, and pushing back on the 'Chinese dishwashers' claim by noting lack of evidence. Con introduces new material in response to Pro's escalating rhetoric."
+        },
+        "concession_and_common_ground": {
+          "score": 2,
+          "justification": "In Round 2, Con explicitly concedes: 'You have a good point. School grades are NOT related to wealth, and your analogies were completely irrelevant.' This is a clear, on-the-record, non-sarcastic admission that Pro was correct on a specific point."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Con's tone is mostly neutral but becomes sharper in Round 2, accusing Pro of 'outright lies,' 'rhetoric,' and being 'utterly unable to form any sort of cohesive, well reasoned argument.' While this is partly provoked by Pro's personal attacks, it does cross into dismissiveness of Pro as a debater, not just of Pro's arguments."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Con",
+        "justification": "Con consistently and systematically engaged with Pro's specific arguments across all rounds, represented them accurately, adapted argumentation in response to Pro's challenges, and even made an explicit concession. Pro, by contrast, frequently ignored Con's substantive corrections, misrepresented Con's positions, and devolved into personal attacks and pre-planned rhetoric rather than engaging with the debate in front of them."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:23:41.709896",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "98fa6e6b-1872-4552-b7b0-940c4d54b346",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "9fc16c795b60c32f1f0736df4f72365d007e5f5fb3f2f62619442188f5461d8b",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "953e3441208960fd15a4c3b42078cde83056ca1297f4bd2e9cc5df68d9d2e192",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 18140
+    },
+    "response_metadata": {
+      "message_id": "msg_01JJP3YD1panscqAHx2A9ejA",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 34844
+    },
+    "usage": {
+      "input_tokens": 6089,
+      "output_tokens": 985,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  },
+  {
+    "debate_id": 40604,
+    "judgment": "Pro",
+    "overall_judgment": "Pro",
+    "evaluation": {
+      "pro": {
+        "acknowledgment": {
+          "score": 4,
+          "justification": "Pro directly addresses Con's specific points: the Canada/MRI claim, the taxation argument, the privilege vs. right framing, and the pharmaceutical industry point. Pro consistently references what Con said before offering rebuttals."
+        },
+        "accuracy_of_representation": {
+          "score": 4,
+          "justification": "Pro generally represents Con's arguments fairly \u2014 correctly identifying Con's positions on taxation, privilege vs. right, and Canadian health care. Pro does push back on the Canada/MRI claim by calling it a 'rumor,' which is a fair characterization of how Con presented it (without citation)."
+        },
+        "responsiveness": {
+          "score": 4,
+          "justification": "Pro adapts meaningfully in Round 1: introduces the education vs. health care comparison directly in response to Con's 'privilege' framing, challenges the Canada MRI claim with counter-evidence, and pivots to war spending as a rebuttal to the taxation concern. The Rick Perry/Gardasil example is new material introduced in direct response to Con's defense of pharmaceutical companies."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Pro never concedes any point to Con. Even when acknowledging Con's response ('I appreciate the response'), Pro immediately pivots to disagreement. No substantive concessions are made."
+        },
+        "respectful_engagement": {
+          "score": 4,
+          "justification": "Pro opens with appreciation for Con's response and maintains a generally respectful tone throughout. While Pro uses strong rhetoric ('white-collared criminals'), this is directed at industries rather than at Con personally. Overall engagement is respectful."
+        }
+      },
+      "con": {
+        "acknowledgment": {
+          "score": 3,
+          "justification": "Con acknowledges some of Pro's points (taxation willingness, pharmaceutical criticism, Hillary Clinton's plan) but misses or ignores several key arguments Pro raised, such as the education vs. health care comparison, the war spending rebuttal, and the satisfaction statistics from other countries."
+        },
+        "accuracy_of_representation": {
+          "score": 3,
+          "justification": "Con somewhat fairly represents Pro's willingness to pay more taxes, but largely sidesteps or oversimplifies Pro's arguments. For instance, Con dismisses the war spending point entirely ('I am not even going to bother bringing the War into this matter') without engaging its substance, and does not accurately grapple with Pro's education analogy."
+        },
+        "responsiveness": {
+          "score": 2,
+          "justification": "Con's Round 1 response largely repeats pre-planned talking points (taxation, pharmaceutical jobs, immigrants, obesity, elderly costs) with only superficial engagement with Pro's specific rebuttals. Con explicitly refuses to engage the war spending argument and does not address the Canada MRI challenge or the satisfaction statistics Pro raised."
+        },
+        "concession_and_common_ground": {
+          "score": 1,
+          "justification": "Con makes no concessions at any point. Every Pro argument is either deflected or dismissed. No on-the-record acknowledgment that Pro is correct about anything."
+        },
+        "respectful_engagement": {
+          "score": 3,
+          "justification": "Con's tone is neutral and not personally hostile, but the dismissal of Pro's war argument ('I am not even going to bother') is somewhat dismissive of Pro's reasoning. Overall, Con stays on topic without personal attacks, warranting a neutral score."
+        }
+      },
+      "overall_better_listener": {
+        "judgment": "Pro",
+        "justification": "Pro more consistently acknowledged and engaged with Con's specific arguments \u2014 directly challenging the Canada/MRI claim, responding to the privilege framing with the education analogy, and introducing new material (Rick Perry example) in direct response to Con's defense of pharmaceutical companies. Con, by contrast, largely repeated pre-planned points, explicitly refused to engage one of Pro's central rebuttals (war spending), and failed to address several key arguments Pro raised in Round 1."
+      }
+    },
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-04-14T18:23:47.690708",
+    "trial": true,
+    "request_metadata": {
+      "request_id": "b40a8b91-5ffe-4ad3-bf0e-14d417255f66",
+      "model": "claude-sonnet-4-6",
+      "temperature": 0,
+      "max_tokens": 1200,
+      "cache_enabled": true,
+      "cache_ttl": null,
+      "cache_marker": "[[CACHE_BREAK]]",
+      "cache_marker_found": true,
+      "system_cached": true,
+      "system_prompt_hash": "3ce01f3a270e8605e9582a74e5d1fd525f2fb43114141703b074b28863225b07",
+      "user_template_hash": "d55d4768b79d71ba1c3681987c9b6d834e749e8bfb6f825c4fa048499d913e07",
+      "user_prompt_hash": "5d36f44a9b0ab846159577f325c2a357ed41401bf3e72fb74f508a9fde728de4",
+      "cached_prefix_hash": "9ac26b2a06c1e9dd95b28c1993abd179c9e5737720b52262711e6fa6d51283b1",
+      "cached_suffix_hash": "e8479ddd7fc91291e1fe99fdc4a4c6bbbeff2e0d8e24725055fd52104e81b506",
+      "cached_prefix_chars": 1293,
+      "cached_suffix_chars": 8127
+    },
+    "response_metadata": {
+      "message_id": "msg_01MRhpJPiZs1jESSkmAzyGoq",
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "latency_ms": 24994
+    },
+    "usage": {
+      "input_tokens": 3792,
+      "output_tokens": 982,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    }
+  }
+]
