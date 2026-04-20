@@ -86,7 +86,7 @@ Respond in the following JSON format and nothing else:
 }
 ```
 
-**Debate Topic:** [[CACHE_BREAK]]{debate_topic}
+**Debate Topic:** {debate_topic}
 
 **Debate Transcript:**
 
