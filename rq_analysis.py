@@ -1584,7 +1584,7 @@ def write_report(
 # ===========================================================================
 
 def main():
-    parser = argparse.ArgumentParser(description="RQ1 correlation analysis")
+    parser = argparse.ArgumentParser(description="RQ 1-3 correlation analysis")
     parser.add_argument("--bootstrap", type=int, default=2000)
     parser.add_argument("--output-dir", type=str, default="reports/rq")
     parser.add_argument("--no-plots", action="store_true")
