@@ -1,30 +1,28 @@
 """
-rq1_analysis.py — Phase 3 RQ1 Correlation Analysis
+rq_analysis.py — RQ Analysis
 
-Does listening quality predict debate effectiveness?
-
-Outputs under reports/rq1/:
-    rq1_report.md                  markdown report for thesis
-    rq1_joined.csv                 one row per debate, all features and outcomes
-    rq1_overall_metrics.csv        headline winner-agreement table
-    rq1_switching.csv              listening margin vs. vote-switching correlations
-    rq1_switchers_conditional.csv  voter-level switcher table (conditional analysis)
-    rq1_heatmap_cells.csv          5x5 cell values with rho, p, BH-corrected q
-    rq1_dim_gt_correlations.csv    per-dimension rho vs 3 binarized ground truths
-    rq1_classifier.csv             cross-validated logistic classifier summary
-    rq1_winner_confusion.png       2x2 grid of confusion matrices
-    rq1_switch_scatter.png         listening margin vs. net switch toward Con
-    rq1_switch_confusion.png       confusion matrix: Claude judgment × switch direction
-    rq1_heatmap.png                5x5 Spearman rho heatmap
-    rq1_dim_gt_barchart.png        bar chart: per-dim rho vs 3 ground truths
+Outputs under reports/rq/:
+    rq_report.md                  markdown report for thesis
+    rq_joined.csv                 one row per debate, all features and outcomes
+    rq_overall_metrics.csv        headline winner-agreement table
+    rq_switching.csv              listening margin vs. vote-switching correlations
+    rq_switchers_conditional.csv  voter-level switcher table (conditional analysis)
+    rq_heatmap_cells.csv          5x5 cell values with rho, p, BH-corrected q
+    rq_dim_gt_correlations.csv    per-dimension rho vs 3 binarized ground truths
+    rq_classifier.csv             cross-validated logistic classifier summary
+    rq_winner_confusion.png       2x2 grid of confusion matrices
+    rq_switch_scatter.png         listening margin vs. net switch toward Con
+    rq_switch_confusion.png       confusion matrix: Claude judgment × switch direction
+    rq_heatmap.png                5x5 Spearman rho heatmap
+    rq_dim_gt_barchart.png        bar chart: per-dim rho vs 3 ground truths
 
 Sign convention: all "margin" values are con − pro.
   Positive listening margin → Con listened better.
   Positive net_switch_toward_con → more voters switched toward Con (net).
 
 Usage:
-    python rq1_analysis.py
-    python rq1_analysis.py --bootstrap 2000 --output-dir reports/rq1 --no-plots
+    python rq_analysis.py
+    python rq_analysis.py --bootstrap 2000 --output-dir reports/rq --no-plots
 """
 from __future__ import annotations
 
@@ -424,7 +422,7 @@ def analyze_winner_agreement(df: pd.DataFrame, n_boot: int, output_dir: Path, no
             })
 
     metrics_df = pd.DataFrame(rows)
-    metrics_df.to_csv(output_dir / "rq1_overall_metrics.csv", index=False)
+    metrics_df.to_csv(output_dir / "rq_overall_metrics.csv", index=False)
 
     def _draw_cm_grid(cms_dict, combos, conditions, filename, title_suffix=""):
         fig, axes = plt.subplots(len(combos), 2, figsize=(10, 4 * len(combos)))
@@ -453,9 +451,9 @@ def analyze_winner_agreement(df: pd.DataFrame, n_boot: int, output_dir: Path, no
     if HAS_MPL and not no_plots:
         import matplotlib.pyplot as plt
         _draw_cm_grid(all_cms, combos, conditions,
-                      output_dir / "rq1_winner_confusion.png")
+                      output_dir / "rq_winner_confusion.png")
         _draw_cm_grid(all_cms_wtd, combos, conditions,
-                      output_dir / "rq1_winner_confusion_weighted.png",
+                      output_dir / "rq_winner_confusion_weighted.png",
                       title_suffix=" (voter-wtd)")
 
     return metrics_df
@@ -514,7 +512,7 @@ def analyze_vote_switching(df: pd.DataFrame, n_boot: int, output_dir: Path, no_p
         rows.append(weighted_corr_row(f"margin_{d}", f"margin_{d}", "net_switch_toward_con", sub_w, n_boot, "per-dimension-weighted"))
 
     sw_df = pd.DataFrame(rows)
-    sw_df.to_csv(output_dir / "rq1_switching.csv", index=False)
+    sw_df.to_csv(output_dir / "rq_switching.csv", index=False)
 
     # Scatter plot
     if HAS_MPL and not no_plots:
@@ -543,9 +541,9 @@ def analyze_vote_switching(df: pd.DataFrame, n_boot: int, output_dir: Path, no_p
             ax.axvline(0, color="gray", linewidth=0.7, linestyle="--")
         plt.suptitle("Listening margin vs. vote switching", fontsize=13, y=1.01)
         plt.tight_layout()
-        plt.savefig(output_dir / "rq1_switch_scatter.png", dpi=150, bbox_inches="tight")
+        plt.savefig(output_dir / "rq_switch_scatter.png", dpi=150, bbox_inches="tight")
         plt.close()
-        print(f"Saved rq1_switch_scatter.png")
+        print(f"Saved rq_switch_scatter.png")
 
     return sw_df
 
@@ -606,8 +604,8 @@ def analyze_switchers_conditional(df: pd.DataFrame, n_boot: int, output_dir: Pat
             })
 
     sw_voter_df = pd.DataFrame(switcher_rows)
-    sw_voter_df.to_csv(output_dir / "rq1_switchers_conditional.csv", index=False)
-    print(f"Saved rq1_switchers_conditional.csv ({len(sw_voter_df)} switcher events)")
+    sw_voter_df.to_csv(output_dir / "rq_switchers_conditional.csv", index=False)
+    print(f"Saved rq_switchers_conditional.csv ({len(sw_voter_df)} switcher events)")
 
     n_total_switchers = len(sw_voter_df)
     n_debates_with_switches = sw_voter_df["debate_id"].nunique()
@@ -736,9 +734,9 @@ def analyze_switchers_conditional(df: pd.DataFrame, n_boot: int, output_dir: Pat
 
         plt.suptitle("Switch direction vs. Claude's better-listener judgment", fontsize=12, y=1.02)
         plt.tight_layout()
-        plt.savefig(output_dir / "rq1_switch_confusion.png", dpi=150, bbox_inches="tight")
+        plt.savefig(output_dir / "rq_switch_confusion.png", dpi=150, bbox_inches="tight")
         plt.close()
-        print(f"Saved rq1_switch_confusion.png")
+        print(f"Saved rq_switch_confusion.png")
 
     return result
 
@@ -816,7 +814,7 @@ def analyze_heatmap(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: b
         r["q_bh_wtd"] = round(float(q_w), 5)
 
     hm_df = pd.DataFrame(rows)
-    hm_df.to_csv(output_dir / "rq1_heatmap_cells.csv", index=False)
+    hm_df.to_csv(output_dir / "rq_heatmap_cells.csv", index=False)
 
     # Heatmap PNG
     if HAS_MPL and not no_plots:
@@ -865,12 +863,12 @@ def analyze_heatmap(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: b
         _draw_heatmap(
             rhos,
             "Spearman ρ: listening margin × sub-vote / vote margin\n(★ = BH-corrected q < 0.05, 25 tests)",
-            output_dir / "rq1_heatmap.png",
+            output_dir / "rq_heatmap.png",
         )
         _draw_heatmap(
             rhos_wtd,
             "Spearman ρ (voter-weighted): listening × sub-vote / vote margin\n(★ = BH-corrected q < 0.05, 25 tests)",
-            output_dir / "rq1_heatmap_weighted.png",
+            output_dir / "rq_heatmap_weighted.png",
             wtd=True,
         )
 
@@ -966,8 +964,8 @@ def analyze_dim_vs_ground_truth(df: pd.DataFrame, n_boot: int, output_dir: Path,
             })
 
     dim_gt_df = pd.DataFrame(rows)
-    dim_gt_df.to_csv(output_dir / "rq1_dim_gt_correlations.csv", index=False)
-    print(f"Saved rq1_dim_gt_correlations.csv ({len(dim_gt_df)} rows)")
+    dim_gt_df.to_csv(output_dir / "rq_dim_gt_correlations.csv", index=False)
+    print(f"Saved rq_dim_gt_correlations.csv ({len(dim_gt_df)} rows)")
 
     if HAS_MPL and not no_plots:
         import matplotlib.pyplot as plt
@@ -1017,9 +1015,9 @@ def analyze_dim_vs_ground_truth(df: pd.DataFrame, n_boot: int, output_dir: Path,
         ax.axhline(0, color="black", linewidth=0.8, linestyle="--")
         ax.legend(title="Ground truth", fontsize=10)
         plt.tight_layout()
-        plt.savefig(output_dir / "rq1_dim_gt_barchart.png", dpi=150, bbox_inches="tight")
+        plt.savefig(output_dir / "rq_dim_gt_barchart.png", dpi=150, bbox_inches="tight")
         plt.close()
-        print(f"Saved rq1_dim_gt_barchart.png")
+        print(f"Saved rq_dim_gt_barchart.png")
 
     return dim_gt_df
 
@@ -1159,8 +1157,8 @@ def analyze_cv_classifier(df: pd.DataFrame, output_dir: Path):
     }
 
     clf_df = pd.DataFrame(result_rows)
-    clf_df.to_csv(output_dir / "rq1_classifier.csv", index=False)
-    print(f"Saved rq1_classifier.csv")
+    clf_df.to_csv(output_dir / "rq_classifier.csv", index=False)
+    print(f"Saved rq_classifier.csv")
 
     details["df"] = clf_df
     return details
@@ -1250,7 +1248,7 @@ def write_report(
           f"{r['gwet_ac1']:.4f} | {r['macro_f1']:.4f} |")
     blank()
 
-    p("![Confusion matrices](rq1_winner_confusion.png)")
+    p("![Confusion matrices](rq_winner_confusion.png)")
     blank()
 
     # -----------------------------------------------------------------------
@@ -1278,7 +1276,7 @@ def write_report(
         p("*(dimension–ground-truth correlation table not available)*")
         blank()
 
-    p("![Per-dimension ρ bar chart](rq1_dim_gt_barchart.png)")
+    p("![Per-dimension ρ bar chart](rq_dim_gt_barchart.png)")
     blank()
 
     # --- Vote switching ---
@@ -1315,7 +1313,7 @@ def write_report(
       f"p = {rob['spearman_p']:.5f}.")
     blank()
 
-    p("![Switch scatter](rq1_switch_scatter.png)")
+    p("![Switch scatter](rq_switch_scatter.png)")
     blank()
 
     # --- Conditional switchers analysis ---
@@ -1365,7 +1363,7 @@ def write_report(
         )
         blank()
 
-    p("![Switch confusion matrix](rq1_switch_confusion.png)")
+    p("![Switch confusion matrix](rq_switch_confusion.png)")
     blank()
 
     # --- Heatmap ---
@@ -1379,7 +1377,7 @@ def write_report(
         "starred cells (★) survive Benjamini–Hochberg correction at q < 0.05."
     )
     blank()
-    p("![Heatmap](rq1_heatmap.png)")
+    p("![Heatmap](rq_heatmap.png)")
     blank()
 
     # Top significant cells
@@ -1503,7 +1501,7 @@ def write_report(
             "comparisons are contextual."
         )
         blank()
-        p("Full results saved to `rq1_classifier.csv`.")
+        p("Full results saved to `rq_classifier.csv`.")
     else:
         p("*(CV classifier results not available — scikit-learn may not be installed)*")
     blank()
@@ -1516,7 +1514,7 @@ def write_report(
     p(f"- Total debates in `claude_listening.json`: {n_total}.")
     p(f"- Debates with missing Q1 ground truth: {n_q1_na}.")
     p(f"- Debates with zero recorded votes: {n_zero_votes}.")
-    p(f"- Min-max-normalized mean margin is reported as a robustness row in `rq1_switching.csv`; "
+    p(f"- Min-max-normalized mean margin is reported as a robustness row in `rq_switching.csv`; "
       f"results are substantively similar to the raw mean margin.")
     blank()
 
@@ -1555,7 +1553,7 @@ def write_report(
           f"{r['gwet_ac1']:.4f} |")
     blank()
 
-    p("See `rq1_winner_confusion_weighted.png` for voter-weighted confusion matrices.")
+    p("See `rq_winner_confusion_weighted.png` for voter-weighted confusion matrices.")
     blank()
 
     h(4, "Voter-weighted vote switching (composite margin)")
@@ -1569,16 +1567,16 @@ def write_report(
     blank()
 
     h(4, "Voter-weighted heatmap")
-    p("See `rq1_heatmap_weighted.png`. Weighted ρ and BH q values are in the "
-      "`rho_wtd`, `p_wtd`, `q_bh_wtd` columns of `rq1_heatmap_cells.csv`.")
+    p("See `rq_heatmap_weighted.png`. Weighted ρ and BH q values are in the "
+      "`rho_wtd`, `p_wtd`, `q_bh_wtd` columns of `rq_heatmap_cells.csv`.")
     sig_wtd = hm_df[hm_df["q_bh_wtd"] < 0.05].sort_values("rho_wtd", key=abs, ascending=False)
     if len(sig_wtd):
         p(f"BH-significant cells in the weighted heatmap: {len(sig_wtd)}/25.")
     blank()
 
     report_text = "\n".join(lines)
-    (output_dir / "rq1_report.md").write_text(report_text)
-    print(f"Saved rq1_report.md")
+    (output_dir / "rq_report.md").write_text(report_text)
+    print(f"Saved rq_report.md")
 
 
 # ===========================================================================
@@ -1588,7 +1586,7 @@ def write_report(
 def main():
     parser = argparse.ArgumentParser(description="RQ1 correlation analysis")
     parser.add_argument("--bootstrap", type=int, default=2000)
-    parser.add_argument("--output-dir", type=str, default="reports/rq1")
+    parser.add_argument("--output-dir", type=str, default="reports/rq")
     parser.add_argument("--no-plots", action="store_true")
     parser.add_argument("--reuse-df", action="store_true")
     args = parser.parse_args()
@@ -1598,7 +1596,7 @@ def main():
 
     successful_load = False
     if args.reuse_df:
-        df_path = output_dir / "rq1_joined.csv"
+        df_path = output_dir / "rq_joined.csv"
         if df_path.exists():
             try:
                 df = pd.read_csv(df_path)
@@ -1612,8 +1610,8 @@ def main():
     if not successful_load:
         print("Building dataframe...")
         df = build_dataframe()
-        df.to_csv(output_dir / "rq1_joined.csv", index=False)
-        print(f"Saved rq1_joined.csv ({len(df)} rows)")
+        df.to_csv(output_dir / "rq_joined.csv", index=False)
+        print(f"Saved rq_joined.csv ({len(df)} rows)")
 
     print(f"\nRunning headline analysis (bootstrap n={args.bootstrap})...")
     metrics_df = analyze_winner_agreement(df, args.bootstrap, output_dir, args.no_plots)

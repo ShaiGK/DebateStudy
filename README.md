@@ -38,7 +38,7 @@ debate_study/
 ├── try_prompt.py              # Run Claude on one or a few debates (prompt iteration)
 ├── run_claude_batch.py        # Run Claude on all 833 debates (sync or Batch API)
 ├── compare.py                 # RQ0: IAA between human and Claude annotations
-├── rq1_analysis.py            # RQ1–RQ3: all correlation and classifier analyses
+├── rq_analysis.py            # RQ1–RQ3: all correlation and classifier analyses
 ├── data_loader.py             # Reads the Rescala et al. processed data
 ├── config.py                  # Centralized paths (no secrets)
 ├── prompt_templates/          # System + user prompts sent to Claude
@@ -52,7 +52,7 @@ debate_study/
 ├── claude_listening_trial.json# Claude outputs from prompt-iteration runs
 ├── reports/
 │   ├── iaa/                   # RQ0 outputs (compare.py)
-│   └── rq1/                   # RQ1–RQ3 outputs (rq1_analysis.py)
+│   └── rq/                   # RQ1–RQ3 outputs (rq_analysis.py)
 └── requirements.txt
 ```
 
@@ -80,7 +80,7 @@ This repo ships with the annotation outputs (`annotations.json`, `claude_listeni
         └── llm_outputs/q1.json              # Q1 ground-truth winners (Rescala)
 ```
 
-These files come from the Rescala et al. (2024) preprocessing pipeline. Without them, the analysis scripts (`rq1_analysis.py`, `compare.py`) will raise `FileNotFoundError` when they try to join listening scores with vote outcomes.
+These files come from the Rescala et al. (2024) preprocessing pipeline. Without them, the analysis scripts (`rq_analysis.py`, `compare.py`) will raise `FileNotFoundError` when they try to join listening scores with vote outcomes.
 
 If you only want to inspect the annotation outputs, `annotations.json` and `claude_listening.json` are self-contained and do not require the data files.
 
@@ -164,28 +164,28 @@ Use `--use-trials` to compare against `claude_listening_trial.json` while iterat
 ### 5. RQ1–RQ3 — listening ↔ persuasion outcomes
 
 ```bash
-python rq1_analysis.py
+python rq_analysis.py
 ```
 
-Writes to `reports/rq1/`:
+Writes to `reports/rq/`:
 
 | File | Contents |
 |---|---|
-| `rq1_report.md` | Full markdown write-up with all tables and figures |
-| `rq1_joined.csv` | Master feature table: one row per debate, all listening scores + outcome metrics |
-| `rq1_overall_metrics.csv` | RQ1 winner-agreement: accuracy / κ / AC1 / macro-F1 for 3 ground truths × {2-class, 3-class} × {unweighted, voter-weighted} |
-| `rq1_dim_gt_correlations.csv` | RQ1 per-dimension Spearman ρ against 3 binarized ground truths |
-| `rq1_switching.csv` | RQ2 correlational: composite and per-dimension ρ vs. net_switch_toward_con |
-| `rq1_switchers_conditional.csv` | RQ2 conditional: voter-level switch events with direction + Claude judgment |
-| `rq1_heatmap_cells.csv` | 5×5 Spearman ρ matrix with BH-corrected q-values (unweighted + voter-weighted) |
-| `rq1_classifier.csv` | RQ3: cross-validated logistic classifier summary (accuracy, best C, best penalty) |
-| `rq1_winner_confusion.png` | RQ1 confusion matrices (3 ground truths × 2 conditions) |
-| `rq1_winner_confusion_weighted.png` | Voter-weighted version |
-| `rq1_dim_gt_barchart.png` | RQ1 grouped bar chart: per-dimension ρ vs. 3 ground truths |
-| `rq1_switch_scatter.png` | RQ2 scatter: composite listening margin vs. net switch toward Con |
-| `rq1_switch_confusion.png` | RQ2 conditional: confusion matrix of switch direction vs. Claude judgment |
-| `rq1_heatmap.png` | 5×5 Spearman ρ heatmap (unweighted) |
-| `rq1_heatmap_weighted.png` | Voter-weighted version |
+| `rq_report.md` | Full markdown write-up with all tables and figures |
+| `rq_joined.csv` | Master feature table: one row per debate, all listening scores + outcome metrics |
+| `rq_overall_metrics.csv` | RQ1 winner-agreement: accuracy / κ / AC1 / macro-F1 for 3 ground truths × {2-class, 3-class} × {unweighted, voter-weighted} |
+| `rq_dim_gt_correlations.csv` | RQ1 per-dimension Spearman ρ against 3 binarized ground truths |
+| `rq_switching.csv` | RQ2 correlational: composite and per-dimension ρ vs. net_switch_toward_con |
+| `rq_switchers_conditional.csv` | RQ2 conditional: voter-level switch events with direction + Claude judgment |
+| `rq_heatmap_cells.csv` | 5×5 Spearman ρ matrix with BH-corrected q-values (unweighted + voter-weighted) |
+| `rq_classifier.csv` | RQ3: cross-validated logistic classifier summary (accuracy, best C, best penalty) |
+| `rq_winner_confusion.png` | RQ1 confusion matrices (3 ground truths × 2 conditions) |
+| `rq_winner_confusion_weighted.png` | Voter-weighted version |
+| `rq_dim_gt_barchart.png` | RQ1 grouped bar chart: per-dimension ρ vs. 3 ground truths |
+| `rq_switch_scatter.png` | RQ2 scatter: composite listening margin vs. net switch toward Con |
+| `rq_switch_confusion.png` | RQ2 conditional: confusion matrix of switch direction vs. Claude judgment |
+| `rq_heatmap.png` | 5×5 Spearman ρ heatmap (unweighted) |
+| `rq_heatmap_weighted.png` | Voter-weighted version |
 
 ---
 

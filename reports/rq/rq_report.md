@@ -26,7 +26,7 @@ For comparison, Rescala et al. (2024) report a random baseline of 33.33%, a majo
 | Majority winner | 833 | 28.33 | [25.21, 31.33] | 0.0189 | [-0.0191, 0.0551] | -0.0620 | 0.2747 |
 | Majority winner (Pro/Con only) | 833 | 36.13 | [32.89, 39.38] | 0.0440 | [-0.0032, 0.0895] | 0.0487 | 0.3481 |
 
-![Confusion matrices](rq1_winner_confusion.png)
+![Confusion matrices](rq_winner_confusion.png)
 
 
 ## Per-Dimension Correlations with Binarized Ground Truth
@@ -51,7 +51,7 @@ To determine which listening dimensions individually predict who won, we compute
 | respectful_engagement | Majority winner (Pro/Con) | 532 | -0.0031 | 0.94230 | [-0.0850, 0.0813] |
 | respectful_engagement | Majority winner | 285 | 0.0253 | 0.67079 | [-0.0918, 0.1435] |
 
-![Per-dimension ρ bar chart](rq1_dim_gt_barchart.png)
+![Per-dimension ρ bar chart](rq_dim_gt_barchart.png)
 
 
 ## Vote Switching
@@ -76,7 +76,7 @@ Mean listening margin (raw) vs. net switch toward Con: Spearman ρ = 0.0360 (95%
 
 **Robustness:** Min-max-normalized mean margin: ρ = 0.0286 (95% CI [-0.0369, 0.0935]), p = 0.41037.
 
-![Switch scatter](rq1_switch_scatter.png)
+![Switch scatter](rq_switch_scatter.png)
 
 
 ## Vote Switching: Conditional on Switching
@@ -99,14 +99,14 @@ Chi-square test of independence (switch direction × Claude judgment): χ²(1) =
 
 Restricting to voters who switched cleanly between Pro and Con (excluding Pro↔Tie and Tie↔Con transitions): n = 102 switch events. Accuracy = 58.82%, Cohen's κ = 0.1652.
 
-![Switch confusion matrix](rq1_switch_confusion.png)
+![Switch confusion matrix](rq_switch_confusion.png)
 
 
 ## Per-Dimension × Per-Sub-Vote Heatmap (5×5)
 
 The following heatmap shows Spearman ρ between each listening-dimension margin (Con − Pro mean score) and each persuasion sub-vote margin ((n_Con − n_Pro) / n_votes on that sub-vote), plus the overall post-debate vote margin (the 5th column). This is an exploratory 5×5 analysis (25 simultaneous tests); starred cells (★) survive Benjamini–Hochberg correction at q < 0.05.
 
-![Heatmap](rq1_heatmap.png)
+![Heatmap](rq_heatmap.png)
 
 **BH-significant cells (q < 0.05):**
 
@@ -193,7 +193,7 @@ Baselines: *heuristic* = Claude's single overall-judgment label used directly as
 
 The 2-class CV accuracy (64.19%) compares to the single-judgment heuristic (64.37%), the always-majority baseline (57.16% — always predict the more frequent class in the 2-class subset), and to the random baseline (50.00%), The 3-class CV accuracy (57.15%) compares to the single-judgment heuristic (48.14%), the always-majority baseline (50.78% — always predict the more frequent class in the 3-class subset), the random baseline (33.33%), Rescala et al.'s GPT-4 benchmark (60.50%), and their majority-vote baseline (60.69%). Note that the Rescala benchmarks are on a related but not identical task; comparisons are contextual.
 
-Full results saved to `rq1_classifier.csv`.
+Full results saved to `rq_classifier.csv`.
 
 
 ## Robustness Notes
@@ -201,7 +201,7 @@ Full results saved to `rq1_classifier.csv`.
 - Total debates in `claude_listening.json`: 833.
 - Debates with missing Q1 ground truth: 0.
 - Debates with zero recorded votes: 0.
-- Min-max-normalized mean margin is reported as a robustness row in `rq1_switching.csv`; results are substantively similar to the raw mean margin.
+- Min-max-normalized mean margin is reported as a robustness row in `rq_switching.csv`; results are substantively similar to the raw mean margin.
 
 
 ### Voter-Weighted Results
@@ -226,7 +226,7 @@ All headline analyses treat each debate as an unweighted unit. As a robustness c
 | Majority winner | 833 | 4871 | 26.75 | [22.77, 30.65] | -0.0093 | [-0.0583, 0.0391] | -0.0851 |
 | Majority winner (Pro/Con only) | 833 | 4871 | 34.08 | [29.93, 38.36] | 0.0100 | [-0.0519, 0.0735] | 0.0169 |
 
-See `rq1_winner_confusion_weighted.png` for voter-weighted confusion matrices.
+See `rq_winner_confusion_weighted.png` for voter-weighted confusion matrices.
 
 
 #### Voter-weighted vote switching (composite margin)
@@ -236,5 +236,5 @@ Spearman ρ = 0.0688 (95% CI [-0.0312, 0.1660]), p = 0.00000. n = 833 debates / 
 
 #### Voter-weighted heatmap
 
-See `rq1_heatmap_weighted.png`. Weighted ρ and BH q values are in the `rho_wtd`, `p_wtd`, `q_bh_wtd` columns of `rq1_heatmap_cells.csv`.
+See `rq_heatmap_weighted.png`. Weighted ρ and BH q values are in the `rho_wtd`, `p_wtd`, `q_bh_wtd` columns of `rq_heatmap_cells.csv`.
 BH-significant cells in the weighted heatmap: 24/25.
