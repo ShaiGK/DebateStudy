@@ -15,6 +15,7 @@ Outputs under reports/rq/:
     rq_switch_confusion.png       confusion matrix: Claude judgment × switch direction
     rq_heatmap.png                5x5 Spearman rho heatmap
     rq_dim_gt_barchart.png        bar chart: per-dim rho vs 3 ground truths
+    rq_classifier_comparison.png  bar chart: classifier performance against baselines
 
 Sign convention: all "margin" values are con − pro.
   Positive listening margin → Con listened better.
@@ -446,7 +447,7 @@ def analyze_winner_agreement(df: pd.DataFrame, n_boot: int, output_dir: Path, no
         plt.tight_layout()
         plt.savefig(filename, dpi=150, bbox_inches="tight")
         plt.close()
-        print(f"Saved {Path(filename).name}")
+        print(f"--> Saved {Path(filename).name}")
 
     if HAS_MPL and not no_plots:
         import matplotlib.pyplot as plt
@@ -543,7 +544,7 @@ def analyze_vote_switching(df: pd.DataFrame, n_boot: int, output_dir: Path, no_p
         plt.tight_layout()
         plt.savefig(output_dir / "rq_switch_scatter.png", dpi=150, bbox_inches="tight")
         plt.close()
-        print(f"Saved rq_switch_scatter.png")
+        print(f"--> Saved rq_switch_scatter.png")
 
     return sw_df
 
@@ -605,7 +606,7 @@ def analyze_switchers_conditional(df: pd.DataFrame, n_boot: int, output_dir: Pat
 
     sw_voter_df = pd.DataFrame(switcher_rows)
     sw_voter_df.to_csv(output_dir / "rq_switchers_conditional.csv", index=False)
-    print(f"Saved rq_switchers_conditional.csv ({len(sw_voter_df)} switcher events)")
+    print(f"--> Saved rq_switchers_conditional.csv ({len(sw_voter_df)} switcher events)")
 
     n_total_switchers = len(sw_voter_df)
     n_debates_with_switches = sw_voter_df["debate_id"].nunique()
@@ -736,7 +737,7 @@ def analyze_switchers_conditional(df: pd.DataFrame, n_boot: int, output_dir: Pat
         plt.tight_layout()
         plt.savefig(output_dir / "rq_switch_confusion.png", dpi=150, bbox_inches="tight")
         plt.close()
-        print(f"Saved rq_switch_confusion.png")
+        print(f"--> Saved rq_switch_confusion.png")
 
     return result
 
@@ -858,7 +859,7 @@ def analyze_heatmap(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: b
             plt.tight_layout()
             plt.savefig(filename, dpi=150, bbox_inches="tight")
             plt.close()
-            print(f"Saved {Path(filename).name}")
+            print(f"--> Saved {Path(filename).name}")
 
         _draw_heatmap(
             rhos,
@@ -965,7 +966,7 @@ def analyze_dim_vs_ground_truth(df: pd.DataFrame, n_boot: int, output_dir: Path,
 
     dim_gt_df = pd.DataFrame(rows)
     dim_gt_df.to_csv(output_dir / "rq_dim_gt_correlations.csv", index=False)
-    print(f"Saved rq_dim_gt_correlations.csv ({len(dim_gt_df)} rows)")
+    print(f"--> Saved rq_dim_gt_correlations.csv ({len(dim_gt_df)} rows)")
 
     if HAS_MPL and not no_plots:
         import matplotlib.pyplot as plt
@@ -1017,7 +1018,7 @@ def analyze_dim_vs_ground_truth(df: pd.DataFrame, n_boot: int, output_dir: Path,
         plt.tight_layout()
         plt.savefig(output_dir / "rq_dim_gt_barchart.png", dpi=150, bbox_inches="tight")
         plt.close()
-        print(f"Saved rq_dim_gt_barchart.png")
+        print(f"--> Saved rq_dim_gt_barchart.png")
 
     return dim_gt_df
 
@@ -1026,7 +1027,7 @@ def analyze_dim_vs_ground_truth(df: pd.DataFrame, n_boot: int, output_dir: Path,
 # 3g. CROSS-VALIDATED LOGISTIC CLASSIFIER
 # ===========================================================================
 
-def analyze_cv_classifier(df: pd.DataFrame, output_dir: Path):
+def analyze_cv_classifier(df: pd.DataFrame, output_dir: Path, no_plots: bool):
     """
     Cross-validated logistic regression predicting debate winner from eight features:
       - 5 listening-dimension margins
@@ -1043,6 +1044,15 @@ def analyze_cv_classifier(df: pd.DataFrame, output_dir: Path):
         from sklearn.model_selection import StratifiedKFold, GridSearchCV
     except ImportError:
         print("scikit-learn not available; skipping CV classifier analysis")
+        return None
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        HAS_MPL = True
+    except ImportError:
+        print("matplotlib not installed; skipping classifier comparison figure.")
+        HAS_MPL = False
         return None
 
     import warnings
@@ -1158,7 +1168,80 @@ def analyze_cv_classifier(df: pd.DataFrame, output_dir: Path):
 
     clf_df = pd.DataFrame(result_rows)
     clf_df.to_csv(output_dir / "rq_classifier.csv", index=False)
-    print(f"Saved rq_classifier.csv")
+    print(f"--> Saved rq_classifier.csv")
+
+    if HAS_MPL and not no_plots:
+        row = clf_df[clf_df["condition"] == "3-class"].iloc[0]
+
+        entries = [
+            ("Random baseline", row["random_baseline"], "#cccccc", False),
+            ("Always-majority baseline", row["always_majority_class_pct"], "#bbbbbb", False),
+            ("Heuristic\n(better listener wins)", row["heuristic_accuracy"], "#aaaaaa", False),
+            ("This study\n(listening classifier)", row["cv_accuracy_mean"], "#2171b5", True),
+            ("Rescala et al. GPT-4", row["rescala_gpt4"], "#6baed6", False),
+            ("Rescala et al.\nmajority vote", row["rescala_majority_vote"], "#9ecae1", False),
+        ]
+
+        labels = [e[0] for e in entries]
+        values = [e[1] for e in entries]
+        colors = [e[2] for e in entries]
+        is_focal = [e[3] for e in entries]
+
+        fig, ax = plt.subplots(figsize=(8, 4.2))
+
+        bars = ax.barh(labels, values, color=colors, height=0.55, zorder=3)
+
+        # Bold border on focal bar
+        for bar, focal in zip(bars, is_focal):
+            if focal:
+                bar.set_edgecolor("#08306b")
+                bar.set_linewidth(1.8)
+
+        # Std error whisker on focal bar only (render before labels)
+        focal_idx = next(i for i, e in enumerate(entries) if e[3])
+        std = row["cv_accuracy_std"]
+        focal_bar = bars[focal_idx]
+        mid_y = focal_bar.get_y() + focal_bar.get_height() / 2
+        ax.errorbar(
+            row["cv_accuracy_mean"], mid_y,
+            xerr=std, fmt="none",
+            ecolor="#08306b", capsize=4, linewidth=1.5, zorder=4,
+        )
+
+        # Value labels
+        for i, (bar, val, focal) in enumerate(zip(bars, values, is_focal)):
+            # For focal bar, place label above the error bar
+            if focal:
+                y_pos = bar.get_y()
+            else:
+                y_pos = bar.get_y() + bar.get_height() / 2
+
+            ax.text(
+                bar.get_width() + 0.4,
+                y_pos,
+                f"{val:.2f}%",
+                va="center", ha="left",
+                fontsize=10,
+                fontweight="bold" if focal else "normal",
+                color="#08306b" if focal else "#333333",
+            )
+
+        ax.set_xlabel("3-class accuracy (%)", fontsize=11)
+        ax.set_xlim(0, max(values) + 8)
+        ax.set_title(
+            "RQ3: Classifier accuracy vs. baselines (3-class)",
+            fontsize=12, pad=10,
+        )
+        ax.axvline(33.33, color="#cccccc", linewidth=0.8, linestyle="--", zorder=2)
+        ax.grid(axis="x", linestyle="--", linewidth=0.5, alpha=0.5, zorder=1)
+        ax.invert_yaxis()
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+
+        plt.tight_layout()
+        plt.savefig(output_dir / "rq_classifier_comparison.png", dpi=150, bbox_inches="tight")
+        plt.close(fig)
+        print("--> Saved rq_classifier_comparison.png")
 
     details["df"] = clf_df
     return details
@@ -1576,7 +1659,7 @@ def write_report(
 
     report_text = "\n".join(lines)
     (output_dir / "rq_report.md").write_text(report_text)
-    print(f"Saved rq_report.md")
+    print(f"--> Saved rq_report.md")
 
 
 # ===========================================================================
@@ -1611,7 +1694,7 @@ def main():
         print("Building dataframe...")
         df = build_dataframe()
         df.to_csv(output_dir / "rq_joined.csv", index=False)
-        print(f"Saved rq_joined.csv ({len(df)} rows)")
+        print(f"--> Saved rq_joined.csv ({len(df)} rows)")
 
     print(f"\nRunning headline analysis (bootstrap n={args.bootstrap})...")
     metrics_df = analyze_winner_agreement(df, args.bootstrap, output_dir, args.no_plots)
@@ -1635,7 +1718,7 @@ def main():
     dim_gt_df = analyze_dim_vs_ground_truth(df, args.bootstrap, output_dir, args.no_plots)
 
     print("Running cross-validated logistic classifier...")
-    clf_result = analyze_cv_classifier(df, output_dir)
+    clf_result = analyze_cv_classifier(df, output_dir, args.no_plots)
 
     print("Writing report...")
     write_report(

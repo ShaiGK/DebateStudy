@@ -169,23 +169,24 @@ python rq_analysis.py
 
 Writes to `reports/rq/`:
 
-| File | Contents |
-|---|---|
-| `rq_report.md` | Full markdown write-up with all tables and figures |
-| `rq_joined.csv` | Master feature table: one row per debate, all listening scores + outcome metrics |
+| File | Contents                                                                                                                    |
+|---|-----------------------------------------------------------------------------------------------------------------------------|
+| `rq_report.md` | Full markdown write-up with all tables and figures                                                                          |
+| `rq_joined.csv` | Master feature table: one row per debate, all listening scores + outcome metrics                                            |
 | `rq_overall_metrics.csv` | RQ1 winner-agreement: accuracy / κ / AC1 / macro-F1 for 3 ground truths × {2-class, 3-class} × {unweighted, voter-weighted} |
-| `rq_dim_gt_correlations.csv` | RQ1 per-dimension Spearman ρ against 3 binarized ground truths |
-| `rq_switching.csv` | RQ2 correlational: composite and per-dimension ρ vs. net_switch_toward_con |
-| `rq_switchers_conditional.csv` | RQ2 conditional: voter-level switch events with direction + Claude judgment |
-| `rq_heatmap_cells.csv` | 5×5 Spearman ρ matrix with BH-corrected q-values (unweighted + voter-weighted) |
-| `rq_classifier.csv` | RQ3: cross-validated logistic classifier summary (accuracy, best C, best penalty) |
-| `rq_winner_confusion.png` | RQ1 confusion matrices (3 ground truths × 2 conditions) |
-| `rq_winner_confusion_weighted.png` | Voter-weighted version |
-| `rq_dim_gt_barchart.png` | RQ1 grouped bar chart: per-dimension ρ vs. 3 ground truths |
-| `rq_switch_scatter.png` | RQ2 scatter: composite listening margin vs. net switch toward Con |
-| `rq_switch_confusion.png` | RQ2 conditional: confusion matrix of switch direction vs. Claude judgment |
-| `rq_heatmap.png` | 5×5 Spearman ρ heatmap (unweighted) |
-| `rq_heatmap_weighted.png` | Voter-weighted version |
+| `rq_dim_gt_correlations.csv` | RQ1 per-dimension Spearman ρ against 3 binarized ground truths                                                              |
+| `rq_switching.csv` | RQ2 correlational: composite and per-dimension ρ vs. net_switch_toward_con                                                  |
+| `rq_switchers_conditional.csv` | RQ2 conditional: voter-level switch events with direction + Claude judgment                                                 |
+| `rq_heatmap_cells.csv` | 5×5 Spearman ρ matrix with BH-corrected q-values (unweighted + voter-weighted)                                              |
+| `rq_classifier.csv` | RQ3: cross-validated logistic classifier summary (accuracy, best C, best penalty)                                           |
+| `rq_winner_confusion.png` | RQ1 confusion matrices (3 ground truths × 2 conditions)                                                                     |
+| `rq_winner_confusion_weighted.png` | Voter-weighted version                                                                                                      |
+| `rq_dim_gt_barchart.png` | RQ1 grouped bar chart: per-dimension ρ vs. 3 ground truths                                                                  |
+| `rq_switch_scatter.png` | RQ2 scatter: composite listening margin vs. net switch toward Con                                                           |
+| `rq_switch_confusion.png` | RQ2 conditional: confusion matrix of switch direction vs. Claude judgment                                                   |
+| `rq_heatmap.png` | 5×5 Spearman ρ heatmap (unweighted)                                                                                         |
+| `rq_heatmap_weighted.png` | Voter-weighted version                                                                                                      |
+| `rq_classifier_comparison.png` | RQ3 bar chart: comparison of logistic classifier to baselines from papers and this study (accuracy)                         |
 
 ---
 
