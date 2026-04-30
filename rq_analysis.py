@@ -427,6 +427,7 @@ def analyze_winner_agreement(df: pd.DataFrame, n_boot: int, output_dir: Path, no
 
     def _draw_cm_grid(cms_dict, combos, conditions, filename, title_suffix=""):
         fig, axes = plt.subplots(len(combos), 2, figsize=(10, 4 * len(combos)))
+        fig.patch.set_facecolor("#F8F9FC")  # whole figure background
         for idx, (gt_col, gt_label) in enumerate(combos):
             for jdx, (cond_name, _) in enumerate(conditions):
                 ax = axes[idx][jdx]
@@ -518,6 +519,7 @@ def analyze_vote_switching(df: pd.DataFrame, n_boot: int, output_dir: Path, no_p
     # Scatter plot
     if HAS_MPL and not no_plots:
         fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+        fig.patch.set_facecolor("#F8F9FC")  # whole figure background
 
         for ax, x_col, title in [
             (axes[0], "mean_margin",      "Listening margin (raw) vs. net switch toward Con"),
@@ -710,6 +712,7 @@ def analyze_switchers_conditional(df: pd.DataFrame, n_boot: int, output_dir: Pat
     if HAS_MPL and not no_plots:
         n_panels = 2 if (cm_clean is not None) else 1
         fig, axes = plt.subplots(1, n_panels, figsize=(5 * n_panels, 4))
+        fig.patch.set_facecolor("#F8F9FC")  # whole figure background
         if n_panels == 1:
             axes = [axes]
 
@@ -838,6 +841,8 @@ def analyze_heatmap(df: pd.DataFrame, n_boot: int, output_dir: Path, no_plots: b
 
         def _draw_heatmap(rho_mat, title, filename, wtd=False):
             fig, ax = plt.subplots(figsize=(11, 6))
+            fig.patch.set_facecolor("#F8F9FC")  # whole figure background
+            ax.set_facecolor("#F8F9FC")  # plotting area background
             vmax = max(abs(rho_mat.min()), abs(rho_mat.max()), 0.1)
             im = ax.imshow(rho_mat, cmap="RdBu_r", vmin=-vmax, vmax=vmax, aspect="auto")
             plt.colorbar(im, ax=ax, label="Spearman ρ" + (" (voter-weighted)" if wtd else ""))
@@ -984,6 +989,8 @@ def analyze_dim_vs_ground_truth(df: pd.DataFrame, n_boot: int, output_dir: Path,
         width = 0.25
 
         fig, ax = plt.subplots(figsize=(12, 6))
+        fig.patch.set_facecolor("#F8F9FC")  # whole figure background
+        ax.set_facecolor("#F8F9FC")  # plotting area background
         for gi, gt_label in enumerate(gt_labels_ordered):
             rhos_gt, errs_lo, errs_hi = [], [], []
             for dim in DIMS:
@@ -1188,6 +1195,8 @@ def analyze_cv_classifier(df: pd.DataFrame, output_dir: Path, no_plots: bool):
         is_focal = [e[3] for e in entries]
 
         fig, ax = plt.subplots(figsize=(8, 4.2))
+        fig.patch.set_facecolor("#F8F9FC")  # whole figure background
+        ax.set_facecolor("#F8F9FC")  # plotting area background
 
         bars = ax.barh(labels, values, color=colors, height=0.55, zorder=3)
 
