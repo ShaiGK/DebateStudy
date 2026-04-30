@@ -64,6 +64,13 @@ LISTENING_DIMENSIONS = (
     "concession_and_common_ground",
     "respectful_engagement",
 )
+SHORT_DIMENSIONS = (
+    "acknowledgment",
+    "accuracy",
+    "responsiveness",
+    "concession",
+    "respectful",
+)
 SIDES = ("pro", "con")
 JUDGMENT_LABELS = ("Pro", "Con", "Tie")
 # Per-dimension score ranges. concession_and_common_ground uses a narrower 1–3 scale
@@ -867,7 +874,7 @@ def _write_heatmap(per_cell: list[dict], output_dir: Path) -> None:
     ax.set_xticks(range(len(SIDES)))
     ax.set_xticklabels([s.capitalize() for s in SIDES])
     ax.set_yticks(range(len(LISTENING_DIMENSIONS)))
-    ax.set_yticklabels([d.replace("_", " ") for d in LISTENING_DIMENSIONS])
+    ax.set_yticklabels([d.replace("_", " ") for d in SHORT_DIMENSIONS])
     for i in range(mat.shape[0]):
         for j in range(mat.shape[1]):
             v = mat[i, j]
