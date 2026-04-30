@@ -870,6 +870,8 @@ def _write_heatmap(per_cell: list[dict], output_dir: Path) -> None:
         mat[i, j] = row["weighted_kappa_quadratic"]
 
     fig, ax = plt.subplots(figsize=(4.8, 5.2))
+    fig.patch.set_facecolor("#F8F9FC")  # whole figure background
+    ax.set_facecolor("#F8F9FC")  # plotting area background
     im = ax.imshow(mat, vmin=-0.2, vmax=1.0, cmap="RdYlGn", aspect="auto")
     ax.set_xticks(range(len(SIDES)))
     ax.set_xticklabels([s.capitalize() for s in SIDES])
@@ -899,6 +901,8 @@ def _write_confusion_heatmap(cm: np.ndarray, output_dir: Path) -> None:
         return
 
     fig, ax = plt.subplots(figsize=(6, 5))
+    fig.patch.set_facecolor("#F8F9FC")  # whole figure background
+    ax.set_facecolor("#F8F9FC")  # plotting area background
     im = ax.imshow(cm, cmap="Blues", aspect="auto")
 
     ax.set_xticks(range(3))
