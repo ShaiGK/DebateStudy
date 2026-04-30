@@ -1181,11 +1181,11 @@ def analyze_cv_classifier(df: pd.DataFrame, output_dir: Path, no_plots: bool):
         row = clf_df[clf_df["condition"] == "3-class"].iloc[0]
 
         entries = [
-            ("Random baseline", row["random_baseline"], "#cccccc", False),
-            ("Always-majority baseline", row["always_majority_class_pct"], "#bbbbbb", False),
-            ("Heuristic\n(better listener wins)", row["heuristic_accuracy"], "#aaaaaa", False),
-            ("This study\n(listening classifier)", row["cv_accuracy_mean"], "#2171b5", True),
-            ("Rescala et al. GPT-4", row["rescala_gpt4"], "#6baed6", False),
+            ("Random", row["random_baseline"], "#cccccc", False),
+            ("Always-majority", row["always_majority_class_pct"], "#bbbbbb", False),
+            ("Heuristic\n(better listener)", row["heuristic_accuracy"], "#aaaaaa", False),
+            ("This study's\nclassifier", row["cv_accuracy_mean"], "#2171b5", True),
+            ("Rescala et al.\nGPT-4", row["rescala_gpt4"], "#6baed6", False),
             ("Rescala et al.\nmajority vote", row["rescala_majority_vote"], "#9ecae1", False),
         ]
 
